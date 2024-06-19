@@ -1,0 +1,27 @@
+{
+  "canisters": {
+    "valueswap_backend": {
+      "candid": "src/valueswap_backend/valueswap_backend.did",
+      "package": "valueswap_backend",
+      "type": "rust"
+    },
+    "valueswap_frontend": {
+      "dependencies": [
+        "valueswap_backend"
+      ],
+      "source": [
+        "src/valueswap_frontend/dist"
+      ],
+      "type": "assets",
+      "workspace": "valueswap_frontend"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "output_env_file": ".env",
+  "version": 1
+}
