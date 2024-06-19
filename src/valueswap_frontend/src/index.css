@@ -1,0 +1,173 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #0B0B0B;
+  color: white
+}
+
+@font-face {
+  font-family: "fahkwang";
+  src: url('./assets/fonts/Fahkwang-Regular.ttf');
+}
+
+@font-face {
+  font-family: "cabin";
+  src: url('./assets/fonts/Cabin-Regular.ttf');
+}
+
+@layer utilities {
+
+  /* Act as a border */
+  .button-gradient-wrapper {
+    @apply relative overflow-hidden rounded-lg bg-gradient-to-r from-[#8D4C00] via-[#3E0200] to-[#00308E];
+  }
+
+  /* Gradient */
+  .button-gradient-wrapper::before {
+    background: conic-gradient(rgba(255, 255, 255, 0.906) 0deg,
+        transparent 80deg);
+    /* @apply absolute left-[-250%] top-[-85%] h-[300%] w-[600%] animate-border-spin content-['']; in Case the Css is broken this is old one to roll back */
+    @apply absolute left-[-250%] top-[-475%] h-[1050%] w-[600%] animate-border-spin content-[''];
+  }
+
+
+  /* Body */
+  .button-gradient-content {
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-gradient-to-r from-[#8D4C00] via-[#3E0200] to-[#00308E];
+  }
+
+  .button-border-gradient-content {
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-[#000711];
+  }
+
+  .button-border-custom-gradient-content {
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-gradient-to-b from-[#3E434B] to-[#02060D];
+  }
+
+  .custom-gradient {
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-gradient-to-r from-[#010427] via-[#010427] to-[#546093];
+  }
+
+}
+.swiper-slide-active {
+  width: 650px !important; /* Adjust the width as needed */
+}
+
+.rotate-11-7 {
+  transform: rotate(-11.7deg);
+}
+
+.normal-cursor {
+  cursor: auto !important;
+}
+
+.scale-115 {
+  transform: scale(1.15);
+}
+
+.custom-height-3 {
+  height: 3px;
+}
+
+.custom-angle-gradient {
+  background: linear-gradient(45deg, #3E0200, #1A0100, #8D4C00);
+}
+
+.text-custom-size-14 {
+  font-size: 14px;
+}
+
+.hide-arrows::-webkit-inner-spin-button,
+.hide-arrows::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.hide-arrows {
+  -moz-appearance: textfield;
+}
+
+.custom-z-index {
+  z-index: 45;
+}
+
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield; /* Firefox */
+}
+
+
+
+
+/* swiper */
+/* index.css */
+
+/* Container for the entire component */
+.container {
+ 
+
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Slider controller containing the buttons and slider */
+.slider-controler {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+/* Styles for the slider buttons */
+.slider-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background-color: #8D4C00;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 50%;
+  transition: opacity 0.3s ease;
+}
+
+.slider-arrow:hover {
+  opacity: 0.7;
+}
+
+/* Step content area */
+.step-content {
+
+}
+
+/* Tooltip styling for the slider */
+.rc-slider-tooltip {
+  font-size: 12px;
+  background: #000;
+  color: #fff;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.rc-slider-tooltip-arrow {
+  display: none;
+}
+
+/* Tooltip overlay styling */
+.rc-slider-tooltip-inner {
+  background-color: #000;
+  color: #fff;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+.rc-slider-tooltip-placement-top .rc-slider-tooltip-arrow {
+  bottom: -4px;
+}

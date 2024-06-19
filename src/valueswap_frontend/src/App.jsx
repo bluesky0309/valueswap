@@ -1,30 +1,46 @@
 import { useState } from 'react';
 import { valueswap_backend } from 'declarations/valueswap_backend';
-
+import AppRoutes from './AppRoutes';
+import { Suspense } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Alert from './components/alertHook/Alert'
+import MobileNavbar from './navbar/MobileNavbar';
+import ConnectWallet from './Modals/ConnectWallet';
+import { CommonNavbarData } from './TextData';
+import LandingPage from './pages/LandingPage';
 function App() {
-  const [greeting, setGreeting] = useState('');
+  const [clickConnectWallet, setClickConnectWallet] = useState(false);
+  const [walletClicked, setWalletClicked] = useState(false);
+  const { show, type, text } = useSelector((state) => state.alert)
 
-  function handleSubmit(event) {
-    event.preventDefault();
-    const name = event.target.elements.name.value;
-    valueswap_backend.greet(name).then((greeting) => {
-      setGreeting(greeting);
-    });
-    return false;
-  }
 
   return (
-    <main>
-      <img src="/logo2.svg" alt="DFINITY logo" />
-      <br />
-      <br />
-      <form action="#" onSubmit={handleSubmit}>
-        <label htmlFor="name">Enter your name: &nbsp;</label>
-        <input id="name" alt="Name" type="text" />
-        <button type="submit">Click Me!</button>
-      </form>
-      <section id="greeting">{greeting}</section>
-    </main>
+    <div>
+      <div>
+        {clickConnectWallet && <ConnectWallet setClickConnectWallet={setClickConnectWallet} setWalletClicked={setWalletClicked} />}
+      </div>
+      <div className='sticky top-10 z-50'>
+        {show && <Alert type={type} text={text} />}
+      </div>
+      <Router>  
+        <MobileNavbar NavbarData={CommonNavbarData} setClickConnectWallet={setClickConnectWallet} />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path='/' element={<LandingPage setClickConnectWallet={setClickConnectWallet}/>}/>
+            {AppRoutes.slice(1).map((route, index) => (
+              <Route
+                key={index}
+                path={route.path}
+                element={
+                  route.page
+                }
+              />
+            ))}
+          </Routes>
+        </Suspense>
+      </Router>  {/* Close Router */}
+    </div>
   );
 }
 
