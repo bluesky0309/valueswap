@@ -1,3 +1,17 @@
-service : {
-    "greet": (text) -> (text) query;
+type PoolShare = record {
+  token_a : float64;
+  token_b : float64;
+  mv_token_a : float64;
+  mv_token_b : float64;
+};
+type TokenType = variant { TokenA; TokenB };
+type UserShare = record { token_a : float64; token_b : float64 };
+service : () -> {
+  add_liquidity : (text, float64, float64) -> (opt PoolShare);
+  create_pool : (PoolShare) -> ();
+  get_tokens : () -> (PoolShare) query;
+  get_user_shares : (text) -> (opt UserShare) query;
+  remove_liquidity : (text, float64) -> ();
+  share_calculation : () -> (float64);
+  swap : (TokenType, float64) -> (opt PoolShare);
 }
