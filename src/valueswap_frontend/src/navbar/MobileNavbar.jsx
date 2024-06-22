@@ -3,9 +3,7 @@ import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../buttons/GradientButton';
 import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import { useAuth } from '../components/utils/useAuthClient';
-import { Copy, Check } from 'lucide-react';
-import { useDispatch } from 'react-redux';
-import { showAlert, hideAlert } from '../reducer/Alert';
+import Profile from './Profile';
 
 const options = [
     // { value: 'ethereum', label: 'Ethereum', img: '/src/assets/images/Network/Ethereum.png' },
@@ -15,20 +13,20 @@ const options = [
 
 const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
 
-    const dispatch = useDispatch()
+   
     const [activeLink, setActiveLink] = useState(0);
     const [open, setOpen] = useState(false);
     const { isAuthenticated, login, logout, principal, reloadLogin } = useAuth();
     const [Principal, setPrincipal] = useState('');
-    const [copied, setCopied] = useState(false);
     const [selectedOption, setSelectedOption] = useState(options[0]);
+    const [isSticky, setIsSticky] = useState(false);
     let location = useLocation()
 
     useEffect(() => {
         const getDisplayFunction = () => {
             const SlicedPrincipal = principal.toText().slice(0, 5);
             // console.log(typeof SlicedPrincipal)
-            const FinalId = SlicedPrincipal.padEnd(10, '.');
+            const FinalId = SlicedPrincipal.padEnd(10, '.') + principal.toText().slice(60, 63);
             setPrincipal(FinalId)
             console.log("Principal of user is:", FinalId)
         }
@@ -41,39 +39,31 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
     }, [principal]);
     const navigate = useNavigate();
 
-    const CopyPrincipalId = () => {
-        navigator.clipboard.writeText(principal)
-            .then(() => {
-                console.log('Text copied to clipboard:', principal);
-
-            })
-            .catch(err => {
-                console.error('Unable to copy text to clipboard:', err);
-            });
-
-        dispatch(showAlert({
-            type: 'success',
-            text: 'Copied to ClipBoard'
-        }))
-
-        setTimeout(() => {
-            dispatch(hideAlert());
-        }, [3000])
-
-        setCopied(true);
-
-        setTimeout(() => {
-            setCopied(false);
-        }, 2000)
-    };
-
-
   
 
+   
+
+
+    useEffect(() => {
+        const handleScroll = () => {
+            if (window.scrollY > 0) {
+                setIsSticky(true);
+            } else {
+                setIsSticky(false);
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
+
     return (
-        <div className={` sticky top-0 z-50 `}>
-            <div className="w-full rounded-2xl  bg-[#05071D] font-cabin tracking-wide backdrop-blur-md ">
-                <div className="w-full flex justify-between  items-center py-2">
+        <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-12 lg:px-24`}>
+            <div className=" rounded-2xl  bg-[#686868AB] font-cabin tracking-wide backdrop-blur-md  ">
+                <div className="w-full flex justify-between  items-center md:py-4 px-6">
 
                     <div className='flex items-center justify-between md:justify-start px-2'>
                         <div className='flex items-center gap-2 md:gap-3'>
@@ -85,19 +75,19 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                     </div>
                     <div className='w-[70%] flex justify-center gap-x-4'>
                         <div className='text-base flex  gap-4   items-center rounded-b-lg  md:w-[100%] px-2'>
-                            <ul className={`md:flex md:items-center md:pb-0 pb-12 absolute md:static bg-[#05071D] rounded-lg left-0 w-full md:w-auto md:pl-0 pl-9 transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12' : 'top-[-490px]'}`}>
+                            <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427]' : 'top-[-490px]'}`}>
                                 {
                                     NavbarData.Links.map((Link, index) => (
-                                        <li key={index} className='md:ml-8 md:my-0 my-7 font-normal'>
+                                        <li key={index} className='md:ml-2  md:my-0 my-7 font-normal'>
                                             <RouterLink
                                                 to={Link.LinkPath}
                                                 className='text-white hover:text-orange-500 duration-500'
                                                 onClick={() => {
                                                     setActiveLink(index)
-                                                    setOpen(!open)
+                                                    
                                                 }}
                                             >
-                                                <div className='flex flex-col justify-center text-custom-size-14 lg:text-xl items-center'>
+                                                <div className='flex flex-col justify-center text-custom-size-14  lg:text-xl items-center'>
                                                     {Link?.LinkName}
                                                     <div className={`${activeLink === index ? 'rounded-full bg-orange-500 w-1 h-1' : 'rounded-full bg-transparent'}`}></div>
                                                 </div>
@@ -119,7 +109,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                             }
                                         }}>
                                         <GradientButton
-                                            CustomCss={`hover:opacity-75 text-xs md:text-base lg:text-base h-[50px] w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4`}
+                                            CustomCss={`hover:opacity-75 text-xs md:text-base lg:text-base  w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4`}
                                         >{NavbarData.ButtonText}</GradientButton>
                                     </div>
                                 </div>
@@ -165,50 +155,20 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         <div className="border-l border-white h-12"></div>
                         <div className=' flex items-center '>
 
-                            {
-                                isAuthenticated && <div className='flex items-center w-28 text-center text-white font-cabin text-xl font-normal'>
-                                    <span>
-                                        {Principal}
-                                    </span>
-                                    {
-                                        copied ? (
-                                            <span className='cursor-pointer'>
-                                                <Check size={18} />
-                                            </span>
-                                        ) : (
-                                            <span className='cursor-pointer'
-                                                onClick={
-                                                    () => {
-                                                        CopyPrincipalId()
-                                                    }
-                                                }>
-                                                <Copy size={18} />
-                                            </span>
-                                        )
-
-
-                                    }
-                                </div>
-                            }
-                            <GradientButton
+                          
+                           {!isAuthenticated ? <GradientButton
                             >
                                 {
                                     NavbarData.ButtonText === "Connect Wallet" ? (
                                         <div
 
                                         >
-                                            {!isAuthenticated ? (<div
+                                            {!isAuthenticated && (<div
                                                 onClick={() => {
                                                     setClickConnectWallet(true);
                                                 }}>
                                                 {NavbarData.ButtonText}
-                                            </div>) : (
-                                                <div onClick={() => {
-                                                    logout()
-                                                }}>
-                                                    {NavbarData.ButtonTextDisconnet}
-                                                </div>
-                                            )}
+                                            </div>)}
                                         </div>
                                     ) : (
                                         <div className=''
@@ -220,7 +180,9 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         </div>
                                     )
                                 }
-                            </GradientButton>
+                            </GradientButton> : <Profile principal={principal} Principal={Principal} isAuthenticated={isAuthenticated} logout={logout}/>}
+
+
                         </div>
                     </div>
 

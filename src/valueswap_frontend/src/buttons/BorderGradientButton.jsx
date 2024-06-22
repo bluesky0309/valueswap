@@ -7,7 +7,7 @@ const BorderGradientButton = ({customCss, children }) => {
         //         {children}
         //     </button>
         // </div>
-        <button className={` ${customCss} h-[45px] w-[120px] button-gradient-wrapper text-white font-[700] text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50`}>
+        <button className={` ${customCss} h-[45px] w-[120px] button-gradient-wrapper text-white  text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50`}>
             <span className="button-border-gradient-content flex justify-center items-center">
                 {children}
             </span>

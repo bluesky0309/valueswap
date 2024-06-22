@@ -2,7 +2,7 @@ import React from 'react'
 
 const SubscriptionForm = () => {
   return (
-    <div className="flex justify-center items-center  pb-56  ">
+    <div className="flex justify-center items-center  pb-56 mt-40 ">
       <div className="text-center ">
         <h2 className="text-white text-3xl md:text-5xl font-semibold pb-20">Sign up for ICPSwap updates</h2>
         <form className="flex flex-col gap-y-2 md:flex-row justify-center">

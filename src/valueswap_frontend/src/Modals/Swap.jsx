@@ -86,9 +86,9 @@ const Swap = () => {
     }
     console.log("settings", settings)
     return (
-        <div className='px-4 py-10 md:px-0   '>
-            <div >
-                <div className=' relative align-middle lg:w-5/12 md:w-8/12 h-2/6 flex flex-col  p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border mx-auto rounded-lg z-10'>
+        <div className='px-4  md:px-0   '>
+        <div className='flex justify-center my-auto'>
+            <div className=' relative align-middle lg:w-5/12 md:w-8/12 flex flex-col justify-center  m-auto mt-24 p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border mx-auto rounded-lg z-10'>
                     <div className=' w-[64%] sm:w-[58%] place-self-end  flex justify-between z-50'>
                         <span className='font-fahkwang font-light text-3xl '>{SwapModalData.Heading}</span>
                         <Bolt size={30} className='cursor-pointer' onClick={() => handleSettings()} />

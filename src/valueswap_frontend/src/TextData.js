@@ -794,7 +794,7 @@ export const SwappingTableData = [
         ]
     },
     {
-        Entries: [
+        Enteries: [
             {
                 FromToken: {
                     Name: 'Solana',

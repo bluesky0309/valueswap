@@ -3,9 +3,7 @@ import GradientButton from '../../buttons/GradientButton'
 import { CreatePoolsData } from '../../TextData';
 import { ChevronDown } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import SelectTokensForPools from '../../Modals/poolCreation/SelectTokensForPools';
-import InitialLiquidity from '../../Modals/poolCreation/InitialLiquidity';
-import SetPoolFees from '../../Modals/poolCreation/SetPoolFees';
+
 const CreatePools = () => {
 
   const navigate = useNavigate();

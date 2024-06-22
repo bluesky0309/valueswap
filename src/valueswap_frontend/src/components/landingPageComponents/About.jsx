@@ -3,12 +3,11 @@ import GradientSpan from '../../CustomSpan/GradientSpan'
 import AboutImageFirst from '../../assets/images/AboutImageFirst.png'
 import AboutImageSecond from '../../assets/images/AboutImageSecond.png'
 import AboutImageThird from '../../assets/images/AboutImageThird.png'
-import AboutGifFirst from '../../assets/images/AboutGifFirst.gif'
 import { LandingPageData } from '../../TextData'
 import {LandingPageNavbarData as NavbarData } from '../../TextData'
 const About = () => {
     return (
-        <div className='flex justify-between md:px-24 text-3xl md:text-5xl items-center ' id={`${NavbarData.Links[0].LinkId}`}>
+        <div className='flex justify-between flex-col lg:flex-row md:px-12 lg:px-24 text-3xl md:text-5xl items-center ' id={`${NavbarData.Links[0].LinkId}`}>
             <div className='h-screen flex flex-col justify-evenly   w-full lg:w-1/2'>
                 <div>
                     <div className='flex items-center font-fahkwang font-medium gap-2'>
@@ -44,8 +43,10 @@ const About = () => {
 
             </div>
 
-            <div className='w-1/2 hidden lg:block'>
-                <img src={AboutGifFirst} alt="" className='bg-[#000711] rotate-11-7' />
+            <div className='w-1/2  flex justify-center lg:justify-end  relative'>
+                <img src="./image/astro.png" alt="" className='max-h-[500px] z-10' />
+                 <img src="./image/largeDot.png" alt=""  className='absolute right-0 top-0 -z-50 hidden lg:inline-block'/>
+                 <img src="./image/smallDot.png" alt="" className='absolute top-60 right-60 -z-50 hidden lg:inline-block'/>
             </div>
 
         </div>

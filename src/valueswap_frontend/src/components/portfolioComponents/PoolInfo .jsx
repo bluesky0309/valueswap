@@ -10,7 +10,7 @@ const PoolInfo = () => {
 
   const { id } = useParams()
   const [currIndex, setCurrIndex] = useState(0)
-
+  const [currentRang, setCurrentRange] = useState(0)
   const Heading = ['Pool Compositions', 'Swapping', 'Liquidiity Overview']
 
   useEffect(() => {
@@ -19,6 +19,13 @@ const PoolInfo = () => {
 
   let TokenData = portfolioSampleData.TableData[id]
 
+  const selectRang = [
+    "1D",
+    "1W",
+    "1M",
+    "1Y",
+    "All Time"
+  ]
 
   return (
     <div className=' w-full h-screen relative '>
@@ -67,25 +74,31 @@ const PoolInfo = () => {
             <div className=' lg:w-[59%] p-4 text-[#4b4b4b] bg-[#000711] '>
               {/* pool info chart here in this div */}
               <div>
-                <div className='flex justify-around'>
+                <div className='flex justify-between'>
                   <p className='text-3xl text-white font-semibold'>$125,625,175</p>
-                  <div  className='flex flex-col gap-y-2'>
+                  <div className='flex flex-col gap-y-2'>
                     <div className='flex justify-around gap-x-4 text-sm '>
                       <div>
                         <p>Volumes in Past-</p>
-                        <hr className='border-[#4b4b4b]'/>
+                        <hr className='border-[#4b4b4b]' />
                       </div>
-                      <select name="" id="" className='bg-[#010427] text-white p-1 border-white rounded-md'>
+                      <select name="" id="" className='bg-[#000711] text-white p-1 border-[1px] border-white focus:outline-none rounded-md'>
                         <option value="volume">Volume</option>
                         <option value="24hr">24hr Vol</option>
                       </select>
                     </div>
                     <div className='flex gap-x-2 text-sm'>
-                      <p className='cursor-pointer'>1D</p>
-                      <p className='cursor-pointer'>1W</p>
-                      <p className='cursor-pointer'>1M</p>
-                      <p className='cursor-pointer'>1Y</p>
-                      <p className='cursor-pointer'>All Time</p>
+                      {
+                        selectRang.map((rang, index) => 
+                          <div className='flex flex-col items-center' key={index} onClick={() => {
+                            setCurrentRange(index)
+                          }}>
+                            <p className='cursor-pointer'>{rang}</p>
+                            <span className={`p-1 w-1 bg-[#F7931A] rounded-full ${currentRang === index ? 'visible' : 'invisible'}`}></span>
+                          </div>
+                        )
+                      }
+
                     </div>
                   </div>
                 </div>
@@ -108,7 +121,7 @@ const PoolInfo = () => {
             </div>
           </div>
 
-          <div className='gap-2 mx-10 font-cabin flex items-center'>
+          <div className='gap-2 pt-9 mx-10 font-cabin flex items-center'>
             <span className='text-base leading-5 font-bold opacity-75 tracking-wide'>My Pool Balance:</span>
             <span className='mx-3 text-2xl font-normal leading-6'>${TokenData.PoolMetaData.PersonalPoolBalance.toLocaleString('en-US')}</span>
           </div>
@@ -116,30 +129,30 @@ const PoolInfo = () => {
 
           <div className='flex gap-3 md:gap-6 my-4 mx-3 md:mx-10'>
             <div>
-              <GradientButton CustomCss={`text-xs md:text-base lg:text-base h-[50px] w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4`}>
+              <GradientButton CustomCss={`text-xs md:text-base lg:text-base  lg:w-[150px] py-2`}>
                 Swap Tokens
               </GradientButton>
             </div>
             <div>
-              <GradientButton CustomCss={`text-xs md:text-base lg:text-base h-[50px] w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4`}>
+              <GradientButton CustomCss={`text-xs md:text-base lg:text-base  lg:w-[150px] py-2`}>
                 Add Liquidity
               </GradientButton>
             </div>
             <div>
-              <GradientButton CustomCss={`text-xs md:text-base lg:text-base h-[50px] w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4`}>
+              <GradientButton CustomCss={`text-xs md:text-base lg:text-base  lg:w-[150px] py-2`}>
                 Withdraw
               </GradientButton>
             </div>
           </div>
 
-          <div className='font-cabin font-medium text-base md:text-xl lg:text-2xl flex gap-3 md:gap-16 lg:gap-32 mx-8 lg:mx-10 my-6'>
+          <div className='font-cabin font-medium text-base md:text-xl lg:text-2xl flex gap-3 md:gap-16 lg:gap-32 mx-8 lg:mx-10 mt-6'>
             {Heading.map((heading, index) => (
               <div className='flex flex-col justify-center text-center items-center gap-2 cursor-pointer' key={index}
                 onClick={() => {
                   setCurrIndex(index)
                 }}>
                 <h1>{heading}</h1>
-                <span className={`p-1 w-1 bg-[#F7931A] rounded-full ${currIndex === index ? 'block' : 'hidden'}`}></span>
+                <span className={`p-1 w-1 bg-[#F7931A] rounded-full ${currIndex === index ? 'visible' : 'invisible'}`}></span>
               </div>
             ))}
           </div>
@@ -147,7 +160,7 @@ const PoolInfo = () => {
 
           <div >
             {currIndex === 0 && <PoolCompositions TableData={TokenData.PoolData} />}
-            {currIndex === 1 && <Swapping id={id} />}
+            {currIndex === 1 && <Swapping id={Number(id)} />}
             {currIndex === 2 && <LiquidityOverview id={id} />}
           </div>
 

@@ -7,19 +7,16 @@ import GradientSpan from '../../CustomSpan/GradientSpan'
 import GradientButton from '../../buttons/GradientButton'
 const Methods = () => {
     return (
-        <div className='mt-16 h-full md:mx-20
-        
-        
-        mb-16' id={`${NavbarData.Links[2].LinkId}`}>
+        <div className='mt-16 h-full md:mx-8 mb-16' id={`${NavbarData.Links[2].LinkId}`}>
 
-            <div className='hidden lg:flex  flex-row justify-between space-y-0 m-16'>
+            <div className='hidden lg:flex gap-x-9 flex-row justify-between items-center space-y-0 mb-32'>
 
-                <div className='w-1/2 ml-16 items-end'>
-                    <img src={MethodsImageOne} alt="MethodImageOne" className='h-10/12 w-10/12 ' />
+                <div className=' w-1/2'>
+                    <img src={MethodsImageOne} alt="MethodImageOne" className='h-10/12 w-10/12  mx-auto' />
                 </div>
 
-                <div className='w-1/2 flex flex-col justify-between font-fahkwang text-4xl  items-start'>
-                    <div className='mb-0'>
+                <div className='w-1/2 flex flex-col font-fahkwang text-4xl h-max'>
+                    <div className='mb-0 w-full'>
                         <div className='flex gap-2 '>
                             <span className=' '>{LandingPageData.MethodsText.UpperSection.HeadingWordOne}</span>
                             <GradientSpan>{LandingPageData.MethodsText.UpperSection.HeadingWordTwo}</GradientSpan>
@@ -38,9 +35,9 @@ const Methods = () => {
             </div>
 
 
-            <div className='lg:flex justify-between hidden m-16'>
+            <div className='lg:flex justify-between   items-center hidden '>
 
-                <div className='w-1/2 ml-16 flex flex-col justify-between font-fahkwang text-4xl  '>
+                <div className='w-1/2  flex flex-col justify-between pl-12 font-fahkwang text-4xl'>
                     <div>
                         <div className='flex gap-2'>
                             <GradientSpan >{LandingPageData.MethodsText.LowerSection.HeadingWordOne}</GradientSpan>
@@ -56,14 +53,14 @@ const Methods = () => {
                     </div>
                 </div>
 
-                <div className='w-1/2  ml-16 items-end'>
-                    <img src={MethodsImageTwo} alt="MethodImageTwo" className=' h-10/12 w-10/12 ' />
+                <div className='w-1/2  '>
+                    <img src={MethodsImageTwo} alt="MethodImageTwo" className=' h-10/12 w-10/12  mx-auto' />
                 </div>
             </div>
 
             <div className='flex flex-col justify-center text-center items-center space-y-8 lg:hidden'>
 
-                <div className='md:w-1/2 lg:ml-16 items-end'>
+                <div className='lg:w-1/2 lg:ml-16 items-center'>
                     <img src={MethodsImageOne} alt="" className='' />
                 </div>
 
@@ -87,7 +84,7 @@ const Methods = () => {
             </div>
 
             <div className='flex flex-col justify-center items-center lg:hidden space-y-8 md:space-y-0'>
-                <div className='md:w-1/2 lg:ml-16'>
+                <div className='lg:w-1/2 '>
                     <img src={MethodsImageTwo} alt="" />
                 </div>
 
