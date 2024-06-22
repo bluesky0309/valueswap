@@ -6,11 +6,11 @@ import { MoveRight } from 'lucide-react';
 import WalletID from '../assets/images/WalletID.png'
 
 const Swapping = ({ id }) => {
-  const SwappingData = SwappingTableData[id].Enteries
-  const [displayCount, setDisplayCount] = useState(Math.min(5, SwappingData.length));
+  const SwappingData = SwappingTableData[id]?.Enteries
+const [displayCount, setDisplayCount] = useState(Math.min(5,  SwappingData ? SwappingData.length : 0));
   const [buttonVisible, setButtonVisibility] = useState(true);
   useEffect(() => {
-    if (SwappingData.length < 6) {
+    if (SwappingData?.length < 6) {
       setButtonVisibility(false)
     }
   }, [SwappingData])
@@ -18,7 +18,7 @@ const Swapping = ({ id }) => {
   useEffect(() => {
     console.log("Swappppp DSatatatatatat", SwappingData)
     console.log("DisplayCount length", displayCount)
-    console.log("array length", SwappingData.length)
+    console.log("array length", SwappingData?.length)
   }, [displayCount])
 
 
@@ -42,8 +42,8 @@ const Swapping = ({ id }) => {
                     ))}
                   </tr>
                 </thead>
-                <tbody className=' bg-[#05071D] '>
-                  {SwappingData.slice(0, displayCount).map((swap, index) => (
+                <tbody className='bg-[#000711] '>
+                  {SwappingData?.slice(0, displayCount).map((swap, index) => (
                     <tr key={index}>
 
                       <td className='min-w-72 mx-auto whitespace-nowrap my-4 text-sm md:text-base font-medium text-white flex items-center gap-3 justify-center'>
@@ -83,7 +83,7 @@ const Swapping = ({ id }) => {
               <div className='my-4 bg-[#05071D] '>
                 {buttonVisible && (
                   <div>
-                    {SwappingData.length > displayCount && (
+                    {SwappingData?.length > displayCount && (
                       <div className='text-center mt-4'>
                         <button className='bg-gray-800 text-white px-4 py-2 rounded-md' onClick={() => setDisplayCount(displayCount + 5)}>
                           See More
@@ -91,7 +91,7 @@ const Swapping = ({ id }) => {
                       </div>
                     )}
 
-                    {SwappingData.length <= displayCount && (
+                    {SwappingData?.length <= displayCount && (
                       <div className='text-center mt-4'>
                         <button className='bg-gray-800 text-white px-4 py-2 rounded-md' onClick={() => setDisplayCount(Math.min(5, SwappingData.length))}>
                           See Less

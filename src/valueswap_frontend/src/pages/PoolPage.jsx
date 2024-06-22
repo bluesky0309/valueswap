@@ -5,7 +5,6 @@ import ShowAllPools from '../components/poolPageComponent/ShowAllPools'
 import CreatePools from '../components/poolPageComponent/CreatePools'
 import CreatePoolStepsPage from './CreatePoolStepsPage'
 import { useLocation } from 'react-router-dom'
-import Carousel from './Carousel'
 
 const PoolPage = () => {
     const location = useLocation();
@@ -20,7 +19,7 @@ const PoolPage = () => {
         }
     }, [location])
     return (
-        <div className='h-screen bg-[#000711] '>
+        <div className=' bg-[#000711] '>
             <div className='items-center'>
                 {
                     location.pathname != '/dex-swap/pool/create-pool/steps' ? (
@@ -64,7 +63,7 @@ const PoolPage = () => {
             <Routes>
                 <Route path='/' element={<ShowAllPools />} />
                 <Route path='/create-pool' element={<CreatePools />} />
-                <Route path='/create-pool/steps' element={<Carousel />} />
+                <Route path='/create-pool/steps' element={<CreatePoolStepsPage />} />
             </Routes>
 
         </div>

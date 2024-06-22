@@ -11,7 +11,7 @@ const SelectTokensForPools = ({ handleNext }) => {
     const dispatch = useDispatch();
     const { Tokens, CoinCount } = useSelector((state) => state.pool)
     // console.log(Tokens)
-    const [ButtonActive, SetButtonActive] = useState(true);
+    const [ButtonActive, SetButtonActive] = useState(false);
 
     useEffect(() => {
         console.log("Current Token Count:->", CoinCount)

@@ -9,7 +9,7 @@ const HomePage = () => {
 
 
     return (
-        <div className='w-full h-screen'>
+        <div className='w-full '>
             <Routes>
                 <Route path="/" element={<SwapPage/>} />
                 <Route path="/transaction-successfull" element={<TransactionPage />} />

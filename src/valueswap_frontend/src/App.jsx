@@ -20,7 +20,7 @@ function App() {
       <div>
         {clickConnectWallet && <ConnectWallet setClickConnectWallet={setClickConnectWallet} setWalletClicked={setWalletClicked} />}
       </div>
-      <div className='sticky top-10 z-50'>
+      <div className='sticky top-16 z-50'>
         {show && <Alert type={type} text={text} />}
       </div>
       <Router>  

@@ -22,7 +22,7 @@ const PoolCompositions = ({ TableData }) => {
                                 <thead className='  '>
                                     <tr >
                                         {PoolCompositionsData.Headings.map((heading, index) => (
-                                            <th scope='col'
+                                            <th scope='col' key={index}
                                                 className='py-3.5 pl-6 pr-3 text-center text-sm md:text-base lg:text-xl font-medium text-white'
                                             >
                                                 {heading}
@@ -30,7 +30,7 @@ const PoolCompositions = ({ TableData }) => {
                                         ))}
                                     </tr>
                                 </thead>
-                                <tbody className=' bg-[#05071D] '>
+                                <tbody className=' bg-[#000711] '>
                                     {TableData.slice(0, displayCount).map((token) => (
                                         <tr key={token.ShortForm}>
 

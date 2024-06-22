@@ -68,7 +68,7 @@ const LiquidityOverview = ({ id }) => {
                     ))}
                   </tr>
                 </thead>
-                <tbody className=' bg-[#05071D] '>
+                <tbody className=' bg-[#000711] '>
                   {LiquidityTableData.slice(0, displayCount).map((liquidity, index) => (
                     <tr key={index}>
 

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import SelectTokensForPools from '../Modals/poolCreation/SelectTokensForPools';
 import SetPoolFees from '../Modals/poolCreation/SetPoolFees';
 import InitialLiquidity from '../Modals/poolCreation/InitialLiquidity';
-import { MoveRight, MoveLeft } from 'lucide-react';
 const steps = ['Select Tokens for Pools', 'Set Pool Fees', 'Add Initial Liquidity'];
 
 const CreatePoolStepsPage = () => {
@@ -38,19 +37,21 @@ const CreatePoolStepsPage = () => {
 
     return (
         <div className=" md:mx-6 my-10">
-            <div className="border-b-2 border-gray-200 mb-4">
+            <div className="flex py-2 justify-around">
                 {steps.map((label, index) => (
-                    <div key={label} className={`inline-block font-cabin font-normal text-sm sm:text-base md:text-xl text-center px-4 py-2 ${index <= activeStep ? 'text-blue-500 border-b-4 border-blue-500' : 'text-gray-500'}`}>
-                        {label}
-                    </div>
+                       <div key={index} className="flex gap-6 pb-6 w-full justify-center items-center m-auto" onClick={()=> setActiveStep(index)}>
+                       <div className={`py-2 px-4 rounded-full ${activeStep == index  ? "bg-[#F7931A]":"bg-[#00308E]"}`}>{index+ 1}</div>
+                       <p className="text-lg">{label}</p>
+                       <hr className="border-2 w-1/4 pr-6" />
+                     </div>
                 ))}
             </div>
-            <div className='my-16'>
+            <div className=''>
                 {/* <div className="text-lg font-semibold mb-2">Step {activeStep + 1}</div> */}
                 <div>
                     {getStepContent(activeStep)}
                 </div>
-                <div className="flex mt-4">
+                {/* <div className="flex mt-4">
                     <button className={`mr-2 p-5 rounded-full bg-[#8D4C00] ${activeStep === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:opacity-50'}`} disabled={activeStep === 0} onClick={handleBack}>
                         <MoveLeft size={30} />
                     </button>
@@ -64,7 +65,7 @@ const CreatePoolStepsPage = () => {
                             <MoveRight size={30} />
                         </button>
                     )}
-                </div>
+                </div> */}
             </div>
         </div>
     );

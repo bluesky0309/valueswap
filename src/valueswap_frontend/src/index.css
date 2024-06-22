@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  background-color: #0B0B0B;
+  background-color: #000711;
   color: white
 }
 
@@ -21,7 +21,7 @@ body {
 
   /* Act as a border */
   .button-gradient-wrapper {
-    @apply relative overflow-hidden rounded-lg bg-gradient-to-r from-[#8D4C00] via-[#3E0200] to-[#00308E];
+    @apply relative overflow-hidden rounded-lg bg-gradient-to-r from-[#FFFFFF] to-[#99999900];
   }
 
   /* Gradient */
@@ -35,7 +35,7 @@ body {
 
   /* Body */
   .button-gradient-content {
-    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-gradient-to-r from-[#8D4C00] via-[#3E0200] to-[#00308E];
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-[#C16800];
   }
 
   .button-border-gradient-content {
@@ -47,7 +47,7 @@ body {
   }
 
   .custom-gradient {
-    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-gradient-to-r from-[#010427] via-[#010427] to-[#546093];
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-[#C16800];
   }
 
 }
@@ -71,9 +71,7 @@ body {
   height: 3px;
 }
 
-.custom-angle-gradient {
-  background: linear-gradient(45deg, #3E0200, #1A0100, #8D4C00);
-}
+
 
 .text-custom-size-14 {
   font-size: 14px;
