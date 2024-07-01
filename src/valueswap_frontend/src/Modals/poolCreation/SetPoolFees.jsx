@@ -45,7 +45,11 @@ const SetPoolFees = ({ handleNext }) => {
 
     return (
         <div className=''>
-            
+              <div className= {`flex gap-6 pb-6 w-full justify-center items-center m-auto lg:hidden`} >
+                       <div className={`py-2 px-4 rounded-full bg-[#F7931A]`}>2</div>
+                       <p className="text-lg">Set Pool Fees</p>
+                       <hr className="border-2 w-1/4 pr-6" />
+                     </div>
             <div className='z-50 w-min md:w-max m-auto flex flex-col gap-4 p-4 sm:p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border  rounded-lg'>
                 <div className='w-[75%] sm:w-[65%] place-self-end  flex justify-between'>
                     <span className='font-fahkwang font-light text-2xl sm:text-3xl '>Set Fee Tier</span>

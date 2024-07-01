@@ -15,7 +15,7 @@ const About = () => {
                         <span>{LandingPageData.AboutSectionData.Elementone.WordOne}</span> <GradientSpan>{LandingPageData.AboutSectionData.Elementone.WordTwo}</GradientSpan> <span>{LandingPageData.AboutSectionData.Elementone.WordThree}</span>
 
                     </div>
-                    <p className=' text-[#FFFFFFBF] text-lg md:leading-7 leading-6 m-2'>
+                    <p className=' text-[#FFFFFFBF] text-lg md:leading-7 leading-6 m-2 font-cabin'>
                         {LandingPageData.AboutSectionData.Elementone.Description}
                     </p>
                 </div>
@@ -25,7 +25,7 @@ const About = () => {
                         <img src={AboutImageSecond} alt="" />
                         <span>{LandingPageData.AboutSectionData.ElementTwo.WordOne}</span> <GradientSpan>{LandingPageData.AboutSectionData.ElementTwo.WordTwo}</GradientSpan>
                     </div>
-                    <p className='text-[#FFFFFFBF] text-lg md:leading-7 leading-6 m-2'>
+                    <p className='text-[#FFFFFFBF] text-lg md:leading-7 leading-6 m-2 font-cabin'>
                         {LandingPageData.AboutSectionData.ElementTwo.Description}
                     </p>
                 </div>
@@ -35,7 +35,7 @@ const About = () => {
                         <img src={AboutImageThird} alt="" />
                         <span>{LandingPageData.AboutSectionData.ElementThree.WordOne}</span> <GradientSpan>{LandingPageData.AboutSectionData.ElementThree.WordTwo}</GradientSpan>
                     </div>
-                    <p className='text-[#FFFFFFBF] text-lg md:leading-7 leading-6 m-2'>
+                    <p className='text-[#FFFFFFBF] text-lg md:leading-7 leading-6 m-2 font-cabin'>
                         {LandingPageData.AboutSectionData.ElementThree.Description}
                     </p>
                 </div>

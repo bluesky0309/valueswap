@@ -69,7 +69,7 @@ export const CommonNavbarData = {
         },
         {
             LinkName: 'Whitepaper',
-            LinkPath: '/',
+            
             // LinkPath: '/dex-swap/whitepaper',
             LinkId: 'whitepaper',
         },
@@ -350,7 +350,7 @@ export const AllPoolsData = {
             ],
             PoolValue: 125625175,
             TotalVolume: 625175,
-            APR: '0.50% - 0.95%'
+            APR: '0.50% - 0.90%'
         },
         {
             Tokens: [
@@ -382,7 +382,7 @@ export const AllPoolsData = {
                     Share: 25,
                 }
             ],
-            PoolValue: '$125,625,175',
+            PoolValue: '$125,625,1',
             TotalVolume: '$625,175',
             APR: '0.50% - 0.95%'
         },
@@ -399,8 +399,8 @@ export const AllPoolsData = {
                     Share: 25,
                 }
             ],
-            PoolValue: '$125,625,175',
-            TotalVolume: '$625,175',
+            PoolValue: '$125,625,17',
+            TotalVolume: '$625',
             APR: '0.50% - 0.95%'
         },
         {
@@ -416,9 +416,9 @@ export const AllPoolsData = {
                     Share: 25,
                 }
             ],
-            PoolValue: '$125,625,175',
+            PoolValue: '$125,62,175',
             TotalVolume: '$625,175',
-            APR: '0.50% - 0.95%'
+            APR: '0.50% - 0.85%'
         },
         {
             Tokens: [
@@ -433,9 +433,9 @@ export const AllPoolsData = {
                     Share: 25,
                 }
             ],
-            PoolValue: '$125,625,175',
+            PoolValue: '$125',
             TotalVolume: '$625,175',
-            APR: '0.50% - 0.95%'
+            APR: '0.50% - 0.75%'
         }
     ],
     SeeMoreButtonText: "See More",
