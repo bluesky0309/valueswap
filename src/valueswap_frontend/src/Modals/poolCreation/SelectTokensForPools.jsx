@@ -18,18 +18,22 @@ const SelectTokensForPools = ({ handleNext }) => {
     }, [CoinCount])
 
     const HandleSelectCheck = () => {
-        // const allTokensSelected = Tokens.every((token) => token.Selected);
-        // // console.log("Selected or not->", allTokensSelected)
-        // SetButtonActive(allTokensSelected);
+        const allTokensSelected = Tokens.every((token) => token.Selected);
+        // console.log("Selected or not->", allTokensSelected)
+        SetButtonActive(allTokensSelected);
     }
 
 
     return (
         <div className=''>
-            
+             <div className= {`flex gap-6 pb-6 w-full justify-center items-center m-auto  lg:hidden`} >
+                       <div className={`py-2 px-4 rounded-full bg-[#F7931A]`}>1</div>
+                       <p className="text-lg">Select Tokens for Pools</p>
+                       <hr className="border-2 w-1/4 pr-6" />
+                     </div>
             <div className='inset-0 bg-opacity-10 m-auto  justify-center z-50 w-max  flex flex-col gap-4 p-3 sm:p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border mx-auto rounded-lg'>
 
-                <div className='w-[70%] place-self-end  flex justify-between'>
+                <div className='w-[90%] place-self-end  flex justify-between px-6'>
                     <span className='font-fahkwang font-light md:text-3xl '>Select Tokens</span>
                     <Bolt size={30} className='cursor-pointer' onClick={() => { console.log("settings open") }} />
                 </div>
@@ -62,7 +66,7 @@ const SelectTokensForPools = ({ handleNext }) => {
                         }
                     }}
                 >
-                    <BorderGradientButton customCss={`text-xs md:text-light lg:text-base h-[45px] w-[140px] `}>
+                    <BorderGradientButton customCss={`text-xs md:text-light lg:text-base h-[45px] w-[115px] md:w-[140px] `}>
                         Add Token
                     </BorderGradientButton>
                 </div>

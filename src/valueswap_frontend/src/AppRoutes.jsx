@@ -14,8 +14,7 @@ const AppRoutes = [
     {
         path: "/dex-swap/*",
         page: <HomePage />,
-    }
-
+    },
 
 ]
 

@@ -127,7 +127,7 @@ const SearchTokenShowData = ({ token, index, HandleSelectCheck }) => {
                     </div>
                 ) : (
                     <div>
-                        <BlueGradientButton customCss={'py-2 lg:px-4 lg:py-3 font-cabin font-light'}>
+                        <BlueGradientButton customCss={'py-2 px-2 lg:px-4 lg:py-3 font-cabin font-light'}>
                             <div className='flex items-center gap-1 text-xs sm:text-sm'
                                 onClick={() => {
                                     setSearchToken(!searchToken);

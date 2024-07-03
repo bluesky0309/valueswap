@@ -13,7 +13,7 @@ const SwapPage = () => {
                 {isAuthenticated ? (<div>
                     <Swap />
                 </div>) : (<div>
-                    <h1 className='text-white font-cabin text-4xl font-bold underline text-center'>Please Connect Wallet to Continue with swapping</h1>
+                    <h1 className='text-white font-cabin text-4xl font-bold underline pt-44  text-center'>Please Connect Wallet to Continue with swapping</h1>
                 </div>)}
             </div>
         </div>

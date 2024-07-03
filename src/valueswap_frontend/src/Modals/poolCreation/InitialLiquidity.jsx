@@ -90,7 +90,11 @@ const InitialLiquidity = () => {
 
     return (
         <div className=''>
-             
+               <div className= {`flex gap-6 pb-6 w-full justify-center items-center m-auto  lg:hidden`} >
+                       <div className={`py-2 px-4 rounded-full bg-[#F7931A]`}>3</div>
+                       <p className="text-lg">Add Initial Liquidity</p>
+                       <hr className="border-2 w-1/4 pr-6" />
+                     </div>
         <div className='z-50 w-max m-auto flex flex-col gap-4 p-3 sm:p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border mx-auto rounded-lg'>
             <div className='w-[78%] sm:w-[74%] place-self-end  flex justify-between'>
                 <span className='font-fahkwang font-light text-base sm:text-3xl '>Set Initial Liquidity</span>

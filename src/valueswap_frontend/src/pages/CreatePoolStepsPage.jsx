@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import SelectTokensForPools from '../Modals/poolCreation/SelectTokensForPools';
 import SetPoolFees from '../Modals/poolCreation/SetPoolFees';
 import InitialLiquidity from '../Modals/poolCreation/InitialLiquidity';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const steps = ['Select Tokens for Pools', 'Set Pool Fees', 'Add Initial Liquidity'];
 
 const CreatePoolStepsPage = () => {
@@ -14,7 +15,7 @@ const CreatePoolStepsPage = () => {
         }
     };
 
-    const handleBack = () => {
+    const handleStepBack = () => {
         if (activeStep > 0) {
             setActiveStep(current => current - 1);
         }
@@ -36,11 +37,14 @@ const CreatePoolStepsPage = () => {
     };
 
     return (
-        <div className=" md:mx-6 my-10">
-            <div className="flex py-2 justify-around">
+        <div className=" md:mx-6 my-10 relative">
+             <button onClick={handleStepBack} className="mb-4 p-2 border-[1px] rounded-full inline-block lg:hidden ml-4 sm:ml-10 md:ml-12">
+                <ArrowBackIcon/>
+            </button>
+            <div className=" lg:flex-row flex-col py-2 justify-around hidden lg:flex">
                 {steps.map((label, index) => (
-                       <div key={index} className="flex gap-6 pb-6 w-full justify-center items-center m-auto" onClick={()=> setActiveStep(index)}>
-                       <div className={`py-2 px-4 rounded-full ${activeStep == index  ? "bg-[#F7931A]":"bg-[#00308E]"}`}>{index+ 1}</div>
+                       <div key={index} className= {`flex gap-6 pb-6 w-full justify-center items-center m-auto`}>
+                       <div className={`py-2 px-4 rounded-full  ${activeStep == index  ? "bg-[#F7931A]":"bg-[#00308E]"}`}>{index+ 1}</div>
                        <p className="text-lg">{label}</p>
                        <hr className="border-2 w-1/4 pr-6" />
                      </div>

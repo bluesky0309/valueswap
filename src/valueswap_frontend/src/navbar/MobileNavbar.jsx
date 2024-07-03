@@ -13,13 +13,14 @@ const options = [
 
 const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
 
-   
-    const [activeLink, setActiveLink] = useState(0);
+
+    const [activeLink, setActiveLink] = useState();
     const [open, setOpen] = useState(false);
     const { isAuthenticated, login, logout, principal, reloadLogin } = useAuth();
     const [Principal, setPrincipal] = useState('');
     const [selectedOption, setSelectedOption] = useState(options[0]);
     const [isSticky, setIsSticky] = useState(false);
+
     let location = useLocation()
 
     useEffect(() => {
@@ -39,9 +40,11 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
     }, [principal]);
     const navigate = useNavigate();
 
-  
-
-   
+    useEffect(() => {
+        // This effect will run when the location changes
+        setActiveLink(location.pathname);
+        console.log(location.pathname)
+    }, [location]);
 
 
     useEffect(() => {
@@ -84,12 +87,13 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                                 className='text-white hover:text-orange-500 duration-500'
                                                 onClick={() => {
                                                     setActiveLink(index)
-                                                    
+
                                                 }}
                                             >
                                                 <div className='flex flex-col justify-center text-custom-size-14  lg:text-xl items-center'>
                                                     {Link?.LinkName}
-                                                    <div className={`${activeLink === index ? 'rounded-full bg-orange-500 w-1 h-1' : 'rounded-full bg-transparent'}`}></div>
+                                                    <div className={`${activeLink === index ? 'rounded-full bg-orange-500 w-1 h-1' : 'w-1 h-1 invisible'}`}></div>
+                                                    <div className={`${activeLink === Link.LinkPath ? 'rounded-full bg-orange-500 w-1 h-1' : 'w-1 h-1 invisible'}`}></div>
                                                 </div>
                                             </RouterLink>
                                         </li>
@@ -109,7 +113,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                             }
                                         }}>
                                         <GradientButton
-                                            CustomCss={`hover:opacity-75 text-xs md:text-base lg:text-base  w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4`}
+                                            customCss={`hover:opacity-75 text-xs md:text-base lg:text-base  w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4 px-2`}
                                         >{NavbarData.ButtonText}</GradientButton>
                                     </div>
                                 </div>
@@ -119,13 +123,13 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         </div>
 
                         {/* drop down Network*/}
-                       { location.pathname === "/dex-swap" && <div className="relative inline-block ">
+                        {location.pathname === "/dex-swap" && <div className="relative inline-block ">
                             <div
                                 className=" rounded-md md shadow-md flex items-center justify-between gap-x-2 p-2 cursor-pointer"
                                 onClick={() => document.getElementById('options-container').classList.toggle('hidden')}
                             >
                                 <div className="flex items-center">
-                                   {selectedOption && <img src={selectedOption?.img} alt={selectedOption?.label} className="w-6 h-6 mr-2" />}
+                                    {selectedOption && <img src={selectedOption?.img} alt={selectedOption?.label} className="w-6 h-6 mr-2" />}
                                     <span className='md:inline-block hidden'>{selectedOption?.label}</span>
                                 </div>
                                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -150,13 +154,13 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                             </div>
                         </div>}
                     </div>
-{/* //// */}
-                    <div className='md:my-0 my-7 font-semibold md:flex md:items-center md:gap-5 hidden  pr-1'>
+                    {/* //// */}
+                    <div className='md:my-0 my-7 font-semibold md:flex md:items-center md:gap-5 hidden   pr-1'>
                         <div className="border-l border-white h-12"></div>
                         <div className=' flex items-center '>
 
-                          
-                           {!isAuthenticated ? <GradientButton
+
+                            {!isAuthenticated ? <GradientButton customCss={`px-2`}
                             >
                                 {
                                     NavbarData.ButtonText === "Connect Wallet" ? (
@@ -180,7 +184,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         </div>
                                     )
                                 }
-                            </GradientButton> : <Profile principal={principal} Principal={Principal} isAuthenticated={isAuthenticated} logout={logout}/>}
+                            </GradientButton> : <Profile principal={principal} Principal={Principal} isAuthenticated={isAuthenticated} logout={logout} />}
 
 
                         </div>
