@@ -6,7 +6,6 @@ use std::collections::HashMap;
 
 use ic_cdk::export_candid;
 
-// Declare the utils module
 pub mod utils;
 
 // Re-export the structs and functions from utils
