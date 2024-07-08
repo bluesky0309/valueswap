@@ -125,7 +125,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         {/* drop down Network*/}
                         {location.pathname === "/dex-swap" && <div className="relative inline-block ">
                             <div
-                                className=" rounded-md md shadow-md flex items-center justify-between gap-x-2 p-2 cursor-pointer"
+                                className=" rounded-md flex items-center justify-between gap-x-2 p-2 cursor-pointer"
                                 onClick={() => document.getElementById('options-container').classList.toggle('hidden')}
                             >
                                 <div className="flex items-center">

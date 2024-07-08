@@ -70,7 +70,7 @@ export const CommonNavbarData = {
         {
             LinkName: 'Whitepaper',
             
-            // LinkPath: '/dex-swap/whitepaper',
+            LinkPath: 'https://balancer.fi/whitepaper.pdf',
             LinkId: 'whitepaper',
         },
     ]
@@ -507,8 +507,8 @@ export const portfolioSampleData = {
                 },
             ],
             PoolMetaData: {
-                Balance: 125625175,
-                PoolValue: 125625175,
+                Balance: 125625170,
+                PoolValue: 125625172,
                 APRstart: 0.05,
                 APRend: 0.95,
                 Time: new Date(),

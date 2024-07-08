@@ -39,7 +39,7 @@ body {
   }
 
   .button-border-gradient-content {
-    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-[#000711];
+    @apply absolute left-[1px] top-[1px] h-[calc(100%-2px)] w-[calc(100%-2px)] rounded-lg bg-[#15171a];
   }
 
   .button-border-custom-gradient-content {
