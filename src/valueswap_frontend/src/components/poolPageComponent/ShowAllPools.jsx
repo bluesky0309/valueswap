@@ -21,7 +21,7 @@ const ShowAllPools = () => {
     const sortedTableData = [...allDataInPool.TableData].sort((a, b) => {
       const aValue = typeof a.PoolValue === 'string' ? parseFloat(a.PoolValue.replace(/[\$,]/g, '')) : a.PoolValue;
       const bValue = typeof b.PoolValue === 'string' ? parseFloat(b.PoolValue.replace(/[\$,]/g, '')) : b.PoolValue;
-      return isAscending ? aValue - bValue : bValue - aValue;
+      return isAscending ? bValue - aValue : "";
     });
 
     setAllDataInPool({ ...allDataInPool, TableData: sortedTableData });
@@ -35,7 +35,7 @@ const ShowAllPools = () => {
     const sortedTableData = [...allDataInPool.TableData].sort((a,b) => {
       const aVolume = typeof a.TotalVolume === 'string' ? parseFloat(a.TotalVolume.replace(/[\$,]/g, '')): a.TotalVolume;
       const bVolume = typeof b.TotalVolume === 'string' ? parseFloat(b.TotalVolume.replace(/[\$,]/g, '')): b.TotalVolume;
-      return isAscending ? bVolume -aVolume: aVolume - bVolume;
+      return isAscending ? bVolume -aVolume: "";
     })
     setAllDataInPool({...allDataInPool, TableData: sortedTableData});
     setIsAscending(!isAscending);
@@ -64,9 +64,9 @@ const ShowAllPools = () => {
 
       if (aprA && aprB) {
         if (isAscending) {
-          return aprA.min - aprB.min || aprA.max - aprB.max;
-        } else {
           return aprB.min - aprA.min || aprB.max - aprA.max;
+        } else {
+          return;
         }
       }
       return 0;
@@ -95,7 +95,7 @@ const ShowAllPools = () => {
 
       <div className='w-full h-screen  text-white md:max-w-[80%] mt-4 z-20 sm:px-8 mx-auto absolute md:translate-x-[15%] '>
 
-        <div className='flex justify-between bg-[#010427] p-2 pb-6 pt-6 rounded-lg mx-auto'>
+        <div className='flex justify-between bg-[#010427] p-2 pb-6 pt-6 rounded-t-lg mx-auto'>
           <div className='flex justify-between items-center gap-4 md:gap-16 mx-8 md:mx-16'>
             <span className='font-cabin  md:text-3xl font-medium text-white' >Ethereum Pools</span>
             <div className='cursor-pointer'>
@@ -123,15 +123,17 @@ const ShowAllPools = () => {
                       {allDataInPool?.Headings?.map((heading, index) => (
                         <th scope='col'
                           key={index}
-                          className='py-3.5 pl-6 pr-3 text-center text-sm md:text-base lg:text-xl font-medium text-white '
+                          className='py-7  pl-6 pr-3 text-center text-sm md:text-base lg:text-xl font-medium text-white '
                         >
                           <span className='flex gap-2 items-center justify-center' onClick={()=> sortingConditional(index)}>
                             {heading}
                            {index === activeSort ? <ArrowDownwardIcon  sx={{color: ""}}/>: ""}
                           </span>
+                          
                         </th>
                       ))}
                     </tr>
+                    
                   </thead>
                   <tbody className=' '>
                     {allDataInPool?.TableData?.slice(0, displayCount).map((pool, index) => {

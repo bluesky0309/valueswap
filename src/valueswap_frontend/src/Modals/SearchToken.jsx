@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 // import { SiBitcoinsv } from "react-icons/si";
 // import { CiSearch } from "react-icons/ci";
 import { useAuth } from '../components/utils/useAuthClient';
+import SearchIcon from '@mui/icons-material/Search';
 
 const SearchToken = ({ setSearchToken, setPayToken, setRecToken, id, setTokenData }) => {
 
@@ -67,27 +68,35 @@ const SearchToken = ({ setSearchToken, setPayToken, setRecToken, id, setTokenDat
 
     return (
         <div className='flex z-50 justify-center fixed inset-0  bg-opacity-50 backdrop-blur-sm'>
-            <div className=' h-fit  lg:w-1/4 md:w-5/12 sm:w-6/12 w-8/12 border rounded-xl flex flex-col gap-2 bg-[#05071D] my-auto mx-auto'>
-                <div className='md:w-[64%] w-[62%] flex place-self-end items-center justify-between mx-4'>
-                    <span className='font-fahkwang font-medium md:text-2xl text-xl py-4'>{SearchTokenData.Heading}</span>
-                    <span className='cursor-pointer' onClick={() => {
-                        // console.log("Closed Token search")
-                        setSearchToken(false)
-                    }}><X /></span>
+            <div className=' h-fit md:w-[60%] lg:w-[40%]  border rounded-xl flex flex-col gap-2 bg-[#05071D] my-auto mx-auto'>
+                <div className='w-[90%] flex justify-center mx-4'>
+                    <span className='font-fahkwang font-medium mx-auto md:text-2xl text-xl py-4'>
+                        {SearchTokenData.Heading}
+                    </span>
+                    <span className='cursor-pointer self-center' onClick={() => setSearchToken(false)}>
+                        <X />
+                    </span>
                 </div>
 
 
                 <div className='border border-transparent font-bold custom-height-3 bg-gradient-to-r from-transparent via-[#00308E] to-transparent w-full mx-auto'></div>
-                <div className='m-4 w-10/12 mx-auto font-cabin font-normal text-xl'>
+                <div className='flex m-4 w-10/12 mx-auto font-cabin font-normal text-xl'>
                     <input
                         type='text'
                         placeholder='Search token by Name'
-                        className='w-full  border rounded-lg text-white bg-[#303030] placeholder-gray-400  p-4'
+                        className='w-full   rounded-s-lg outline-none text-white bg-[#303030] placeholder-gray-400  p-2'
                         value={searchQuery}
                         onChange={(e) => {
                             setSearchQuery(e.target.value);
                         }}
                     />
+                    <div className='bg-[#C16800] rounded-e-lg px-5 py-2 items-center flex gap-x-1'>
+                        <div className='hidden lg:block'>
+                        <SearchIcon />
+                        </div>
+                        <button >Search</button>
+
+                    </div>
                 </div>
 
                 <div className='flex flex-col items-center gap-4 mb-10'>
