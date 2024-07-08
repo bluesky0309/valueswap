@@ -76,7 +76,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
 
 
                     </div>
-                    <div className='w-[70%] flex justify-center gap-x-4'>
+                    <div className='w-[30%] md:w-[70%] flex justify-center md:gap-x-4'>
                         <div className='text-base flex  gap-4   items-center rounded-b-lg  md:w-[100%] px-2'>
                             <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427]' : 'top-[-490px]'}`}>
                                 {
@@ -113,7 +113,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                             }
                                         }}>
                                         <GradientButton
-                                            customCss={`hover:opacity-75 text-xs md:text-base lg:text-base  w-[95px] lg:h-[60px] lg:w-[150px] py-2 lg:py-4 px-2`}
+                                            CustomCss={`hover:opacity-75 w-[150px]  text-xs md:text-base lg:text-base lg:h-[60px] py-2 lg:py-4 px-2`}
                                         >{NavbarData.ButtonText}</GradientButton>
                                     </div>
                                 </div>
@@ -125,7 +125,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         {/* drop down Network*/}
                         {location.pathname === "/dex-swap" && <div className="relative inline-block ">
                             <div
-                                className=" rounded-md flex items-center justify-between gap-x-2 p-2 cursor-pointer"
+                                className=" rounded-md flex items-center  gap-x-2 p-2 cursor-pointer"
                                 onClick={() => document.getElementById('options-container').classList.toggle('hidden')}
                             >
                                 <div className="flex items-center">
@@ -136,7 +136,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
                                 </svg>
                             </div>
-                            <div id="options-container" className="absolute z-10 mt-1 p-2 top-16 right-[-2rem] bg-[#05071D] border border-gray-300 rounded-md shadow-lg hidden md:w-[200%] w-[112%]">
+                            <div id="options-container" className="absolute min-w-32 z-10 md:mt-1 p-2 top-12 md:top-16 right-[-2rem] bg-[#05071D] border border-gray-300 rounded-md shadow-lg hidden md:w-[200%] w-[112%]">
                                 <h1 className='text-center '>Select Network</h1>
                                 {options && options.map((option) => (
                                     <div

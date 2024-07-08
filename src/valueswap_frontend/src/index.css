@@ -21,7 +21,7 @@ body {
 
   /* Act as a border */
   .button-gradient-wrapper {
-    @apply relative overflow-hidden rounded-lg bg-gradient-to-r from-[#FFFFFF] to-[#99999900];
+    @apply relative overflow-hidden bg-gradient-to-r from-[#FFFFFF] to-[#99999900];
   }
 
   /* Gradient */
