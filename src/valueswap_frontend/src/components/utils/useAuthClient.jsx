@@ -5,7 +5,7 @@ import {
     idlFactory
 } from '../../../../declarations/valueswap_backend/index';
 import { Actor, HttpAgent } from "@dfinity/agent";
-import { idlFactory as TokenIdl } from "../../../../valueswap_backend/ledger.did";
+import { idlFactory as TokenIdl } from "../../../../declarations/token1_ledger/index";
 
 
 
@@ -124,7 +124,7 @@ export const useAuthClient = (options = defaultOptions) => {
         let identity = window.identity;
         const agent = new HttpAgent({ identity });
         // Creates an actor with using the candid interface and the HttpAgent
-        return Actor.createActor(idlFactory, {
+        return Actor.createActor(TokenIdl, {
             agent,
             canisterId,
         });

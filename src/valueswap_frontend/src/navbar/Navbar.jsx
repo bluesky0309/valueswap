@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from 'react';
 import GradientButton from '../buttons/GradientButton';
 import { Link as RouterLink } from 'react-router-dom';
+import { useAuth } from '../components/utils/useAuthClient';
 const Navbar = ({ NavbarData, setClickConnectWallet }) => {
     const [activeLink, setActiveLink] = useState(null);
+    const {createLedgerActor} = useAuth();
+
+    const ledgerActor = createLedgerActor("a4tbr-q4aaa-aaaaa-qaafq-cai");
+    
+    const handleFunc = () => {
+        console.log("🚀 ~ Navbar ~ ledgerActor:", ledgerActor);
+    } 
 
     return (
         <div className='mx-12'>
             <div className='w-full sticky top-8 rounded-2xl bg-[#05071D] font-cabin backdrop-blur-lg  z-50 '>
-                <div className='w-full  p-4 flex justify-between gap-8 items-center'>
-                    <div className='text-base  flex gap-16 items-center'>
-                        <span className='font-extrabold'>LOGO</span>
-                        <div className="border-l border-white h-12 items-center"></div>
+                <div className='flex items-center justify-between w-full gap-8 p-4'>
+                    <div className='flex items-center gap-16 text-base'>
+                        <button className='font-extrabold' onClick={handleFunc}>sfd</button>
+                        <div className="items-center h-12 border-l border-white"></div>
                         {
                             NavbarData.Links.map((Link, index) => (
                                 <div key={index}>
@@ -19,7 +27,7 @@ const Navbar = ({ NavbarData, setClickConnectWallet }) => {
                                         className='cursor-pointer'
                                         onClick={() => setActiveLink(index)}
                                     >
-                                        <div className='flex flex-col justify-center items-center'>
+                                        <div className='flex flex-col items-center justify-center'>
                                             <span className='text-xl'>
                                                 {Link?.LinkName}
                                             </span>
@@ -35,7 +43,7 @@ const Navbar = ({ NavbarData, setClickConnectWallet }) => {
                         }
                     </div>
                     <div className='flex items-center gap-8'>
-                        <div className="border-l border-white h-12"></div>
+                        <div className="h-12 border-l border-white"></div>
                         <div className='mr-9'
                             onClick={() => {
                                 if (NavbarData.ButtonText === 'Connect Wallet') {

@@ -1,6 +1,6 @@
-use candid::CandidType;
+use candid::{CandidType, Deserialize, Principal};
 use ic_cdk_macros::{init, query, update};
-use serde::{Deserialize, Serialize};
+use serde::Serialize;
 use std::cell::RefCell;
 use std::collections::HashMap;
 
@@ -11,11 +11,23 @@ pub mod utils;
 // Re-export the structs and functions from utils
 pub use utils::types::{PoolShare, UserShare, TokenType};
 pub use utils::maths::*;  // Re-export the mathematical functions
+pub use utils::constants::*;
+
+// Define the input struct for create_pool
+#[derive(CandidType, Deserialize, Serialize, Clone)]
+pub struct CreatePoolParams {
+
+    balances: [f64; 8],
+    weights: [f64; 8],
+}
 
 // Thread-local storage for pool state
 thread_local! {
     // Pool token balances and weights
-    static POOL_SHARE: RefCell<PoolShare> = RefCell::new(PoolShare::new([100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0], [0.125; 8]));
+    static POOL_SHARE: RefCell<PoolShare> = RefCell::new(PoolShare::new(
+        [100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0], 
+        [0.125; 8]
+    ));
     // User shares in the pool
     static USER_SHARES: RefCell<HashMap<String, UserShare>> = RefCell::new(HashMap::new());
     // User LP tokens
@@ -29,7 +41,10 @@ thread_local! {
 fn init() {
     // Initialize pool share
     POOL_SHARE.with(|pool| {
-        *pool.borrow_mut() = PoolShare::new([100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0], [0.125; 8]);
+        *pool.borrow_mut() = PoolShare::new(
+            [100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0], 
+            [0.125; 8]
+        ); 
     });
     // Initialize user shares
     USER_SHARES.with(|user_shares| {
@@ -53,9 +68,9 @@ fn get_tokens() -> PoolShare {
 
 // Update to create a new pool
 #[update]
-fn create_pool(balances: [f64; 8], weights: [f64; 8]) {
+fn create_pool(params: CreatePoolParams) {
     POOL_SHARE.with(|pool| {
-        *pool.borrow_mut() = PoolShare::new(balances, weights);
+        *pool.borrow_mut() = PoolShare::new(params.balances, params.weights);
     });
 }
 
