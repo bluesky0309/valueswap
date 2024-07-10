@@ -14,7 +14,7 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
 
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center custom-z-index '>
-            <div className=' bg-[#05071D]  h-fit xl:w-3/12 lg:w-6/12 md:w-7/12 sm:w-8/12 w-10/12 border rounded-xl flex flex-col gap-2  my-auto mx-auto'>
+            <div className=' bg-[#05071D]  mt-28 xl:w-4/12 lg:w-6/12 md:w-7/12 sm:w-8/12 w-10/12 border rounded-xl flex flex-col gap-2  my-auto mx-auto'>
 
                 <div className='md:w-[64%] w-[62%] flex place-self-end items-center justify-between mx-4'>
                     <span className='font-fahkwang font-medium md:text-2xl text-xl py-4'>{ConnectWalletData.Heading}</span>
@@ -25,7 +25,7 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
 
                 <div className='border border-transparent font-bold custom-height-3 bg-gradient-to-r from-transparent via-[#00308E] to-transparent w-full mx-auto'></div>
 
-                <div className='flex flex-col items-center gap-4 mb-10'>
+                <div className='flex flex-col items-center gap-4 S'>
 
 
 
@@ -86,13 +86,13 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
                     <input
                         type="checkbox"
                         id="consent-checkbox"
-                        className="w-4 h-4 text-blue-600 bg-gray-800 border-gray-600 rounded-xl focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 mt-2"
+                        className="w-6 h-5 text-blue-600 bg-gray-800 border-gray-600 rounded-xl focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 mt-2"
                         onChange={() => {
                             SetTermsAndConditionsChecked(!TermsAndConditionsChecked);
                         }}
                     />
 
-                    <label htmlFor="consent-checkbox" className="text-lg">
+                    <label htmlFor="consent-checkbox" className="text-base">
                         {ConnectWalletData.TermsAndConditions} <a href="" className='text-blue-500 underline'>{ConnectWalletData.LearnMore}</a>
                     </label>
 

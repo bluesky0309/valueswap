@@ -32,7 +32,7 @@ const PoolInfo = () => {
 
       <div className='w-full h-screen  text-white md:max-w-[85%] mt-12 z-20 sm:px-8 absolute md:translate-x-[10%] '>
 
-        <div className='flex flex-col justify-between bg-[#010427] p-2  py-6  rounded-lg mx-auto'>
+        <div className='flex flex-col justify-between bg-[#010427] p-2  py-6  rounded-t-lg mx-auto'>
           <div className='flex justify-between items-center  mx-2  md:ml-8'>
             <div className='font-cabin text-base md:text-3xl font-medium flex items-center gap-4'>
               <div className='flex gap-2'>
@@ -94,7 +94,7 @@ const PoolInfo = () => {
                             setCurrentRange(index)
                           }}>
                             <p className='cursor-pointer'>{rang}</p>
-                            <span className={`p-1 w-1 bg-[#F7931A] rounded-full ${currentRang === index ? 'visible' : 'invisible'}`}></span>
+                            <span className={`p-[2px] w-1 bg-[#F7931A] rounded-full ${currentRang === index ? 'visible' : 'invisible'}`}></span>
                           </div>
                         )
                       }
@@ -109,12 +109,12 @@ const PoolInfo = () => {
               </div>
             </div>
 
-            <div className=' flex flex-col items-center lg:w-1/3 gap-4 my-4 '>
-              <div className=' flex gap-4 h-20 lg:h-48 justify-center'>
+            <div className=' flex flex-col items-center gap-4 my-4 '>
+              <div className='w-full sm:w-auto flex gap-4 h-20 lg:h-48 justify-center'>
                 <PoolInfoBox Heading={'Pool Value'} Data={`$ ${TokenData.PoolMetaData.PoolValue.toLocaleString('en-US')}`} />
                 <PoolInfoBox Heading={'24H_Fees'} Data={`$ ${TokenData.PoolMetaData.TwentyFourHourFees.toLocaleString('en-US')}`} />
               </div>
-              <div className='w-auto flex gap-4 h-20 lg:h-48'>
+              <div className='w-full sm:w-auto flex gap-4 h-20 lg:h-48'>
                 <PoolInfoBox Heading={'24H_Pool Volume'} Data={`$ ${TokenData.PoolMetaData.TwentyFourHourVolume.toLocaleString('en-US')}`} />
                 <PoolInfoBox Heading={'APR'} Data={`${TokenData.PoolMetaData.APRstart}% - ${TokenData.PoolMetaData.APRend}%`} />
               </div>

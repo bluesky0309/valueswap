@@ -90,7 +90,7 @@ const ParticlesBackground = () => {
   );
 
   return init ? (
-    <div className="absolute top-0">
+    <div className="absolute top-0 w-full">
       <Particles id="tsparticles" options={options}  />
     </div>
   ) : null;
