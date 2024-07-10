@@ -6,7 +6,17 @@ use std::collections::HashMap;
 
 use ic_cdk::export_candid;
 
-pub mod utils;
+// mod api;
+// mod constants;
+// mod declarations;
+// mod guards;
+// mod implementations;
+// mod logic;
+// mod memory;
+// mod state;
+// mod tests;
+// mod types;
+mod utils;
 
 // Re-export the structs and functions from utils
 pub use utils::types::{PoolShare, UserShare, TokenType};
