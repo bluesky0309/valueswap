@@ -68,10 +68,10 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
             <div className="flex justify-center  font-cabin   ">
                 <div className="w-full  rounded-2xl  flex justify-between max-w-[1200px] bg-[#686868AB] tracking-wide backdrop-blur-md items-center md:py-4 px-6">
 
-                    <div className='flex items-center justify-between md:justify-start px-2'>
+                    <div className='flex items-center justify-between px-2 md:justify-start'>
                         <div className='flex items-center gap-2 md:gap-3'>
                             <span className='font-extrabold'>LOGO</span>
-                            <div className="border-l border-white h-12 items-center ml-4 lg:ml-0"></div>
+                            <div className="items-center h-12 ml-4 border-l border-white lg:ml-0"></div>
                         </div>
 
 
@@ -84,7 +84,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         <li key={index} className='md:ml-2  md:my-0 my-7 font-normal '>
                                             <RouterLink
                                                 to={Link.LinkPath}
-                                                className='text-white hover:text-orange-500 duration-500'
+                                                className='text-white duration-500 hover:text-orange-500'
                                                 onClick={() => {
                                                     setActiveLink(index)
 
@@ -100,7 +100,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                     ))
                                 }
 
-                                <div className='my-7 font-semibold text-center block md:hidden '>
+                                <div className='block font-semibold text-center my-7 md:hidden '>
 
                                     <div
                                         onClick={() => {
@@ -125,12 +125,12 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         {/* drop down Network*/}
                         {/* {location.pathname === "/dex-swap" && <div className="relative inline-block ">
                             <div
-                                className=" rounded-md flex items-center  gap-x-2 p-2 cursor-pointer"
+                                className="flex items-center p-2 rounded-md cursor-pointer  gap-x-2"
                                 onClick={() => document.getElementById('options-container').classList.toggle('hidden')}
                             >
                                 <div className="flex items-center">
                                     {selectedOption && <img src={selectedOption?.img} alt={selectedOption?.label} className="w-6 h-6 mr-2" />}
-                                    <span className='md:inline-block hidden'>{selectedOption?.label}</span>
+                                    <span className='hidden md:inline-block'>{selectedOption?.label}</span>
                                 </div>
                                 <svg className="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7"></path>
@@ -141,7 +141,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                 {options && options.map((option) => (
                                     <div
                                         key={option.value}
-                                        className="flex items-center p-2 cursor-pointer hover:border rounded-lg hover:border-gray-500 "
+                                        className="flex items-center p-2 rounded-lg cursor-pointer hover:border hover:border-gray-500 "
                                         onClick={() => {
                                             setSelectedOption(option);
                                             document.getElementById('options-container').classList.add('hidden');
@@ -155,9 +155,9 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         </div>} */}
                     </div>
                     {/* //// */}
-                    <div className='md:my-0 my-7 font-semibold md:flex md:items-center md:gap-5 hidden   pr-1'>
-                        <div className="border-l border-white h-12"></div>
-                        <div className=' flex items-center '>
+                    <div className='hidden pr-1 font-semibold md:my-0 my-7 md:flex md:items-center md:gap-5'>
+                        <div className="h-12 border-l border-white"></div>
+                        <div className='flex items-center '>
 
 
                             {!isAuthenticated ? <GradientButton customCss={`px-2`}
@@ -190,7 +190,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         </div>
                     </div>
 
-                    <div onClick={() => setOpen(!open)} className='md:hidden cursor-pointer w-7 h-7'>
+                    <div onClick={() => setOpen(!open)} className='cursor-pointer md:hidden w-7 h-7'>
                         {open ? <XMarkIcon className='text-white ' /> : <Bars3BottomRightIcon className='text-white' />}
                     </div>
                 </div>

@@ -96,8 +96,8 @@ const ShowAllPools = () => {
       <div className='w-full h-screen  text-white mt-4 z-20 sm:px-8 mx-auto absolute '>
 
         <div className='flex justify-between bg-[#010427] p-2 pb-6 pt-6 rounded-t-lg mx-auto'>
-          <div className='flex justify-between items-center gap-4 md:gap-16 mx-8 md:mx-16'>
-            <span className='font-cabin  md:text-3xl font-medium text-white' >Ethereum Pools</span>
+          <div className='flex items-center justify-between gap-4 mx-8 md:gap-16 md:mx-16'>
+            <span className='font-medium text-white font-cabin md:text-3xl' >Ethereum Pools</span>
             <div className='cursor-pointer'>
               {poolsSvg}
             </div>
@@ -117,15 +117,15 @@ const ShowAllPools = () => {
           <div className='-my-2 overflow-x-auto'>
             <div className='inline-block min-w-full py-2 align-middle'>
               <div className='overflow-hidden shadow ring-1 ring-black ring-opacity-5 '>
-                <table className='min-w-full   '>
-                  <thead className=' '>
+                <table className='min-w-full '>
+                  <thead className=''>
                     <tr className=''>
                       {allDataInPool?.Headings?.map((heading, index) => (
                         <th scope='col'
                           key={index}
-                          className='py-7  pl-6 pr-3 text-center text-sm md:text-base lg:text-xl font-medium text-white '
+                          className='pl-6 pr-3 text-sm font-medium text-center text-white py-7 md:text-base lg:text-xl '
                         >
-                          <span className='flex gap-2 items-center justify-center' onClick={()=> sortingConditional(index)}>
+                          <span className='flex items-center justify-center gap-2' onClick={()=> sortingConditional(index)}>
                             {heading}
                            {index === activeSort ? <ArrowDownwardIcon  sx={{color: ""}}/>: ""}
                           </span>
@@ -135,7 +135,7 @@ const ShowAllPools = () => {
                     </tr>
                     
                   </thead>
-                  <tbody className=' '>
+                  <tbody className=''>
                     {allDataInPool?.TableData?.slice(0, displayCount).map((pool, index) => {
 
                       const TokenPool = pool.Tokens
@@ -144,7 +144,7 @@ const ShowAllPools = () => {
                       return (
                         <tr key={index}>
 
-                          <td className='min-w-52 whitespace-nowrap my-4 text-sm md:text-base font-medium text-white flex items-center gap-5 justify-center'>
+                          <td className='flex items-center justify-center gap-5 my-4 text-sm font-medium text-white min-w-52 whitespace-nowrap md:text-base'>
                             <span className='flex gap-2'>
                               {TokenPool?.map((token, index) => (
                                 <span key={index} className='bg-[#3D3F47] p-2 rounded-xl'>
@@ -178,13 +178,13 @@ const ShowAllPools = () => {
 
                           </td>
 
-                          <td className='whitespace-nowrap px-3 py-4 text-sm md:text-base text-white text-center'>
+                          <td className='px-3 py-4 text-sm text-center text-white whitespace-nowrap md:text-base'>
                             $ {pool.PoolValue.toLocaleString('en-US')}
                           </td>
-                          <td className='whitespace-nowrap px-3 py-4 text-sm md:text-base text-white text-center'>
+                          <td className='px-3 py-4 text-sm text-center text-white whitespace-nowrap md:text-base'>
                             $ {pool.TotalVolume.toLocaleString('en-US')}
                           </td>
-                          <td className='whitespace-nowrap py-4 pl-3 text-center text-sm md:text-base font-medium pr-6'>
+                          <td className='py-4 pl-3 pr-6 text-sm font-medium text-center whitespace-nowrap md:text-base'>
                             {pool.APR}
                           </td>
                         </tr>
@@ -196,20 +196,20 @@ const ShowAllPools = () => {
 
                   </tbody>
                 </table>
-                <div className='flex justify-center items-center mb-24'>
+                <div className='flex items-center justify-center mb-24'>
                   {buttonVisible && (
                     <div>
                       {allDataInPool?.TableData?.length > displayCount && (
-                        <div className='text-center mt-4'>
-                          <button className='bg-gray-800 hover:bg-gray-600 text-white px-4 py-2 rounded-md' onClick={() => setDisplayCount(displayCount + 5)}>
+                        <div className='mt-4 text-center'>
+                          <button className='px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-600' onClick={() => setDisplayCount(displayCount + 5)}>
                             {allDataInPool.SeeMoreButtonText}
                           </button>
                         </div>
                       )}
 
                       {allDataInPool?.TableData?.length <= displayCount && (
-                        <div className='text-center mt-4'>
-                          <button className='bg-gray-800 hover:bg-gray-600 text-white px-4 py-2 rounded-md' onClick={() => setDisplayCount(Math.min(5, allDataInPool.TableData.length))}>
+                        <div className='mt-4 text-center'>
+                          <button className='px-4 py-2 text-white bg-gray-800 rounded-md hover:bg-gray-600' onClick={() => setDisplayCount(Math.min(5, allDataInPool.TableData.length))}>
                             {allDataInPool.SeeLessButtonText}
                           </button>
                         </div>
