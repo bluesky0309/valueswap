@@ -37,7 +37,7 @@ const Hero = ({ setClickConnectWallet }) => {
                         <div onClick={() => {
                             setClickConnectWallet(true)
                         }}>
-                            <BorderGradientButton>
+                            <BorderGradientButton customCss={`bg-[#000711]`}>
                                 {isAuthenticated ? (
                                     <div>
                                         {LandingPageData.HeroSection.DisconnectButton}

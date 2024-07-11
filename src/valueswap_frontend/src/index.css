@@ -77,6 +77,11 @@ body {
   font-size: 14px;
 }
 
+.text-custom-size-20 {
+  font-size: 20px;
+}
+
+
 .hide-arrows::-webkit-inner-spin-button,
 .hide-arrows::-webkit-outer-spin-button {
   -webkit-appearance: none;

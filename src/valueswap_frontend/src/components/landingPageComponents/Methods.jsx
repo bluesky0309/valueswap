@@ -7,21 +7,21 @@ import GradientSpan from '../../CustomSpan/GradientSpan'
 import GradientButton from '../../buttons/GradientButton'
 const Methods = () => {
     return (
-        <div className='mt-16 h-full md:mx-8 mb-16' id={`${NavbarData.Links[2].LinkId}`}>
+        <div className='mt-16 h-full text-center mx-auto md:mx-8 mb-16' id={`${NavbarData.Links[2].LinkId}`}>
 
-            <div className='hidden lg:flex gap-x-9 flex-row justify-between items-center space-y-0 mb-32'>
+            <div className='hidden max-w-[1200px] mx-auto lg:flex  flex-row justify-between items-center space-y-0 mb-32'>
 
                 <div className=' w-1/2'>
-                    <img src={MethodsImageOne} alt="MethodImageOne" className='h-10/12 w-10/12  mx-auto' />
+                    <img src={MethodsImageOne} alt="MethodImageOne" className='h-10/12   mx-auto' />
                 </div>
 
-                <div className='w-1/2 flex flex-col font-fahkwang text-4xl h-max'>
-                    <div className='mb-0 w-full'>
+                <div className='w-1/2  py-[4.2rem] pl-20 flex flex-col items-start font-fahkwang text-4xl h-max bg-[#000211]'>
+                    <div className='mb-0 w-full '>
                         <div className='flex gap-2 '>
                             <span className=' '>{LandingPageData.MethodsText.UpperSection.HeadingWordOne}</span>
                             <GradientSpan>{LandingPageData.MethodsText.UpperSection.HeadingWordTwo}</GradientSpan>
                         </div>
-                        <span className=' '>{LandingPageData.MethodsText.UpperSection.HeadingWordThree}</span>
+                        <span className='flex  justify-start'>{LandingPageData.MethodsText.UpperSection.HeadingWordThree}</span>
                     </div>
 
                     <div className='font-cabin text-[#FFFFFFBF] text-lg py-4 leading-6 w-10/12 text-start'>
@@ -35,9 +35,9 @@ const Methods = () => {
             </div>
 
 
-            <div className='lg:flex justify-between   items-center hidden '>
+            <div className='lg:flex justify-between  max-w-[1200px] mx-auto  items-center hidden '>
 
-                <div className='w-1/2  flex flex-col justify-between pl-12 font-fahkwang text-4xl'>
+                <div className='w-1/2 h-10/12 bg-[#000211] py-[6rem] flex flex-col items-start  justify-between pl-12 font-fahkwang text-4xl'>
                     <div>
                         <div className='flex gap-2'>
                             <GradientSpan >{LandingPageData.MethodsText.LowerSection.HeadingWordOne}</GradientSpan>
@@ -45,7 +45,7 @@ const Methods = () => {
                         </div>
                     </div>
 
-                    <div className='font-cabin text-[#FFFFFFBF] text-lg py-4 leading-6 w-10/12   '>
+                    <div className='font-cabin text-[#FFFFFFBF] text-lg py-4 text-start leading-6 w-10/12   '>
                         {LandingPageData.MethodsText.LowerSection.Description}
                     </div>
                     <div>
@@ -54,41 +54,42 @@ const Methods = () => {
                 </div>
 
                 <div className='w-1/2  '>
-                    <img src={MethodsImageTwo} alt="MethodImageTwo" className=' h-10/12 w-10/12  mx-auto' />
+                    <img src={MethodsImageTwo} alt="MethodImageTwo" className=' h-10/12   mx-auto' />
                 </div>
             </div>
 
-            <div className='flex flex-col justify-center text-center items-center space-y-8 lg:hidden'>
+            {/*  */}
+            <div className='flex flex-col justify-center text-center items-center lg:hidden mb-40'>
 
                 <div className='lg:w-1/2 lg:ml-16 items-center'>
                     <img src={MethodsImageOne} alt="" className='' />
                 </div>
 
-                <div className='md:w-1/2 flex flex-col justify-evenly font-fahkwang text-4xl p-4 items-center text-center'>
+                <div className='max-w-[584px] rounded-b-xl bg-[#000211] flex flex-col justify-evenly font-fahkwang text-4xl p-4 gap-y-6 pt-8'>
                     <div className='mb-4 md:mb-0'>
-                        <div className='flex gap-2 text-center'>
+                        <div className='flex gap-2 flex-wrap '>
                             <span className=' '>{LandingPageData.MethodsText.UpperSection.HeadingWordOne}</span>
                             <GradientSpan>{LandingPageData.MethodsText.UpperSection.HeadingWordTwo}</GradientSpan>
+                            <span className=' '>{LandingPageData.MethodsText.UpperSection.HeadingWordThree}</span>
                         </div>
-                        <span className=' '>{LandingPageData.MethodsText.UpperSection.HeadingWordThree}</span>
                     </div>
 
-                    <div className='font-cabin font-[400] text-base md:text-xl leading-7   text-center '>
+                    <div className='font-cabin font-[400] text-base md:text-xl leading-7   text-start '>
                         {LandingPageData.MethodsText.UpperSection.Description}
                     </div>
                     <div className='m-4 '>
-                        <GradientButton>{LandingPageData.MethodsText.UpperSection.ButtonText}</GradientButton>
+                        <GradientButton CustomCss={`max-w-[6rem]`}>{LandingPageData.MethodsText.UpperSection.ButtonText}</GradientButton>
                     </div>
                 </div>
 
             </div>
 
-            <div className='flex flex-col justify-center items-center lg:hidden space-y-8 md:space-y-0'>
+            <div className='flex flex-col justify-center items-center lg:hidden  md:space-y-0'>
                 <div className='lg:w-1/2 '>
                     <img src={MethodsImageTwo} alt="" />
                 </div>
 
-                <div className='md:w-1/2  flex flex-col justify-evenly font-fahkwang text-4xl p-4 items-center text-center'>
+                <div className='max-w-[584px] rounded-b-xl bg-[#000211] flex flex-col justify-evenly font-fahkwang text-4xl p-4 gap-y-6 pt-8'>
                     <div>
                         <div className='flex gap-2 m-2 text-center'>
                             <span className=' '>{LandingPageData.MethodsText.LowerSection.HeadingWordOne}</span>
@@ -96,7 +97,7 @@ const Methods = () => {
                         </div>
                     </div>
 
-                    <div className='font-cabin font-[400] text-base md:text-xl leading-7   '>
+                    <div className='font-cabin font-[400] text-base md:text-xl leading-7  text-start '>
                         {LandingPageData.MethodsText.LowerSection.Description}
                     </div>
                     <div className='m-4'>

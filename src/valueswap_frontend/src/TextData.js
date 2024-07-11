@@ -176,7 +176,7 @@ export const LandingPageData = {
 
         Elementone: {
             WordOne: 'Why',
-            WordTwo: 'Choose',
+            WordTwo: 'choose',
             WordThree: 'us?',
             Description: 'Dedicated to providing a modern trading environment, our platform integrates Balancer-like liquidity pools for optimized financial strategies.',
         },

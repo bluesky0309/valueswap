@@ -13,7 +13,7 @@ const Partnership = () => {
                     {LandingPageData.PaternshipPageData.HeadingDescription}
                 </div>
             </div>
-            <div className='max-w-6xl mx-auto'>
+            <div className='max-w-[1200px] mx-auto'>
                 <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-16 '>
                     {
                         LandingPageData.PaternshipPageData.PartnershipData.map((Company, index) => {

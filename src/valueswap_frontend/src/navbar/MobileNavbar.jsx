@@ -64,9 +64,9 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
     }, []);
 
     return (
-        <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-12 lg:px-24`}>
-            <div className=" rounded-2xl  bg-[#686868AB] font-cabin tracking-wide backdrop-blur-md  ">
-                <div className="w-full flex justify-between  items-center md:py-4 px-6">
+        <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-8 `}>
+            <div className="flex justify-center  font-cabin   ">
+                <div className="w-full  rounded-2xl  flex justify-between max-w-[1200px] bg-[#686868AB] tracking-wide backdrop-blur-md items-center md:py-4 px-6">
 
                     <div className='flex items-center justify-between md:justify-start px-2'>
                         <div className='flex items-center gap-2 md:gap-3'>
@@ -81,7 +81,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                             <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427]' : 'top-[-490px]'}`}>
                                 {
                                     NavbarData.Links.map((Link, index) => (
-                                        <li key={index} className='md:ml-2  md:my-0 my-7 font-normal'>
+                                        <li key={index} className='md:ml-2  md:my-0 my-7 font-normal '>
                                             <RouterLink
                                                 to={Link.LinkPath}
                                                 className='text-white hover:text-orange-500 duration-500'
@@ -90,10 +90,10 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
 
                                                 }}
                                             >
-                                                <div className='flex flex-col justify-center text-custom-size-14  lg:text-xl items-center'>
+                                                <div className='flex flex-col justify-center text-custom-size-14 sm:leading-10 md:text-xl  items-center'>
                                                     {Link?.LinkName}
-                                                    <div className={`${activeLink === index ? 'rounded-full bg-orange-500 w-1 h-1' : 'w-1 h-1 invisible'}`}></div>
-                                                    <div className={`${activeLink === Link.LinkPath ? 'rounded-full bg-orange-500 w-1 h-1' : 'w-1 h-1 invisible'}`}></div>
+                                                    <div className={`${activeLink === index ? ' bg-orange-500 w-full h-[1px] hidden md:block' : 'w-1 h-1 hidden'}`}></div>
+                                                    <div className={`${activeLink === Link.LinkPath ? ' bg-orange-500 w-full h-[1px] hidden md:block' : 'w-1 h-1 invisible'}`}></div>
                                                 </div>
                                             </RouterLink>
                                         </li>
@@ -123,7 +123,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         </div>
 
                         {/* drop down Network*/}
-                        {location.pathname === "/dex-swap" && <div className="relative inline-block ">
+                        {/* {location.pathname === "/dex-swap" && <div className="relative inline-block ">
                             <div
                                 className=" rounded-md flex items-center  gap-x-2 p-2 cursor-pointer"
                                 onClick={() => document.getElementById('options-container').classList.toggle('hidden')}
@@ -152,7 +152,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                     </div>
                                 ))}
                             </div>
-                        </div>}
+                        </div>} */}
                     </div>
                     {/* //// */}
                     <div className='md:my-0 my-7 font-semibold md:flex md:items-center md:gap-5 hidden   pr-1'>

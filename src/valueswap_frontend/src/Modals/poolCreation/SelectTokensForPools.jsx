@@ -66,7 +66,7 @@ const SelectTokensForPools = ({ handleNext }) => {
                         }
                     }}
                 >
-                    <BorderGradientButton customCss={`text-xs md:text-light lg:text-base h-[45px] w-[115px] md:w-[140px] `}>
+                    <BorderGradientButton customCss={`bg-[#182030] text-xs md:text-light lg:text-base h-[45px] w-[115px] md:w-[140px] `}>
                         Add Token
                     </BorderGradientButton>
                 </div>

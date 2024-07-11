@@ -41,7 +41,7 @@ const CreatePoolStepsPage = () => {
              <button onClick={handleStepBack} className="mb-4 p-2 border-[1px] rounded-full inline-block lg:hidden ml-4 sm:ml-10 md:ml-12">
                 <ArrowBackIcon/>
             </button>
-            <div className=" lg:flex-row flex-col py-2 justify-around hidden lg:flex">
+            <div className=" lg:flex-row flex-col py-2 justify-around hidden lg:flex max-w-[1200px] mx-auto">
                 {steps.map((label, index) => (
                        <div key={index} className= {`flex gap-6 pb-6 w-full justify-center items-center m-auto`}>
                        <div className={`py-2 px-4 rounded-full  ${activeStep == index  ? "bg-[#F7931A]":"bg-[#00308E]"}`}>{index+ 1}</div>
