@@ -91,9 +91,9 @@ const ShowAllPools = () => {
   
   const navigate = useNavigate();
   return (
-    <div className='relative w-full h-screen '>
+    <div className=' max-w-[1200px] mx-auto h-screen relative '>
 
-      <div className='w-full h-screen  text-white md:max-w-[80%] mt-4 z-20 sm:px-8 mx-auto absolute md:translate-x-[15%] '>
+      <div className='w-full h-screen  text-white mt-4 z-20 sm:px-8 mx-auto absolute '>
 
         <div className='flex justify-between bg-[#010427] p-2 pb-6 pt-6 rounded-t-lg mx-auto'>
           <div className='flex items-center justify-between gap-4 mx-8 md:gap-16 md:mx-16'>

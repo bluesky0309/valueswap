@@ -5,7 +5,6 @@ import Partnership from '../components/landingPageComponents/Partnership'
 import Methods from '../components/landingPageComponents/Methods'
 import WhitePaper from '../components/landingPageComponents/WhitePaper'
 import LiquidityInfo from '../components/landingPageComponents/LiquidityInfo'
-import SubscriptionForm from '../components/landingPageComponents/SubscriptionForm'
 import Footer from '../components/footer/Footer'
 // import DialogBox from '../Modals/Dialouge'
 // import Navbar from '../navbar/Navbar'
@@ -32,7 +31,7 @@ const LandingPage = ({ setClickConnectWallet }) => {
                     <WhitePaper />
                 </div>
 
-                <SubscriptionForm />
+              
                 <Footer/>
             </div>
         </div>

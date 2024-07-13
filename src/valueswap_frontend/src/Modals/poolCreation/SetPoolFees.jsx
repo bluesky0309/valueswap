@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Bolt } from 'lucide-react';
-import BorderGradientTransparentButton from '../../buttons/BorderGradientTransparentButton'
 import SearchTokenShowData from '../../components/searchTokenForPoolComponents/SearchTokenShowData';
 import GradientButton from '../../buttons/GradientButton';
 import { showAlert, hideAlert } from '../../reducer/Alert';
 import { useDispatch } from 'react-redux';
 import { SetFeeShare } from '../../reducer/PoolCreation';
+import BorderGradientButton from '../../buttons/BorderGradientButton';
 
 const SetPoolFees = ({ handleNext }) => {
 
@@ -13,7 +13,6 @@ const SetPoolFees = ({ handleNext }) => {
     const [ButtonActive, SetButtonActive] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(null);
     const PercentShares = [0.1, 0.30, 0.50, 1.00];
-
     useEffect(() => {
 
         if (selectedIndex === null) {
@@ -77,9 +76,12 @@ const SetPoolFees = ({ handleNext }) => {
                                 }}
                                 className=' col-span-6 sm:col-span-3'
                             >
-                                <BorderGradientTransparentButton Css={`text-base lg:py-4`} customCss={`w-8 ${selectedIndex === index ? 'custom-gradient text-base sm:text-2xl p-1 sm:p-3 ' : 'button-border-custom-gradient-content p-2 sm:p-4'}`}>
-                                    {share}  %
-                                </BorderGradientTransparentButton>
+                                <BorderGradientButton  customCss={`w-8 ${selectedIndex === index ? 'px-[4.3rem] w-0 bg-[#C16800] ' : 'px-[4.3rem] w-0 bg-[#3E434B]'}`}>
+                                    <div className='flex justify-center'>
+                                     {share}
+                                     <span>%</span>
+                                    </div>
+                                </BorderGradientButton>
                             </div>
                         );
                     })}

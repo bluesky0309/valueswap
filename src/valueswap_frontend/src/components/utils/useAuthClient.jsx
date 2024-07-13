@@ -5,7 +5,9 @@ import {
     idlFactory
 } from '../../../../declarations/valueswap_backend/index';
 import { Actor, HttpAgent } from "@dfinity/agent";
-// import { idlFactory as TokenIdl } from "../../../../declarations/token1_ledger/index";
+
+import { idlFactory as TokenIdl } from "../../../../declarations/ckbtc_ledger/index";
+
 
 
 

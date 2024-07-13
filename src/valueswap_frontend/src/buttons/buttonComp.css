@@ -1,0 +1,42 @@
+.button-wrapper {
+  position: relative;
+}
+
+.button-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  background: linear-gradient(90deg, #8D4C00 0%, #767DFF 50%,  #00308E 100%);
+  background-size: 600% 600%;
+  border-radius: 9px;
+  animation: AnimateBorder 6s ease infinite;
+  -webkit-animation: AnimateBorder 4s ease infinite;
+  -moz-animation: AnimateBorder 4s ease infinite;
+  transform: translate(-1px, -1px);
+  transition: filter 1s ease-in;
+}
+
+.button-wrapper:hover .button-bg {
+  filter: blur(10px);
+  transition: filter .4s ease-in;
+}
+
+@-webkit-keyframes AnimateBorder {
+  0% {background-position: 0% 50%}
+  50% {background-position: 100% 50%}
+  100% {background-position: 0% 50%}
+}
+
+@-moz-keyframes AnimateBorder {
+  0% {background-position: 0% 50%}
+  50% {background-position: 100% 50%}
+  100% {background-position: 0% 50%}
+}
+
+@keyframes AnimateBorder {
+  0% {background-position: 0% 50%}
+  50% {background-position: 100% 50%}
+  100% {background-position: 0% 50%}
+}

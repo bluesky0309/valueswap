@@ -94,8 +94,8 @@ const PortfolioDataComponent = () => {
 
     const navigate = useNavigate();
     return (
-        <div className=' w-full h-screen relative '>
-            <div className='w-full h-screen  text-white  md:max-w-[80%] mt-12 px-8 mx-auto absolute md:translate-x-[15%]'>
+        <div className=' max-w-[1200px] mx-auto h-screen relative '>
+            <div className='w-full h-screen  text-white   mt-12 px-8 mx-auto absolute '>
 
                 <div className='flex justify-between bg-[#010427] p-2  pb-6 pt-8  rounded-lg mx-auto'>
                     <div className='flex justify-between items-center  mx-2  md:mx-16'>
