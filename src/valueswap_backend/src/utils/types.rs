@@ -4,14 +4,16 @@ use candid::CandidType;
 /// Represents the pool's share with token balances and weights.
 #[derive(Debug, Clone, CandidType, Deserialize, Serialize)]
 pub struct PoolShare {
-    pub token_balances: [f64; 8], // Supports up to 8 tokens
-    pub token_weights: [f64; 8],  // Weights of the tokens
+    pub token_names: Vec<String>,    // Names of the tokens
+    pub token_balances: Vec<f64>,    // Balances of the tokens
+    pub token_weights: Vec<f64>,     // Weights of the tokens
 }
 
 impl PoolShare {
-    /// Creates a new PoolShare instance with given balances and weights.
-    pub fn new(balances: [f64; 8], weights: [f64; 8]) -> Self {
+    /// Creates a new PoolShare instance with given names, balances, and weights.
+    pub fn new(names: Vec<String>, balances: Vec<f64>, weights: Vec<f64>) -> Self {
         PoolShare {
+            token_names: names,
             token_balances: balances,
             token_weights: weights,
         }
@@ -21,14 +23,14 @@ impl PoolShare {
 /// Represents the user's share with their token balances.
 #[derive(Debug, Clone, CandidType, Deserialize, Serialize)]
 pub struct UserShare {
-    pub token_balances: [f64; 8], // User's balances of the 8 tokens
+    pub token_balances: Vec<f64>, // User's balances of the tokens
 }
 
 impl UserShare {
-    /// Creates a new UserShare instance with zero balances.
-    pub fn new() -> Self {
+    /// Creates a new UserShare instance with zero balances for the given number of tokens.
+    pub fn new(num_tokens: usize) -> Self {
         UserShare {
-            token_balances: [0.0; 8],
+            token_balances: vec![0.0; num_tokens],
         }
     }
 }
@@ -36,7 +38,7 @@ impl UserShare {
 // Implementing the Default trait for UserShare to provide a default initialization.
 impl Default for UserShare {
     fn default() -> Self {
-        UserShare::new()
+        UserShare::new(8) // Default to 8 tokens
     }
 }
 
@@ -45,6 +47,7 @@ impl Default for UserShare {
 pub enum TokenType {
     TokenA,
     TokenB,
+    // Add more token types as needed
 }
 
 impl TokenType {
@@ -53,6 +56,7 @@ impl TokenType {
         match self {
             TokenType::TokenA => "TokenA",
             TokenType::TokenB => "TokenB",
+            // Add more token names as needed
         }
     }
 }
