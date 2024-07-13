@@ -6,7 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 const steps = ['Select Tokens for Pools', 'Set Pool Fees', 'Add Initial Liquidity'];
 
 const CreatePoolStepsPage = () => {
-    const [activeStep, setActiveStep] = useState(0);
+    const [activeStep, setActiveStep] = useState(1);
     const isLastStep = activeStep === steps.length - 1;
 
     const handleNext = () => {

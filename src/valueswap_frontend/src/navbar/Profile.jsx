@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import GradientButton from '../buttons/GradientButton';
 import DarkModeToggle from "./DarkModeToggle"
-
+import onClickOutside from 'react-onclickoutside';
 function Profile({ principal, Principal, isAuthenticated, logout }) {
     const [showProfile, setShowProfile] = useState(false)
     const [copied, setCopied] = useState(false);
@@ -38,6 +38,11 @@ function Profile({ principal, Principal, isAuthenticated, logout }) {
             setCopied(false);
         }, 2000)
     };
+
+
+    Profile.handleClickOutside = () => {
+        setShowProfile(false);
+      };
     return (
         <div className='relative '>
            <div className='flex gap-x-4'>
@@ -120,6 +125,10 @@ function Profile({ principal, Principal, isAuthenticated, logout }) {
     )
 }
 
-export default Profile
-
+const clickOutsideConfig = {
+    handleClickOutside: () => Profile.handleClickOutside,
+  };
+  
+  export default onClickOutside(Profile, clickOutsideConfig);
+  
 // ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}

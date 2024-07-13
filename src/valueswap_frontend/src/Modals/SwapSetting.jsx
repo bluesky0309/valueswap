@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import BorderGradientButton from '../buttons/BorderGradientButton';
 
 function SwapSetting() {
     const [percentage, setPercentage] = useState({
@@ -28,6 +29,7 @@ function SwapSetting() {
 
     const handleShowInput = () => {
         setShowInput((prev) => !prev);
+        console.log("hii i got u")
     }
 
     const handlePercentageChange = (e) => {
@@ -64,14 +66,19 @@ function SwapSetting() {
                     </div>
                     <div className='flex items-start w-full md:justify-end gap-x-4'>
                         {/* buttons */}
-                        <button className='h-[39px] w-[72px] button-gradient-wrapper text-white font-[400] text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50'><span className="button-gradient-content flex justify-center items-center p-1 ">
+                        <button className='h-[40px] w-[87px] button-gradient-wrapper text-white font-[400] text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50'><span className="button-gradient-content flex justify-center items-center p-1 ">
                             Auto
                         </span></button>
-                        <button className={` h-[39px] w-[92px] button-gradient-wrapper text-white font-[400] text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50`} onClick={handleShowInput}>
+                        {/* <button className={` h-[39px] w-[92px] button-gradient-wrapper text-white font-[400] text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50`} onClick={handleShowInput}>
                             <span className="button-border-gradient-content flex justify-center items-center">
                                 Custom
                             </span>
-                        </button>
+                        </button> */}
+                            <div  onClick={handleShowInput}>
+                        <BorderGradientButton customCss={`bg-[#05071D] h-[40px]`}>
+                            Custom
+                        </BorderGradientButton>
+                            </div>
                     </div>
                 </div>
                 {
@@ -91,14 +98,17 @@ function SwapSetting() {
                         </div>
 
                     </div>
-                    <div className='flex gap-x-1 items-center justify-start md:justify-end w-full md:w-fit'>
+                    <div className='flex gap-x-3 items-center justify-start md:justify-end w-full md:w-fit'>
                         {/* buttons */}
 
-                        <div className={` h-[39px] w-[59px] button-gradient-wrapper text-white font-[400] text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50`}>
-                            <input type='number' maxLength="3" className="button-border-gradient-content flex justify-center items-center appearance-none	outline-none text-center" />
+                        {/* <div className={` h-[39px] w-[59px] button-gradient-wrapper text-white font-[400] text-base font-cabin rounded-lg py-4 px-[1.875rem] hover:opacity-50`}>
+                           
 
+                        </div> */}
+                         <BorderGradientButton customCss={`bg-[#010427] h-[37px] `}>
+                         <input type='number' maxLength="3" className=" bg-[#010427] flex w-8 justify-center items-center appearance-none	outline-none text-center" />
 
-                        </div>
+                         </BorderGradientButton>
                         <div >minutes</div>
                     </div>
                 </div>

@@ -63,6 +63,9 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
         };
     }, []);
 
+
+    
+
     return (
         <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-8 `}>
             <div className="flex justify-center  font-cabin   ">
