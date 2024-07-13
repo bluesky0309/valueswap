@@ -1,21 +1,12 @@
-use candid::{CandidType, Deserialize, Principal};
+use candid::{CandidType, Deserialize};
 use ic_cdk_macros::{init, query, update};
 use serde::Serialize;
 use std::cell::RefCell;
-use std::collections::HashMap;
+use std::collections::{btree_map, HashMap};
+use std::hash::Hash;
 
 use ic_cdk::export_candid;
 
-// mod api;
-// mod constants;
-// mod declarations;
-// mod guards;
-// mod implementations;
-// mod logic;
-// mod memory;
-// mod state;
-// mod tests;
-// mod types;
 mod utils;
 
 // Re-export the structs and functions from utils
@@ -26,20 +17,24 @@ pub use utils::constants::*;
 // Define the input struct for create_pool
 #[derive(CandidType, Deserialize, Serialize, Clone)]
 pub struct CreatePoolParams {
-
-    balances: [f64; 8],
-    weights: [f64; 8],
+    token_names: Vec<String>,   // Names of the tokens
+    balances: Vec<f64>,         // Token balances
+    weights: Vec<f64>,          // Token weights
 }
 
 // Thread-local storage for pool state
 thread_local! {
-    // Pool token balances and weights
+    // Pool token balances, weights, and names
     static POOL_SHARE: RefCell<PoolShare> = RefCell::new(PoolShare::new(
-        [100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0], 
-        [0.125; 8]
+        vec!["TokenA".to_string(), "TokenB".to_string()], // Default token names
+        vec![100.0, 200.0],                              // Default token balances
+        vec![50.0, 50.0]                                   // Default token weights
     ));
+    
     // User shares in the pool
     static USER_SHARES: RefCell<HashMap<String, UserShare>> = RefCell::new(HashMap::new());
+    // Pools in the vault
+    static VAULT : RefCell<HashMap<String , PoolShare>> = RefCell::new(HashMap::new());
     // User LP tokens
     static LP_TOKENS: RefCell<HashMap<String, f64>> = RefCell::new(HashMap::new());
     // Total LP supply
@@ -52,8 +47,9 @@ fn init() {
     // Initialize pool share
     POOL_SHARE.with(|pool| {
         *pool.borrow_mut() = PoolShare::new(
-            [100.0, 200.0, 300.0, 400.0, 500.0, 600.0, 700.0, 800.0], 
-            [0.125; 8]
+            vec!["TokenA".to_string(), "TokenB".to_string()], // Default token names
+            vec![100.0, 200.0],                              // Default token balances
+            vec![50.0, 50.0]                                   // Default token weights
         ); 
     });
     // Initialize user shares
@@ -76,65 +72,6 @@ fn get_tokens() -> PoolShare {
     POOL_SHARE.with(|pool| pool.borrow().clone())
 }
 
-// Update to create a new pool
-#[update]
-fn create_pool(params: CreatePoolParams) {
-    POOL_SHARE.with(|pool| {
-        *pool.borrow_mut() = PoolShare::new(params.balances, params.weights);
-    });
-}
-
-// Add liquidity to the pool
-#[update]
-fn add_liquidity(user: String, new_balances: [f64; 8]) -> Option<PoolShare> {
-    POOL_SHARE.with(|pool| {
-        let mut pool_data = pool.borrow_mut();
-        
-        // Update pool with new liquidity
-        for i in 0..8 {
-            pool_data.token_balances[i] += new_balances[i];
-        }
-
-        // Calculate new constant product value
-        let new_constant_product = constant_product(&pool_data.token_balances, &pool_data.token_weights);
-
-        // Calculate LP tokens to be issued
-        let lp_to_issue = new_constant_product * 2.0; // 2:1 ratio
-
-        // Update total LP supply
-        TOTAL_LP_SUPPLY.with(|total_lp| {
-            *total_lp.borrow_mut() += lp_to_issue;
-        });
-
-        // Update user LP tokens
-        LP_TOKENS.with(|lp_tokens| {
-            let mut lp_tokens_data = lp_tokens.borrow_mut();
-            *lp_tokens_data.entry(user.clone()).or_insert(0.0) += lp_to_issue;
-        });
-
-        // Update user shares
-        USER_SHARES.with(|user_shares| {
-            let mut user_shares_data = user_shares.borrow_mut();
-            let entry = user_shares_data.entry(user).or_insert(UserShare {
-                token_balances: [0.0; 8],
-            });
-            for i in 0..8 {
-                entry.token_balances[i] += new_balances[i];
-            }
-        });
-
-        Some(pool_data.clone())
-    })
-}
-
-// Query to get user shares
-#[query]
-fn get_user_shares(user: String) -> Option<UserShare> {
-    USER_SHARES.with(|user_shares| {
-        user_shares.borrow().get(&user).cloned()
-    })
-}
-
 // Query to get the constant product value
 #[query]
 fn get_constant_product_value() -> f64 {
@@ -144,79 +81,26 @@ fn get_constant_product_value() -> f64 {
     })
 }
 
-// Deposit all assets proportionally
+
 #[update]
-fn all_asset_deposit(user: String, issued: [f64; 8]) -> Option<PoolShare> {
+fn create_pool(params: CreatePoolParams) {
+    // Check if lengths match
+    if params.token_names.len() != params.balances.len() || params.balances.len() != params.weights.len() {
+        return ic_cdk::println!("Error: Length of token names, balances, and weights must be the same.");
+        // return;
+    }
+
+    // Check if sum of weights equals 100
+    let total_weight: f64 = params.weights.iter().sum();
+    if (total_weight - 100.0).abs() > f64::EPSILON {
+        return ic_cdk::println!("Error: Sum of weights must be 100.");
+        // return;
+    }
+
+    // Proceed with pool creation
     POOL_SHARE.with(|pool| {
-        let mut pool_data = pool.borrow_mut();
-
-        // Ensure all assets are deposited proportionally
-        for i in 0..8 {
-            pool_data.token_balances[i] += issued[i];
-        }
-
-        // Calculate new constant product value
-        let new_constant_product = constant_product(&pool_data.token_balances, &pool_data.token_weights);
-
-        // Calculate LP tokens to be issued
-        let lp_to_issue = new_constant_product * 2.0; // 2:1 ratio
-
-        // Update total LP supply
-        TOTAL_LP_SUPPLY.with(|total_lp| {
-            *total_lp.borrow_mut() += lp_to_issue;
-        });
-
-        // Update user LP tokens
-        LP_TOKENS.with(|lp_tokens| {
-            let mut lp_tokens_data = lp_tokens.borrow_mut();
-            *lp_tokens_data.entry(user.clone()).or_insert(0.0) += lp_to_issue;
-        });
-
-        Some(pool_data.clone())
-    })
-}
-
-// Deposit a single asset into the pool
-#[update]
-fn single_asset_deposit(user: String, amount: f64, asset_index: usize) -> Option<PoolShare> {
-    POOL_SHARE.with(|pool| {
-        let mut pool_data = pool.borrow_mut();
-
-        // Ensure the asset index is within bounds
-        if asset_index >= 8 {
-            return None;
-        }
-
-        // Deposit the single asset
-        pool_data.token_balances[asset_index] += amount;
-
-        // Calculate new constant product value
-        let new_constant_product = constant_product(&pool_data.token_balances, &pool_data.token_weights);
-
-        // Calculate LP tokens to be issued
-        let lp_to_issue = new_constant_product * 2.0; // 2:1 ratio
-
-        // Update total LP supply
-        TOTAL_LP_SUPPLY.with(|total_lp| {
-            *total_lp.borrow_mut() += lp_to_issue;
-        });
-
-        // Update user LP tokens
-        LP_TOKENS.with(|lp_tokens| {
-            let mut lp_tokens_data = lp_tokens.borrow_mut();
-            *lp_tokens_data.entry(user.clone()).or_insert(0.0) += lp_to_issue;
-        });
-
-        Some(pool_data.clone())
-    })
-}
-
-// Query to get user LP tokens
-#[query]
-fn get_user_lp_tokens(user: String) -> Option<f64> {
-    LP_TOKENS.with(|lp_tokens| {
-        lp_tokens.borrow().get(&user).cloned()
-    })
+        *pool.borrow_mut() = PoolShare::new(params.token_names, params.balances, params.weights);
+    });
 }
 
 // Export Candid interface
