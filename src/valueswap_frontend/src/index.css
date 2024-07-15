@@ -174,3 +174,37 @@ input[type="number"] {
 .rc-slider-tooltip-placement-top .rc-slider-tooltip-arrow {
   bottom: -4px;
 }
+
+:root {
+  --left-percent: 8%;
+  --width-percent: 80%;
+  --container-width: calc(var(--width-percent) * 1vw); /* Calculate width in viewport width */
+  --left-px: calc(var(--left-percent) * 1px); /* Calculate left in viewport width */
+  --width-px: calc(var(--width-percent) * 1px); /* Calculate width in viewport width */
+}
+
+@keyframes moveRight {
+from {
+    transform: translateX(0px);
+}
+to {
+    transform: translateX(80vw); /* Adjust this value to control how far they move */
+}
+}
+@keyframes moveLeft {
+from {
+    transform: translateX(40px);
+}
+to {
+    transform: translateX(-80vw); /* Adjust this value to control how far they move */
+}
+}
+
+
+
+#c1 {
+animation: moveRight 5s infinite linear; /* Adjust the duration and timing function as needed */
+}
+#c2 {
+animation: moveLeft 5s infinite linear; /* Adjust the duration and timing function as needed */
+}

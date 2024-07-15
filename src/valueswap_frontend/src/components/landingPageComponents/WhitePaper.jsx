@@ -4,7 +4,7 @@ import { LandingPageNavbarData as NavbarData } from '../../TextData'
 import { LandingPageData } from '../../TextData'
 const whitePaper = () => {
     return (
-        <div className='md:mx-20 mt-32 h-full text-center min-h-80 mx-auto mb-24' id={`${NavbarData.Links[3].LinkId}`}>
+        <div className=' mt-32 h-full text-center min-h-80 mx-auto mb-24' id={`${NavbarData.Links[3].LinkId}`}>
 
             <div className='w-full flex flex-col  max-w-[1200px]  mx-auto gap-8 md:gap-y-12 py-12 md:py-20 bg-gradient-to-r from-[#05071D] to-[#546093] border border-1 rounded-lg h-4/6  text-center   '>
 

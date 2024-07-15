@@ -14,7 +14,7 @@ const Partnership = () => {
                 </div>
             </div>
             <div className='max-w-[1200px] mx-auto'>
-                <div className='grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-16 '>
+                <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-16 '>
                     {
                         LandingPageData.PaternshipPageData.PartnershipData.map((Company, index) => {
 
@@ -22,9 +22,9 @@ const Partnership = () => {
                             const CompanyName = Company.CompanyName
                             const Description = Company.CompanyDesc
                             return (
-                                <div className='bg-gradient-to-r from-[#000211] to-[#091031] flex justify-around    rounded-lg border border-[#3D3F47] py-8 w-[44vw] md:w-60 mx-auto my-6 items-center' key={index}>
-                                    <div>
-                                        <img src={LogoLink} alt="PartnerShipData" />
+                                <div className='bg-gradient-to-r from-[#000211] to-[#091031] flex justify-around cursor-pointer rounded-lg border border-[#3D3F47] py-8 w-[44vw] md:w-60 mx-auto my-6 items-center group' key={index}>
+                                    <div  className='transition-all duration-700 group-hover:scale-110 sm:group-hover:scale-150'>
+                                        <img src={LogoLink} alt="PartnerShipData"/>
                                     </div>
 
                                     <div className='flex flex-col font-cabin'>
