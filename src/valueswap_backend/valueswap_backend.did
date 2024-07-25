@@ -1,19 +1,19 @@
 type CreatePoolParams = record {
+  values : vec float64;
   weights : vec float64;
+  token_names : vec text;
   balances : vec float64;
 };
 type PoolShare = record {
   token_weights : vec float64;
+  token_value : vec float64;
   token_balances : vec float64;
+  token_names : vec text;
 };
-type UserShare = record { token_balances : vec float64 };
 service : () -> {
-  add_liquidity : (text, vec float64) -> (opt PoolShare);
-  all_asset_deposit : (text, vec float64) -> (opt PoolShare);
   create_pool : (CreatePoolParams) -> ();
   get_constant_product_value : () -> (float64) query;
-  get_tokens : () -> (PoolShare) query;
-  get_user_lp_tokens : (text) -> (opt float64) query;
-  get_user_shares : (text) -> (opt UserShare) query;
-  single_asset_deposit : (text, float64, nat64) -> (opt PoolShare);
+  get_lp_tokens : (text) -> (opt float64) query;
+  get_tokens : () -> (vec record { text; PoolShare }) query;
+  total_lp_tokens : () -> (float64) query;
 }
