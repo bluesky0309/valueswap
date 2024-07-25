@@ -10,6 +10,10 @@
         }
       }
     },
+    "internet_identity" : {
+      "type": "pull",
+      "id": "rdmx6-jaaaa-aaaaa-aaadq-cai"
+    },
     "valueswap_backend": {
       "candid": "src/valueswap_backend/valueswap_backend.did",
       "package": "valueswap_backend",

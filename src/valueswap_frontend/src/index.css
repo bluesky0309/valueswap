@@ -201,10 +201,44 @@ to {
 }
 
 
+.animate-spin{
+  animation: spin 8s linear infinite !important;
+}
+
+
 
 #c1 {
 animation: moveRight 5s infinite linear; /* Adjust the duration and timing function as needed */
 }
 #c2 {
 animation: moveLeft 5s infinite linear; /* Adjust the duration and timing function as needed */
+}
+
+
+.card-loader{
+  background-color: blue !important;
+}
+
+
+/* width */
+::-webkit-scrollbar {
+  width: 6px;
+  
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #888;
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #F7931A;
+  border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #F7931A;
 }
