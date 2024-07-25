@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../buttons/GradientButton';
 import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import { useAuth } from '../components/utils/useAuthClient';
 import Profile from './Profile';
+import { useSelector } from 'react-redux';
 
 const options = [
     // { value: 'ethereum', label: 'Ethereum', img: '/src/assets/images/Network/Ethereum.png' },
@@ -13,40 +13,47 @@ const options = [
 
 const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
 
+    //   const total_balance = ledgerActor.icrc1_total_balance()
+    const {isConnected, principleId} = useSelector((state)=> state.wallet)
+
 
     const [activeLink, setActiveLink] = useState();
     const [open, setOpen] = useState(false);
-    const { isAuthenticated, login, logout, principal, reloadLogin } = useAuth();
-    const [Principal, setPrincipal] = useState('');
+    const [Principal, setPrincipal] = useState()
     const [selectedOption, setSelectedOption] = useState(options[0]);
     const [isSticky, setIsSticky] = useState(false);
 
     let location = useLocation()
 
+    // const walletId = localStorage.getItem('dfinityWallet') || '';
+    // console.log(walletId)
+    // if(walletId){
+    //     console.log("we are connected!")
+    //     artemisWallet()
+    // }
     useEffect(() => {
         const getDisplayFunction = () => {
-            const SlicedPrincipal = principal.toText().slice(0, 5);
+            const SlicedPrincipal = principleId.slice(0, 5);
             // console.log(typeof SlicedPrincipal)
-            const FinalId = SlicedPrincipal.padEnd(10, '.') + principal.toText().slice(60, 63);
+            const FinalId = SlicedPrincipal.padEnd(10, '.') + principleId.slice(60, 63);
             setPrincipal(FinalId)
             console.log("Principal of user is:", FinalId)
         }
 
-        if (principal) {
+        if (principleId) {
             getDisplayFunction()
         }
-        reloadLogin()
 
-    }, [principal]);
+
+    }, [principleId]);
     const navigate = useNavigate();
 
     useEffect(() => {
         // This effect will run when the location changes
         setActiveLink(location.pathname);
-        console.log(location.pathname)
     }, [location]);
-
-
+    
+    
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 0) {
@@ -55,17 +62,18 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                 setIsSticky(false);
             }
         };
-
+        
         window.addEventListener('scroll', handleScroll);
-
+        
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-
-
     
 
+    console.log("isConnected",isConnected, principleId)
+
+    
     return (
         <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-8 `}>
             <div className="flex justify-center  font-cabin   ">
@@ -95,8 +103,8 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                             >
                                                 <div className='flex flex-col justify-center text-custom-size-14 sm:leading-10 md:text-xl  items-center'>
                                                     {Link?.LinkName}
-                                                    <div className={`${activeLink === index ? ' bg-orange-500 w-full h-[1px] hidden md:block' : 'w-1 h-1 hidden'}`}></div>
-                                                    <div className={`${activeLink === Link.LinkPath ? ' bg-orange-500 w-full h-[1px] hidden md:block' : 'w-1 h-1 invisible'}`}></div>
+                                                    <div className={`${activeLink === index ? ' bg-orange-500 w-full h-[1px] invisible md:visible' : 'w-1 h-[1px] invisible'}`}></div>
+                                                    <div className={`${activeLink === Link.LinkPath ? ' bg-orange-500 w-full h-[1px] invisible md:visible' : 'w-1 h-[1px] invisible'}`}></div>
                                                 </div>
                                             </RouterLink>
                                         </li>
@@ -163,14 +171,14 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         <div className='flex items-center '>
 
 
-                            {!isAuthenticated ? <GradientButton customCss={`px-2`}
+                            {!isConnected ? <GradientButton customCss={`px-2`}
                             >
                                 {
                                     NavbarData.ButtonText === "Connect Wallet" ? (
                                         <div
 
                                         >
-                                            {!isAuthenticated && (<div
+                                            {!isConnected && (<div
                                                 onClick={() => {
                                                     setClickConnectWallet(true);
                                                 }}>
@@ -187,7 +195,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         </div>
                                     )
                                 }
-                            </GradientButton> : <Profile principal={principal} Principal={Principal} isAuthenticated={isAuthenticated} logout={logout} />}
+                            </GradientButton> : <Profile principleId={Principal} isConnected={isConnected}/>}
 
 
                         </div>

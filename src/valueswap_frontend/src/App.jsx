@@ -9,11 +9,12 @@ import MobileNavbar from './navbar/MobileNavbar';
 import ConnectWallet from './Modals/ConnectWallet';
 import { CommonNavbarData } from './TextData';
 import LandingPage from './pages/LandingPage';
+import artemisAutoconnect from './components/utils/artemisAutoconnect';
 function App() {
   const [clickConnectWallet, setClickConnectWallet] = useState(false);
   const [walletClicked, setWalletClicked] = useState(false);
   const { show, type, text } = useSelector((state) => state.alert)
-
+  artemisAutoconnect()
 
   return (
     <div>
@@ -23,11 +24,11 @@ function App() {
       <div className='sticky top-16 z-50'>
         {show && <Alert type={type} text={text} />}
       </div>
-      <Router>  
+      <Router>
         <MobileNavbar NavbarData={CommonNavbarData} setClickConnectWallet={setClickConnectWallet} />
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path='/' element={<LandingPage setClickConnectWallet={setClickConnectWallet}/>}/>
+            <Route path='/' element={<LandingPage setClickConnectWallet={setClickConnectWallet} />} />
             {AppRoutes.slice(1).map((route, index) => (
               <Route
                 key={index}
