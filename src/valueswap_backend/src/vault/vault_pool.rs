@@ -68,31 +68,31 @@ fn get_constant_product_value() -> f64 {
     })
 }
 
-#[update]
-fn create_pool(params: CreatePoolParams) {
-    // Check if lengths match
-    if params.balances.len() != params.weights.len() || params.balances.len() != params.token_names.len() {
-        return ic_cdk::println!("Error: Length of token names, balances, and weights must be the same.")
-    }
+// #[update]
+// fn create_pool(params: CreatePoolParams) {
+//     // Check if lengths match
+//     if params.balances.len() != params.weights.len() || params.balances.len() != params.token_names.len() {
+//         return ic_cdk::println!("Error: Length of token names, balances, and weights must be the same.")
+//     }
 
-    // Check if sum of weights equals 100
-    let total_weight: f64 = params.weights.iter().sum();
-    if (total_weight - 100.0).abs() > f64::EPSILON {
-        return ic_cdk::println!("Error: Sum of weights must be 100.");
-    }
+//     // Check if sum of weights equals 100
+//     let total_weight: f64 = params.weights.iter().sum();
+//     if (total_weight - 100.0).abs() > f64::EPSILON {
+//         return ic_cdk::println!("Error: Sum of weights must be 100.");
+//     }
 
-    // Proceed with pool creation
-    POOL_SHARE.with(|pool|{
-        let new_pool = PoolShare::new(params.token_names.clone(), params.balances.clone(), params.weights.clone(), params.values);
-        *pool.borrow_mut() = new_pool.clone();
+//     // Proceed with pool creation
+//     POOL_SHARE.with(|pool|{
+//         let new_pool = PoolShare::new(params.token_names.clone(), params.balances.clone(), params.weights.clone(), params.values);
+//         *pool.borrow_mut() = new_pool.clone();
 
-     // Insert the new pool into VAULT
-     VAULT.with(|vault| {
-        let key = params.token_names.join("");
-        vault.borrow_mut().insert(key, new_pool);
-    });
-});
-}
+//      // Insert the new pool into VAULT
+//      VAULT.with(|vault| {
+//         let key = params.token_names.join("");
+//         vault.borrow_mut().insert(key, new_pool);
+//     });
+// });
+// }
 
 
 

@@ -10,10 +10,17 @@ type PoolShare = record {
   token_balances : vec float64;
   token_names : vec text;
 };
+type Result = variant { Ok : principal; Err : text };
+type Result_1 = variant { Ok; Err : text };
+type Result_2 = variant { Ok : nat; Err : text };
 service : () -> {
-  create_pool : (CreatePoolParams) -> ();
+  create_new_pool_canister : (text) -> (Result);
+  create_pools : (CreatePoolParams) -> (Result_1);
+  deposit_ckbtc : (nat64) -> (Result_2);
   get_constant_product_value : () -> (float64) query;
   get_lp_tokens : (text) -> (opt float64) query;
   get_tokens : () -> (vec record { text; PoolShare }) query;
+  pool_lp_tokens : (CreatePoolParams) -> (vec record { text; float64 }) query;
+  prevent_anonymous : () -> (Result_1) query;
   total_lp_tokens : () -> (float64) query;
 }

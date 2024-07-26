@@ -25,6 +25,11 @@
       "package": "valueswap_backend",
       "type": "rust"
     },
+    "swap": {
+      "candid": "src/swap/swap.did",
+      "package": "swap",
+      "type": "rust"
+    },
     "valueswap_frontend": {
       "dependencies": [
         "valueswap_backend"
