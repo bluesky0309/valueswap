@@ -49,7 +49,7 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
             }, 3000);
         }
     };
-
+ const walletImage = [{id:1, url:"/image/dfinity.svg"}, {id:2, url:"/image/Plug.png"}, {id:3, url:"/image/astroxme.webp"}, {id:4, url:"/image/bifinity.png"}, {id:5, url:"/image/stoic.png"},  {id:6, url:"/image/nfid.png"}, {id:7, url:"/image/metamask.svg"}]
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center custom-z-index'>
             <div className='bg-[#05071D] mt-28 lg:4/12 md:w-5/12 sm:w-6/12 w-10/12 max-w-[400px] border rounded-xl flex flex-col gap-2 my-auto mx-auto'>
@@ -61,8 +61,8 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
                 <div className='flex flex-col items-center gap-4 overflow-y-scroll h-72 '>
                     {artemis?.wallets.map((item, indx) => (<div className={`flex gap-6 items-center w-10/12 p-2 bg-[#303030] hover:opacity-80 cursor-pointer rounded-xl`}
                         onClick={() => handleWalletConnect(item?.id, item?.name)}>
-                        <div className='rounded-lg bg-[#3D3F47]'>
-                            <img src={item?.icon} alt="" className='w-8 h-8' />
+                        <div key={indx} className='rounded-lg bg-[#3D3F47]'>
+                            <img src={walletImage[indx]?.url} alt="" className='w-8 h-8' />
                         </div>
                         <div className='font-extralight text-lg font-cabin text-start'>{item?.name}</div>
                     </div>))}
