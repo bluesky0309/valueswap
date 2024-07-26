@@ -15,7 +15,7 @@ const Methods = () => {
                     <img src={MethodsImageOne} alt="MethodImageOne" className='h-11/12  w-full mx-auto' />
                 </div>
 
-                <div className='w-1/2  py-[3.5rem] pl-20 flex flex-col rounded-r-lg items-start font-fahkwang text-4xl h-max bg-[#000211]'>
+                <div className='w-1/2  py-[4.5rem] pl-20 flex flex-col rounded-r-lg items-start font-fahkwang text-4xl h-max bg-[#000211]'>
                     <div className='mb-0 w-full '>
                         <div className='flex gap-2 '>
                             <span className=' '>{LandingPageData.MethodsText.UpperSection.HeadingWordOne}</span>
@@ -37,7 +37,7 @@ const Methods = () => {
 
             <div className='lg:flex justify-between  max-w-[1200px] mx-auto  items-center hidden '>
 
-                <div className='w-1/2 h-10/12 bg-[#000211] py-[4.7rem] flex flex-col items-start rounded-l-lg  justify-between pl-12 font-fahkwang text-4xl'>
+                <div className='w-1/2 h-10/12 bg-[#000211] py-[6.3rem] flex flex-col items-start rounded-l-lg  justify-between pl-12 font-fahkwang text-4xl'>
                     <div>
                         <div className='flex gap-2'>
                             <GradientSpan >{LandingPageData.MethodsText.LowerSection.HeadingWordOne}</GradientSpan>
@@ -54,7 +54,7 @@ const Methods = () => {
                 </div>
 
                 <div className='w-1/2  '>
-                    <img src={MethodsImageTwo} alt="MethodImageTwo" className=' h-10/12   mx-auto' />
+                    <img src={MethodsImageTwo} alt="MethodImageTwo" className=' h-10/12   mx-auto w-full' />
                 </div>
             </div>
 
@@ -89,7 +89,7 @@ const Methods = () => {
                     <img className="w-full" src={MethodsImageTwo} alt="" />
                 </div>
 
-                <div className=' rounded-b-xl bg-[#000211] flex flex-col justify-evenly font-fahkwang text-4xl p-4 gap-y-6 pt-8'>
+                <div className=' rounded-b-xl bg-[#000211] flex flex-col justify-evenly font-fahkwang text-4xl gap-y-6 pt-8'>
                     <div>
                         <div className='flex gap-2 m-2 text-center'>
                             <span className=' '>{LandingPageData.MethodsText.LowerSection.HeadingWordOne}</span>

@@ -14,8 +14,9 @@ function App() {
   const [clickConnectWallet, setClickConnectWallet] = useState(false);
   const [walletClicked, setWalletClicked] = useState(false);
   const { show, type, text } = useSelector((state) => state.alert)
-  artemisAutoconnect()
 
+  artemisAutoconnect()
+  
   return (
     <div>
       <div>

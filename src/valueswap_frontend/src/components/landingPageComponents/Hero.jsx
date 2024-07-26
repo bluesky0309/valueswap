@@ -56,8 +56,8 @@ const Hero = ({ setClickConnectWallet }) => {
             </div>
             {/*  */}
 
-            <div className='relative py-8'>
-                <img src="/image/rectangle.png" alt="Main" className=' scale-[1.1] w-[91vw] bg-cover backgroundHero' />
+            <div className='relative'>
+                <img src="/image/rectangle.png" alt="Main" className=' scale-[1.1356] w-[91vw] bg-cover backgroundHero' />
                 <div className='bg-gradient-radial from-[#C8C008] to-transparent w-[20%] h-[20vw] opacity-[1] absolute right-[78%] blur-[165px] top-[25%] rounded-2xl'></div>
                 <div className='bg-gradient-radial from-[#00308E] to-transparent w-[20%] h-[20vw] opacity-[1] absolute left-[78%] blur-[165px] top-[25%] rounded-2xl'></div>
                 <div class="absolute md:flex justify-between left-[9%] w-[81%] lg:w-[79%] top-[37%] hidden   overflow-x-hidden">
