@@ -22,7 +22,7 @@ const Partnership = () => {
                             const CompanyName = Company.CompanyName
                             const Description = Company.CompanyDesc
                             return (
-                                <div className='bg-gradient-to-r from-[#000211] to-[#091031] flex justify-around cursor-pointer rounded-lg border border-[#3D3F47] py-8 w-[44vw] md:w-60 mx-auto my-6 items-center group' key={index}>
+                                <div className='bg-gradient-to-r from-[#000211] to-[#091031] flex justify-around cursor-pointer rounded-lg border border-[#3D3F47] py-8 w-[44vw] md:w-72 mx-auto mb-2 mt-1  items-center group' key={index}>
                                     <div  className='transition-all duration-700 group-hover:scale-110 sm:group-hover:scale-150'>
                                         <img src={LogoLink} alt="PartnerShipData"/>
                                     </div>
