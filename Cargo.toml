@@ -1,5 +1,7 @@
 [workspace]
 members = [
-    "src/valueswap_backend"
+    "src/valueswap_backend",
+    "src/swap"
 ]
+
 resolver = "2"
