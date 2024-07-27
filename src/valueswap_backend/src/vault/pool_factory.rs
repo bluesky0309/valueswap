@@ -13,8 +13,8 @@ use ic_cdk::{
 };
 
 use crate::utils::types::*;
-use crate::logic::deposit::*;
-use crate::api::transfer::*;
+// use crate::logic::deposit::*;
+// use crate::api::transfer::*;
 use crate::api::deposit::deposit_ckbtc;
 
 thread_local! {

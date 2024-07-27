@@ -2,23 +2,9 @@
   "canisters": {
     "ckbtc_ledger": {
       "type": "custom",
-      "candid": "https://raw.githubusercontent.com/dfinity/ic/17df8febdb922c3981475035d830f09d9b990a5a/rs/rosetta-api/icrc1/ledger/ledger.did",
-      "wasm": "https://download.dfinity.systems/ic/17df8febdb922c3981475035d830f09d9b990a5a/canisters/ic-icrc1-ledger.wasm.gz",
-      "remote": {
-        "id": {
-          "ic": "mxzaz-hqaaa-aaaar-qaada-cai"
-        }
-      }
-    },
-    "cketh_ledger": {
-      "type": "custom",
-      "candid": "https://raw.githubusercontent.com/dfinity/ic/17df8febdb922c3981475035d830f09d9b990a5a/rs/rosetta-api/icrc1/ledger/ledger.did",
-      "wasm": "https://download.dfinity.systems/ic/17df8febdb922c3981475035d830f09d9b990a5a/canisters/ic-icrc1-ledger.wasm.gz",
-      "remote": {
-        "id": {
-          "ic": "mxzaz-hqaaa-aaaar-qaada-cai"
-        }
-      }
+      "candid": "https://raw.githubusercontent.com/dfinity/ic/0d2b3965c813cd3a39ceedacd97fa2eee8760074/rs/rosetta-api/icrc1/ledger/ledger.did",
+      "wasm": "https://download.dfinity.systems/ic/0d2b3965c813cd3a39ceedacd97fa2eee8760074/canisters/ic-icrc1-ledger.wasm.gz",
+      "specified_id": "mxzaz-hqaaa-aaaar-qaada-cai"
     },
     "valueswap_backend": {
       "candid": "src/valueswap_backend/valueswap_backend.did",
@@ -47,6 +33,11 @@
       "packtool": ""
     }
   },
+  "metadata": [
+    {
+      "name": "candid:service"
+    }
+ ],
   "output_env_file": ".env",
   "version": 1
 }

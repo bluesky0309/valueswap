@@ -16,7 +16,7 @@ thread_local! {
     
     // User shares in the pool
     static USER_SHARES: RefCell<HashMap<String, UserShare>> = RefCell::new(HashMap::new());
-    // Pools in the vault
+    // Pools in the vault100000
     pub static VAULT : RefCell<HashMap<String , PoolShare>> = RefCell::new(HashMap::new());
     // User LP tokens
     static LP_TOKENS: RefCell<HashMap<String, f64>> = RefCell::new(HashMap::new());
