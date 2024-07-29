@@ -28,7 +28,7 @@ const Hero = ({ setClickConnectWallet }) => {
                     {LandingPageData.HeroSection.Tagline}
                 </span>
 
-                <div className='flex mt-5 gap-4 justify-center'>
+                <div className='flex mt-5 gap-4 justify-center '>
                     <div onClick={() => {
                         navigate('/dex-swap/pool')
                     }}>
@@ -39,7 +39,7 @@ const Hero = ({ setClickConnectWallet }) => {
                     <div onClick={() => {
                         setClickConnectWallet(true)
                     }}>
-                        <BorderGradientButton customCss={`bg-[#000711]`}>
+                        <BorderGradientButton customCss={`bg-[#000711] z-10`}>
                             {isConnected ? (
                                 <div>
                                     {LandingPageData.HeroSection.DisconnectButton}
