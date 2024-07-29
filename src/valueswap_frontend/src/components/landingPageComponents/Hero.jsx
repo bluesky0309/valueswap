@@ -60,7 +60,7 @@ const Hero = ({ setClickConnectWallet }) => {
                 <img src="/image/rectangle.png" alt="Main" className=' scale-[1.1356] w-[91vw] bg-cover backgroundHero' />
                 <div className='bg-gradient-radial from-[#C8C008] to-transparent w-[20%] h-[20vw] opacity-[1] absolute right-[78%] blur-[165px] top-[25%] rounded-2xl'></div>
                 <div className='bg-gradient-radial from-[#00308E] to-transparent w-[20%] h-[20vw] opacity-[1] absolute left-[78%] blur-[165px] top-[25%] rounded-2xl'></div>
-                <div class="absolute md:flex justify-between left-[9%] w-[81%] lg:w-[79%] top-[37%] hidden   overflow-x-hidden">
+                <div class="absolute md:flex justify-between left-[8%] w-[81%] lg:w-[80%] top-[37%] hidden   overflow-x-hidden">
                     <div id="c1" className="h-40 w-28 flex  flex-col gap-y-4  z-10 relative ">
                         <img className="h-10 w-10 lg:h-16 lg:w-16 animate-spin" src="/image/ckBTC.svg" alt="ICP Icon" />
                         <img className="h-10 w-10 lg:h-16 lg:w-16 absolute top-10 right-24 lg:top-16 lg:right-20 animate-spin" src="/image/ckETH.svg" alt="Dragginz Icon" />
