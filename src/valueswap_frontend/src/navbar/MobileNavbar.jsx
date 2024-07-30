@@ -14,7 +14,7 @@ const options = [
 const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
 
     //   const total_balance = ledgerActor.icrc1_total_balance()
-    const {isConnected, principleId} = useSelector((state)=> state.wallet)
+    const { isConnected, principleId } = useSelector((state) => state.wallet)
 
 
     const [activeLink, setActiveLink] = useState();
@@ -52,8 +52,8 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
         // This effect will run when the location changes
         setActiveLink(location.pathname);
     }, [location]);
-    
-    
+
+
     useEffect(() => {
         const handleScroll = () => {
             if (window.scrollY > 0) {
@@ -62,18 +62,18 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                 setIsSticky(false);
             }
         };
-        
+
         window.addEventListener('scroll', handleScroll);
-        
+
         return () => {
             window.removeEventListener('scroll', handleScroll);
         };
     }, []);
-    
 
-    console.log("isConnected",isConnected, principleId)
 
-    
+    console.log("isConnected", isConnected, principleId)
+
+
     return (
         <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-8 `}>
             <div className="flex justify-center  font-cabin   ">
@@ -89,7 +89,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                     </div>
                     <div className='w-[30%] md:w-[70%] flex justify-center md:gap-x-4'>
                         <div className='text-base flex  gap-4   items-center rounded-b-lg  md:w-[100%] px-2'>
-                            <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427]' : 'top-[-490px]'}`}>
+                            <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427] md:bg-transparent' : 'top-[-490px]'}`}>
                                 {
                                     NavbarData.Links.map((Link, index) => (
                                         <li key={index} className='md:ml-2  md:my-0 my-7 font-normal '>
@@ -98,6 +98,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                                 className='text-white duration-500 hover:text-orange-500'
                                                 onClick={() => {
                                                     setActiveLink(index)
+                                                    setOpen(!open)
 
                                                 }}
                                             >
@@ -195,7 +196,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         </div>
                                     )
                                 }
-                            </GradientButton> : <Profile principleId={Principal} isConnected={isConnected}/>}
+                            </GradientButton> : <Profile principleId={Principal} isConnected={isConnected} />}
 
 
                         </div>
