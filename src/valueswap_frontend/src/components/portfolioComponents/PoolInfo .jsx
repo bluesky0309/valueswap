@@ -4,7 +4,7 @@ import { portfolioSampleData } from '../../TextData';
 import PoolInfoBox from '../../displayBoxes/PoolInfoBox';
 import GradientButton from '../../buttons/GradientButton'
 import { PoolCompositions, Swapping, LiquidityOverview } from '../../tables'
-import ApexChart from "./ApexChart"
+import Echarts from './Echarts';
 
 const PoolInfo = () => {
 
@@ -102,7 +102,7 @@ const PoolInfo = () => {
                     </div>
                   </div>
                 </div>
-                <ApexChart />
+                <Echarts />
               </div>
               <div>
 
