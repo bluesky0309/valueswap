@@ -6,17 +6,19 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 import GradientButton from '../buttons/GradientButton';
 import DarkModeToggle from "./DarkModeToggle"
 import onClickOutside from 'react-onclickoutside';
-function Profile({ principal, Principal, isAuthenticated, logout }) {
+import { artemis } from '../components/utils/artemisAutoconnect';
+import {walletActions} from '../reducer/WalletSlice';
+function Profile({isConnected, principleId}) {
     const [showProfile, setShowProfile] = useState(false)
     const [copied, setCopied] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const dispatch = useDispatch()
 
 
-    const CopyPrincipalId = () => {
-        navigator.clipboard.writeText(principal)
+    const CopyprincipleId = () => {
+        navigator.clipboard.writeText(principleId)
             .then(() => {
-                console.log('Text copied to clipboard:', principal);
+                console.log('Text copied to clipboard:', principleId);
 
             })
             .catch(err => {
@@ -38,16 +40,28 @@ function Profile({ principal, Principal, isAuthenticated, logout }) {
             setCopied(false);
         }, 2000)
     };
-
+    const handleDisconnect = async () => {
+ 
+        await artemis.disconnect();
+        // await artemisWalletAdapter.disConnectWallet()
+        await dispatch(walletActions.resetWallet());
+    
+        location.reload();
+      };
+      
 
     Profile.handleClickOutside = () => {
         setShowProfile(false);
       };
+
+      console.log("hii",isConnected)
+    //   console.log(Principal)
+    //   console.log(principal)
     return (
         <div className='relative '>
            <div className='flex gap-x-4'>
             <div>
-           <p className='font-medium'>{Principal}</p>
+           <p className='font-medium'>{principleId}</p>
            <p className='bg-gradient-to-r from-[#F7931A] via-[#767DFF] to-[#00308E] bg-clip-text text-transparent'>2.2501 ETH</p>
             </div>
            <img src="/image/Ellipse.png" alt="" className='' onClick={()=> setShowProfile((prev)=> !prev)}/>
@@ -57,9 +71,9 @@ function Profile({ principal, Principal, isAuthenticated, logout }) {
                     <img src="/image/Ellipse.png" alt="" className='' />
                     <div className='w-full'>
                         {
-                            isAuthenticated && <div className='flex w-full flex-row items-center justify-between text-center text-white font-cabin text-xl font-normal'>
+                            isConnected && <div className='flex w-full flex-row items-center justify-between text-center text-white font-cabin text-xl font-normal'>
                                 <span>
-                                    {Principal}
+                                    {principleId}
                                 </span>
                                 {
                                     copied ? (
@@ -70,7 +84,7 @@ function Profile({ principal, Principal, isAuthenticated, logout }) {
                                         <span className='cursor-pointer'
                                             onClick={
                                                 () => {
-                                                    CopyPrincipalId()
+                                                    CopyprincipleId()
                                                 }
                                             }>
                                             <Copy size={18} />
@@ -116,7 +130,7 @@ function Profile({ principal, Principal, isAuthenticated, logout }) {
                 <hr />
                 <div className='flex justify-center gap-x-4'>
                     <img src="./image/disconnect.png" alt="disconnect logo" />
-                    <button className='text-base font-cabin font-medium' onClick={()=> logout()}>
+                    <button className='text-base font-cabin font-medium' onClick={()=> handleDisconnect()}>
                     Disconnect Wallet
                     </button>
                 </div>

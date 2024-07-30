@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import GradientButton from '../buttons/GradientButton';
 import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
-import { useAuth } from '../components/utils/useAuthClient';
 import Profile from './Profile';
+import { useSelector } from 'react-redux';
 
 const options = [
     // { value: 'ethereum', label: 'Ethereum', img: '/src/assets/images/Network/Ethereum.png' },
@@ -13,37 +13,44 @@ const options = [
 
 const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
 
+    //   const total_balance = ledgerActor.icrc1_total_balance()
+    const { isConnected, principleId } = useSelector((state) => state.wallet)
+
 
     const [activeLink, setActiveLink] = useState();
     const [open, setOpen] = useState(false);
-    const { isAuthenticated, login, logout, principal, reloadLogin } = useAuth();
-    const [Principal, setPrincipal] = useState('');
+    const [Principal, setPrincipal] = useState()
     const [selectedOption, setSelectedOption] = useState(options[0]);
     const [isSticky, setIsSticky] = useState(false);
 
     let location = useLocation()
 
+    // const walletId = localStorage.getItem('dfinityWallet') || '';
+    // console.log(walletId)
+    // if(walletId){
+    //     console.log("we are connected!")
+    //     artemisWallet()
+    // }
     useEffect(() => {
         const getDisplayFunction = () => {
-            const SlicedPrincipal = principal.toText().slice(0, 5);
+            const SlicedPrincipal = principleId.slice(0, 5);
             // console.log(typeof SlicedPrincipal)
-            const FinalId = SlicedPrincipal.padEnd(10, '.') + principal.toText().slice(60, 63);
+            const FinalId = SlicedPrincipal.padEnd(10, '.') + principleId.slice(60, 63);
             setPrincipal(FinalId)
             console.log("Principal of user is:", FinalId)
         }
 
-        if (principal) {
+        if (principleId) {
             getDisplayFunction()
         }
-        reloadLogin()
 
-    }, [principal]);
+
+    }, [principleId]);
     const navigate = useNavigate();
 
     useEffect(() => {
         // This effect will run when the location changes
         setActiveLink(location.pathname);
-        console.log(location.pathname)
     }, [location]);
 
 
@@ -64,7 +71,8 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
     }, []);
 
 
-    
+    console.log("isConnected", isConnected, principleId)
+
 
     return (
         <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-8 `}>
@@ -81,7 +89,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                     </div>
                     <div className='w-[30%] md:w-[70%] flex justify-center md:gap-x-4'>
                         <div className='text-base flex  gap-4   items-center rounded-b-lg  md:w-[100%] px-2'>
-                            <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427]' : 'top-[-490px]'}`}>
+                            <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427] md:bg-transparent' : 'top-[-490px]'}`}>
                                 {
                                     NavbarData.Links.map((Link, index) => (
                                         <li key={index} className='md:ml-2  md:my-0 my-7 font-normal '>
@@ -90,13 +98,14 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                                 className='text-white duration-500 hover:text-orange-500'
                                                 onClick={() => {
                                                     setActiveLink(index)
+                                                    setOpen(!open)
 
                                                 }}
                                             >
                                                 <div className='flex flex-col justify-center text-custom-size-14 sm:leading-10 md:text-xl  items-center'>
                                                     {Link?.LinkName}
-                                                    <div className={`${activeLink === index ? ' bg-orange-500 w-full h-[1px] hidden md:block' : 'w-1 h-1 hidden'}`}></div>
-                                                    <div className={`${activeLink === Link.LinkPath ? ' bg-orange-500 w-full h-[1px] hidden md:block' : 'w-1 h-1 invisible'}`}></div>
+                                                    <div className={`${activeLink === index ? ' bg-orange-500 w-full h-[1px] invisible md:visible' : 'w-1 h-[1px] invisible'}`}></div>
+                                                    <div className={`${activeLink === Link.LinkPath ? ' bg-orange-500 w-full h-[1px] invisible md:visible' : 'w-1 h-[1px] invisible'}`}></div>
                                                 </div>
                                             </RouterLink>
                                         </li>
@@ -163,14 +172,14 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         <div className='flex items-center '>
 
 
-                            {!isAuthenticated ? <GradientButton customCss={`px-2`}
+                            {!isConnected ? <GradientButton customCss={`px-2`}
                             >
                                 {
                                     NavbarData.ButtonText === "Connect Wallet" ? (
                                         <div
 
                                         >
-                                            {!isAuthenticated && (<div
+                                            {!isConnected && (<div
                                                 onClick={() => {
                                                     setClickConnectWallet(true);
                                                 }}>
@@ -187,7 +196,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         </div>
                                     )
                                 }
-                            </GradientButton> : <Profile principal={principal} Principal={Principal} isAuthenticated={isAuthenticated} logout={logout} />}
+                            </GradientButton> : <Profile principleId={Principal} isConnected={isConnected} />}
 
 
                         </div>
