@@ -2,9 +2,9 @@
   "canisters": {
     "ckbtc_ledger": {
       "type": "custom",
-      "candid": "https://raw.githubusercontent.com/dfinity/ic/0d2b3965c813cd3a39ceedacd97fa2eee8760074/rs/rosetta-api/icrc1/ledger/ledger.did",
-      "wasm": "https://download.dfinity.systems/ic/0d2b3965c813cd3a39ceedacd97fa2eee8760074/canisters/ic-icrc1-ledger.wasm.gz",
-      "specified_id": "mxzaz-hqaaa-aaaar-qaada-cai"
+      "candid": "https://raw.githubusercontent.com/dfinity/ic/d87954601e4b22972899e9957e800406a0a6b929/rs/rosetta-api/icrc1/ledger/ledger.did",
+          "wasm": "https://download.dfinity.systems/ic/d87954601e4b22972899e9957e800406a0a6b929/canisters/ic-icrc1-ledger.wasm.gz",
+          "specified_id": "mxzaz-hqaaa-aaaar-qaada-cai"
     },
     "valueswap_backend": {
       "candid": "src/valueswap_backend/valueswap_backend.did",

@@ -4,7 +4,7 @@ dfx identity use default
 DEFAULT=$(dfx --identity default identity get-principal)
 USER=$(dfx --identity testing identity get-principal)
 MINTER=$(dfx --identity minter identity get-principal)
-RECIEVER=$(dfx --identity reciever identity get-principal)
+RECIEVER="bkyz2-fmaaa-aaaaa-qaaaq-cai"
 CANISTER=$(dfx canister id valueswap_backend)
 echo "DEFAULT: $DEFAULT"
 echo "USER: $USER"
@@ -28,13 +28,16 @@ echo $TRANSFER
 
 
 # # to approve 
-APPROVE=$(dfx --identity testing canister call ckbtc_ledger icrc2_approve "(record { amount = 100000; spender = record { owner = principal \"$CANISTER\"} })")
+APPROVE=$(dfx --identity testing canister call ckbtc_ledger icrc2_approve "(record { amount = 1000000; spender = record { owner = principal \"$CANISTER\"} })")
 echo $APPROVE
 
+echo $(dfx --identity testing canister call ckbtc_ledger icrc2_allowance "(record { account = record { owner = principal \"$USER\"}; spender = record { owner = principal \"$CANISTER\"} })")
+
+
+
+# TRANSFER TO USER
+USER_TRANSFER=$(dfx canister call valueswap_backend deposit_ckbtc "(100000)" --identity testing)
+echo $USER_TRANSFER
 
 debug_print 1
-# # TRANSFER TO USER
-# USER_TRANSFER=$(dfx canister call valueswap_backend deposit_ckbtc "(100000, principal \"$RECIEVER\",principal \"$USER\")")
-# echo $USER_TRANSFER
-
 # debug_print 2

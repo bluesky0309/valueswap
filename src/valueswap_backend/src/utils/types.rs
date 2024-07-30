@@ -1,6 +1,14 @@
 use serde::{Deserialize, Serialize};
 use candid::CandidType;
 use candid::{Nat, Principal};
+use ic_cdk::{
+    api::{
+        call::{call_with_payment128, CallResult},
+        canister_version,
+        management_canister::main::{CanisterInstallMode, WasmModule},
+    },
+    call, api,
+};
 
 /// Represents the pool's share with token balances and weights.
 #[derive(Debug, Clone, CandidType, Deserialize, Serialize)]
@@ -27,9 +35,9 @@ impl PoolShare {
 #[derive(CandidType, Deserialize, Serialize, Clone)]
 pub struct CreatePoolParams {
     pub token_names: Vec<String>,   // Names of the tokens
-    pub balances: Vec<f64>,         // Token balances
+    pub balances: Vec<u64>,         // Token balances
     pub weights: Vec<f64>,          // Token weights
-    pub values: Vec<f64>,
+    pub values: Vec<u64>,
 }
 
 /// Represents the user's share with their token balances.
@@ -108,4 +116,65 @@ pub enum TransferFromError {
     CreatedInFuture { ledger_time: u64 },
     TooOld,
     InsufficientFunds { balance: Nat },
+}
+
+
+#[derive(
+    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Default,
+)]
+pub struct CanisterSettings {
+    pub controllers: Option<Vec<Principal>>,
+
+    pub compute_allocation: Option<Nat>,
+
+    pub memory_allocation: Option<Nat>,
+
+    pub freezing_threshold: Option<Nat>,
+
+    pub reserved_cycles_limit: Option<Nat>,
+}
+
+#[derive(
+    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone,
+)]
+pub(crate) struct InstallCodeArgumentExtended {
+    pub mode: CanisterInstallMode,
+    pub canister_id: CanisterId,
+    pub wasm_module: WasmModule,
+    pub arg: Vec<u8>,
+    pub sender_canister_version: Option<u64>,
+}
+
+#[derive(
+    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Default,
+)]
+pub struct CreateCanisterArgument {
+    pub settings: Option<CanisterSettings>,
+}
+
+#[derive(
+    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone,
+)]
+pub struct InstallCodeArgument {
+    pub mode: CanisterInstallMode,
+    pub canister_id: CanisterId,
+    pub wasm_module: WasmModule,
+    pub arg: Vec<u8>,
+}
+
+pub type CanisterId = Principal;
+
+#[derive(
+    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy,
+)]
+pub struct CanisterIdRecord {
+    pub canister_id: CanisterId,
+}
+
+#[derive(
+    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Default,
+)]
+pub(crate) struct CreateCanisterArgumentExtended {
+    pub settings: Option<CanisterSettings>,
+    pub sender_canister_version: Option<u64>,
 }
