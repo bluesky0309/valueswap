@@ -35,7 +35,7 @@ const PoolInfo = () => {
         <div className='flex flex-col justify-between bg-[#010427] p-2  py-6  rounded-t-lg mx-auto'>
           <div className='flex justify-between items-center  mx-2  md:ml-8'>
             <div className='font-cabin text-base md:text-3xl font-medium flex items-center gap-4'>
-              <div className='flex gap-2'>
+              <div className='flex gap-1 sm:gap-2'>
                 {
                   TokenData?.PoolData.map((token, index) => (
                     <div key={index}>
@@ -75,7 +75,7 @@ const PoolInfo = () => {
               {/* pool info chart here in this div */}
               <div>
                 <div className='flex justify-between'>
-                  <p className='text-3xl text-white font-semibold'>$125,625,175</p>
+                  <p className=' sm:text-3xl text-white font-semibold'>$125,625,175</p>
                   <div className='flex flex-col gap-y-2'>
                     <div className='flex justify-around gap-x-4 text-sm '>
                       <div>

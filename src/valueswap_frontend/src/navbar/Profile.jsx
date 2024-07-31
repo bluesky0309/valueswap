@@ -1,20 +1,44 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Copy, Check } from 'lucide-react';
 import { showAlert, hideAlert } from '../reducer/Alert';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import GradientButton from '../buttons/GradientButton';
 import DarkModeToggle from "./DarkModeToggle"
 import onClickOutside from 'react-onclickoutside';
 import { artemis } from '../components/utils/artemisAutoconnect';
-import {walletActions} from '../reducer/WalletSlice';
-function Profile({isConnected, principleId}) {
+import { walletActions } from '../reducer/WalletSlice';
+import { Principal } from '@dfinity/principal';
+import fetchICPBalance from '../components/utils/createLedgerActor';
+function Profile({ Principal }) {
     const [showProfile, setShowProfile] = useState(false)
     const [copied, setCopied] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const dispatch = useDispatch()
 
+    //   const total_balance = ledgerActor.icrc1_total_balance()
+    const { isConnected, principleId } = useSelector((state) => state.wallet);
+    const [balance, setBalance] = useState(null);
 
+    useEffect(() => {
+        const fetchBalance = async () => {
+            try {
+                if (isConnected && principleId) {
+                    const balanceResult = await fetchICPBalance(principleId);
+                    setBalance(balanceResult);
+                } else {
+                    console.error('Missing connection or principleId');
+                }
+            } catch (error) {
+                console.error('Error fetching balance:', error);
+            }
+        };
+
+        fetchBalance();
+    }, [isConnected, principleId]);
+
+
+    //    console.log("balance", balance)
     const CopyprincipleId = () => {
         navigator.clipboard.writeText(principleId)
             .then(() => {
@@ -41,39 +65,40 @@ function Profile({isConnected, principleId}) {
         }, 2000)
     };
     const handleDisconnect = async () => {
- 
+
         await artemis.disconnect();
         // await artemisWalletAdapter.disConnectWallet()
         await dispatch(walletActions.resetWallet());
-    
+
         location.reload();
-      };
-      
+    };
+
 
     Profile.handleClickOutside = () => {
         setShowProfile(false);
-      };
+    };
 
-      console.log("hii",isConnected)
+    console.log("hii", isConnected)
+
     //   console.log(Principal)
     //   console.log(principal)
     return (
         <div className='relative '>
-           <div className='flex gap-x-4'>
-            <div>
-           <p className='font-medium'>{principleId}</p>
-           <p className='bg-gradient-to-r from-[#F7931A] via-[#767DFF] to-[#00308E] bg-clip-text text-transparent'>2.2501 ETH</p>
+            <div className='flex gap-x-4'>
+                <div>
+                    <p className='font-medium'>{Principal}</p>
+                    <p className='bg-gradient-to-r from-[#F7931A] via-[#767DFF] to-[#00308E] bg-clip-text text-transparent'>2.2501 ETH</p>
+                </div>
+                <img src="/image/Ellipse.png" alt="" className='' onClick={() => setShowProfile((prev) => !prev)} />
             </div>
-           <img src="/image/Ellipse.png" alt="" className='' onClick={()=> setShowProfile((prev)=> !prev)}/>
-           </div>
-           { showProfile ? <div className='absolute bg-[#010427] top-16 w-[27vw] lg:w-[20vw] right-[-2rem] rounded-md py-2 px-2 lg:px-4 flex flex-col gap-y-4'>
+            {showProfile ? <div className='absolute bg-[#010427] top-16 w-[27vw] lg:w-[20vw] right-[-2rem] rounded-md py-2 px-2 lg:px-4 flex flex-col gap-y-4'>
                 <div className='flex gap-x-4 w-full'>
                     <img src="/image/Ellipse.png" alt="" className='' />
                     <div className='w-full'>
                         {
                             isConnected && <div className='flex w-full flex-row items-center justify-between text-center text-white font-cabin text-xl font-normal'>
                                 <span>
-                                    {principleId}
+                                    {Principal}
                                 </span>
                                 {
                                     copied ? (
@@ -101,7 +126,7 @@ function Profile({isConnected, principleId}) {
                         </div>
                     </div>
                 </div>
-                    <hr />
+                <hr />
                 <div className='flex justify-between items-center'>
                     <span className='text-3xl font-normal'>$1025.25</span>
                     <ArrowCircleRightOutlinedIcon sx={{ transform: 'rotate(-45deg)', fontSize: '23px', cursor: 'pointer' }} />
@@ -123,26 +148,26 @@ function Profile({isConnected, principleId}) {
                 </div>
                 <div className='text-[#FFFFFFBF] font-normal flex justify-between'>
                     <p>Network</p>
-                    <select name=""  className='focus:outline-none focus:shadow-outline bg-transparent'>
+                    <select name="" className='focus:outline-none focus:shadow-outline bg-transparent'>
                         <option value="Ethereum">Ethereum</option>
                     </select>
                 </div>
                 <hr />
                 <div className='flex justify-center gap-x-4'>
                     <img src="./image/disconnect.png" alt="disconnect logo" />
-                    <button className='text-base font-cabin font-medium' onClick={()=> handleDisconnect()}>
-                    Disconnect Wallet
+                    <button className='text-base font-cabin font-medium' onClick={() => handleDisconnect()}>
+                        Disconnect Wallet
                     </button>
                 </div>
-            </div>: ""}
+            </div> : ""}
         </div>
     )
 }
 
 const clickOutsideConfig = {
     handleClickOutside: () => Profile.handleClickOutside,
-  };
-  
-  export default onClickOutside(Profile, clickOutsideConfig);
-  
+};
+
+export default onClickOutside(Profile, clickOutsideConfig);
+
 // ${isDarkMode ? 'bg-gray-900' : 'bg-gray-100'}

@@ -157,7 +157,7 @@ async fn deposit_cycles(arg: CanisterIdRecord, cycles: u128) -> CallResult<()> {
 
 async fn install_code(arg: InstallCodeArgument) -> CallResult<()> {
     let wasm_module_sample: Vec<u8> =
-        include_bytes!("/Users/admin/Desktop/qb/valueswap/.dfx/local/canisters/swap/swap.wasm").to_vec();
+        include_bytes!("../../../../.dfx/local/canisters/swap/swap.wasm").to_vec();
 
     let extended_arg = InstallCodeArgumentExtended {
         mode: arg.mode,

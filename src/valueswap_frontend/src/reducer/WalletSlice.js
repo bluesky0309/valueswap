@@ -8,7 +8,9 @@ const initialState = {
   walletConnected: undefined,
   walletSelected: undefined,
   ledgerActor: undefined,
-  bakendActor: undefined
+  bakendActor: undefined,
+  walletBalance: null
+
 };
 // DfinityWalletStoreState
 
@@ -27,15 +29,14 @@ const walletSlice = createSlice({
     },
     setWalletLoaded: (state, action) => {
       state.state = "connecting";
-      const { principleId, accountId, walletActive, ledgerActor, bakendActor } = action.payload;
+      const { principleId, accountId, walletActive, walletBalance } = action.payload;
       if (!principleId || !accountId) return;
       state.principleId = principleId;
       state.accountId = accountId;
       state.walletConnected = walletActive;
       state.isConnected = true;
       state.state = "connected";
-      state.ledgerActor =  ledgerActor,
-      state.bakendActor = bakendActor
+      state.walletBalance = walletBalance
     },
     setState: (state, action) => {
       state.state = action.payload;
