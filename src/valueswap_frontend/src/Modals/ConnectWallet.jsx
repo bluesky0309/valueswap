@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { ConnectWalletData } from '../TextData';
 import { idlFactory as TokenIdl } from "../../../declarations/ckbtc_ledger/index";
-import {idlFactory as backendIDL} from "../../../declarations/valueswap_backend/index"
+import { idlFactory as backendIDL } from "../../../declarations/valueswap_backend/index"
 import { useDispatch, useSelector } from 'react-redux';
 import { showAlert, hideAlert } from '../reducer/Alert';
 
-import { idlFactory } from '../../../declarations/ckbtc_ledger';
+// import { idlFactory } from '../../../declarations/ckbtc_ledger';
 import { walletActions } from "../reducer/WalletSlice";
 import { artemis } from '../components/utils/artemisAutoconnect';
+import { Actor, HttpAgent } from '@dfinity/agent';
+import { Principal } from '@dfinity/principal';
 
-const connectObj = { whitelist: ['ryjl3-tyaaa-aaaaa-aaaba-cai'], host: 'https://icp0.io/' };
+const connectObj = { whitelist: [process.env.CANISTER_ID_VALUESWAP_FRONTEND], host: 'https://icp0.io/'};
 
 
 const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
@@ -18,22 +20,26 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
     const { isConnected, principalId } = useSelector((state) => state.wallet);
     const dispatch = useDispatch();
 
+    const walletImage = [{ id: 1, url: "/image/dfinity.svg" }, { id: 2, url: "/image/Plug.png" }, { id: 3, url: "/image/astroxme.webp" }, { id: 4, url: "/image/bifinity.png" }, { id: 5, url: "/image/stoic.png" }, { id: 6, url: "/image/nfid.png" }, { id: 7, url: "/image/metamask.svg" }]
+
 
     async function handleWalletConnect(id, name) {
         console.log("id", id)
         if (TermsAndConditionsChecked) {
             let connectInfo = await artemis.connect(id, connectObj);
             console.log("connectInfo", connectInfo)
+
             if (connectInfo) {
                 if (artemis?.principalId && artemis?.provider) {
-                    const ledgerActor = await artemis.getCanisterActor(process.env.CANISTER_ID_CKBTC_LEDGER, TokenIdl);
-                            const actor = await artemis.getCanisterActor(process.env.CANISTER_ID_VALUESWAP_BACKEND, backendIDL);
-                          console.log("ledger", ledgerActor)
-                          console.log("backendActor", actor)
+
+                    // const ledgerActor = await artemis.getCanisterActor(process.env.CANISTER_ID_CKBTC_LEDGER, TokenIdl, true);
+                    // const actor = await artemis.getCanisterActor(process.env.CANISTER_ID_VALUESWAP_BACKEND, backendIDL, true);
+                    const walletBalance = await artemis.getWalletBalance()
+                
                     const walletdetails = {
-                        principleId: artemis.principalId, accountId: artemis.accountId, walletActive: artemis.walletActive, ledgerActor: ledgerActor, bakendActor: actor  
+                        principleId: artemis.principalId, accountId: artemis.accountId, walletActive: artemis.walletActive, walletBalance: walletBalance
                     }
-                    dispatch(walletActions.setWalletLoaded({...walletdetails}));
+                    dispatch(walletActions.setWalletLoaded({ ...walletdetails }));
                 }
             } else {
                 console.log("retry to connect");
@@ -49,7 +55,13 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
             }, 3000);
         }
     };
- const walletImage = [{id:1, url:"/image/dfinity.svg"}, {id:2, url:"/image/Plug.png"}, {id:3, url:"/image/astroxme.webp"}, {id:4, url:"/image/bifinity.png"}, {id:5, url:"/image/stoic.png"},  {id:6, url:"/image/nfid.png"}, {id:7, url:"/image/metamask.svg"}]
+
+
+
+
+
+
+
     return (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center custom-z-index'>
             <div className='bg-[#05071D] mt-28 lg:4/12 md:w-5/12 sm:w-6/12 w-10/12 max-w-[400px] border rounded-xl flex flex-col gap-2 my-auto mx-auto'>
@@ -59,13 +71,14 @@ const ConnectWallet = ({ setClickConnectWallet, setWalletClicked }) => {
                 </div>
                 <div className='border border-transparent font-bold custom-height-3 bg-gradient-to-r from-transparent via-[#00308E] to-transparent w-full mx-auto'></div>
                 <div className='flex flex-col items-center gap-4 overflow-y-scroll h-72 '>
-                    {artemis?.wallets.map((item, indx) => (<div className={`flex gap-6 items-center w-10/12 p-2 bg-[#303030] hover:opacity-80 cursor-pointer rounded-xl`}
-                        onClick={() => handleWalletConnect(item?.id, item?.name)}>
-                        <div key={indx} className='rounded-lg bg-[#3D3F47]'>
-                            <img src={walletImage[indx]?.url} alt="" className='w-8 h-8' />
-                        </div>
-                        <div className='font-extralight text-lg font-cabin text-start'>{item?.name}</div>
-                    </div>))}
+                    {artemis?.wallets.map((item, indx) => (
+                        <div key={indx} className={`flex gap-6 items-center w-10/12 p-2 bg-[#303030] hover:opacity-80 cursor-pointer rounded-xl`}
+                            onClick={() => handleWalletConnect(item?.id, item?.name)}>
+                            <div className='rounded-lg bg-[#3D3F47]'>
+                                <img src={walletImage[indx]?.url} alt="" className='w-8 h-8' />
+                            </div>
+                            <div className='font-extralight text-lg font-cabin text-start'>{item?.name}</div>
+                        </div>))}
                     {/* <div className={`flex gap-6 items-center w-10/12 px-2 py-2 bg-[#303030] hover:opacity-80 cursor-pointer rounded-xl`}
                         onClick={() => handleWalletConnect('nfid')}>
                         <div className='rounded-lg bg-[#3D3F47]'>

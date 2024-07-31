@@ -22,7 +22,7 @@
     "@heroicons/react": "^2.1.4",
     "@mui/icons-material": "^5.15.20",
     "@reduxjs/toolkit": "^2.2.5",
-    "artemis-web3-adapter": "^1.1.7",
+    "artemis-web3-adapter": "^1.1.9",
     "dotenv": "^16.4.5",
     "echarts": "^5.5.1",
     "echarts-for-react": "^3.0.2",

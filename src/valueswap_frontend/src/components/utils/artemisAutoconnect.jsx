@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { idlFactory } from '../../../../declarations/ckbtc_ledger/index';
+
 import { Artemis } from 'artemis-web3-adapter';
 import { walletActions } from "../../reducer/WalletSlice";
 import { idlFactory as backendIDL } from "../../../../declarations/valueswap_backend/index"
 
-const connectObj = { whitelist: ['ryjl3-tyaaa-aaaaa-aaaba-cai'], host: 'https://icp0.io/' };
+
+const connectObj = { whitelist: [process.env.CANISTER_ID_VALUESWAP_FRONTEND], host: 'https://icp0.io/'};
 export const artemis = new Artemis();
 
 function artemisAutoconnect() {
@@ -21,13 +22,10 @@ function artemisAutoconnect() {
 
                     if (walletStatus) {
                         if (artemis?.principalId && artemis?.provider) {
-                            const ledgerActor = await artemis.getCanisterActor(process.env.CANISTER_ID_CKBTC_LEDGER, idlFactory);
-                            const actor = await artemis.getCanisterActor(process.env.CANISTER_ID_VALUESWAP_BACKEND, backendIDL);
-                            console.log("ledger", ledgerActor.icrc1_metadata(), "balace", ledgerActor.icrc1_balance_of(hiser-juaaa-aaaaa-qaawa-cai))
-                            console.log("backendActor", actor)
+                           
+                            
                             const walletdetails = {
-                                principleId: artemis.principalId, accountId: artemis.accountId, walletActive: artemis.walletActive,
-                                ledgerActor: ledgerActor, bakendActor: actor
+                                principleId: artemis.principalId, accountId: artemis.accountId, walletActive: artemis.walletActive
                             }
                             dispatch(walletActions.setWalletLoaded({ ...walletdetails }));
                         }
