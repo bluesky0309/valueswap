@@ -4,7 +4,7 @@ import GradientButton from '../buttons/GradientButton';
 import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import Profile from './Profile';
 import { useSelector } from 'react-redux';
-
+import { Principal } from '@dfinity/principal';
 const options = [
     // { value: 'ethereum', label: 'Ethereum', img: '/src/assets/images/Network/Ethereum.png' },
     // { value: 'bitcoin', label: 'Bitcoin', img: 'images/Bitcoin.png' },
@@ -12,11 +12,7 @@ const options = [
 ];
 
 const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
-
-    //   const total_balance = ledgerActor.icrc1_total_balance()
-    const { isConnected, principleId } = useSelector((state) => state.wallet)
-
-
+    const { principleId, isConnected } = useSelector((state) => state.wallet);
     const [activeLink, setActiveLink] = useState();
     const [open, setOpen] = useState(false);
     const [Principal, setPrincipal] = useState()
@@ -77,6 +73,48 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
     return (
         <div className={` transition-all duration-700 ${isSticky ? 'sticky top-0' : 'relative top-4'} z-50 px-4 md:px-8 `}>
             <div className="flex justify-center  font-cabin   ">
+                <ul className={`md:hidden md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427] md:bg-transparent' : 'top-[-490px]'}`}>
+                    {
+                        NavbarData.Links.map((Link, index) => (
+                            <li key={index} className='md:ml-2  md:my-0 my-7 font-normal '>
+                                <RouterLink
+                                    to={Link.LinkPath}
+                                    className='text-white duration-500 hover:text-orange-500'
+                                    onClick={() => {
+                                        setActiveLink(index)
+                                        setOpen(!open)
+
+                                    }}
+                                >
+                                    <div className='flex flex-col justify-center text-custom-size-14 sm:leading-10 md:text-xl  items-center'>
+                                        {Link?.LinkName}
+                                        <div className={`${activeLink === index ? ' bg-orange-500 w-full h-[1px] invisible md:visible' : 'w-1 h-[1px] invisible'}`}></div>
+                                        <div className={`${activeLink === Link.LinkPath ? ' bg-orange-500 w-full h-[1px] invisible md:visible' : 'w-1 h-[1px] invisible'}`}></div>
+                                    </div>
+                                </RouterLink>
+                            </li>
+                        ))
+                    }
+
+                    <div className='block font-semibold text-center my-7 md:hidden '>
+
+                        <div
+                            onClick={() => {
+                                if (NavbarData.ButtonText === 'Connect Wallet') {
+                                    setClickConnectWallet(true);
+                                }
+
+                                if (NavbarData.ButtonText === 'Explore Pools') {
+                                    navigate('/dex-swap/pool')
+                                }
+                            }}>
+                            <GradientButton
+                                CustomCss={`hover:opacity-75 w-[150px]  text-xs md:text-base lg:text-base lg:h-[60px] py-2 lg:py-4 px-2`}
+                            >{NavbarData.ButtonText}</GradientButton>
+                        </div>
+                    </div>
+
+                </ul>
                 <div className="w-full  rounded-2xl  flex justify-between max-w-[1200px] bg-[#686868AB] tracking-wide backdrop-blur-md items-center md:py-4 px-6">
 
                     <div className='flex items-center justify-between px-2 md:justify-start'>
@@ -89,7 +127,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                     </div>
                     <div className='w-[30%] md:w-[70%] flex justify-center md:gap-x-4'>
                         <div className='text-base flex  gap-4   items-center rounded-b-lg  md:w-[100%] px-2'>
-                            <ul className={`md:flex md:items-center  md:pb-0 pb-12 absolute md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427] md:bg-transparent' : 'top-[-490px]'}`}>
+                            <ul className={`md:flex md:items-center  md:pb-0 pb-12 hidden md:static rounded-lg left-0 w-full md:w-auto md:pl-0  transition-all duration-500 ease-in gap-2 xl:gap-6 ${open ? 'top-12 bg-[#010427] md:bg-transparent' : 'top-[-490px]'}`}>
                                 {
                                     NavbarData.Links.map((Link, index) => (
                                         <li key={index} className='md:ml-2  md:my-0 my-7 font-normal '>
@@ -196,7 +234,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         </div>
                                     )
                                 }
-                            </GradientButton> : <Profile principleId={Principal} isConnected={isConnected} />}
+                            </GradientButton> : <Profile Principal={Principal} />}
 
 
                         </div>
