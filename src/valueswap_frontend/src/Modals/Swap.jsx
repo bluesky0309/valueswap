@@ -8,13 +8,14 @@ import SearchToken from './SearchToken';
 import DialogBox from './Dialouge';
 import { SwapModalData } from '../TextData';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../components/utils/useAuthClient';
 import SwapSetting from './SwapSetting';
+import { useSelector } from 'react-redux';
 const Swap = () => {
 
-    const { createTokenActor, principal } = useAuth();
+
+    const {principleId, backendActor} = useSelector(state => state.wallet)
     const navigate = useNavigate();
-    const [tokenActor, setActorToken] = useState(createTokenActor("bkyz2-fmaaa-aaaaa-qaaaq-cai"))
+    // const [tokenActor, setActorToken] = useState(createTokenActor("bkyz2-fmaaa-aaaaa-qaaaq-cai"))
     const [Message, setMessage] = useState('');
     const [show1, setShow1] = useState(false);
     const [show2, setShow2] = useState(false);
@@ -37,19 +38,19 @@ const Swap = () => {
     useEffect(() => {
 
         const fetch = async () => {
-            console.log("principal of the account", principal.toText())
-            let balance = await tokenActor.icrc1_balance_of({ owner: principal, subaccount: [] });
-            const tokenMetaData = await tokenActor.icrc1_metadata();
+            console.log("principleId of the account", principleId.toText())
+            let balance = await backendActor.icrc1_balance_of({ owner: principleId, subaccount: [] });
+            const tokenMetaData = await backendActor.icrc1_metadata();
             console.log("Token ka meta data :", tokenMetaData);
             balance = parseInt(balance) / Math.pow(10, 8);
             console.log("Balance of TokenB is:", balance)
             setBalance(balance);
         }
 
-        if (tokenActor) {
+        if (backendActor) {
             fetch();
         }
-    }, [tokenActor])
+    }, [backendActor])
 
     useEffect(() => {
         if (PayCoin && RecieveCoin) {

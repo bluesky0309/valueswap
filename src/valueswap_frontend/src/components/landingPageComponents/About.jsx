@@ -7,8 +7,8 @@ import { LandingPageData } from '../../TextData'
 import { LandingPageNavbarData as NavbarData } from '../../TextData'
 const About = () => {
     return (
-        <div className='flex justify-center md:py-32  ' >
-            <div className='flex max-w-[1200px]  flex-col lg:flex-row md:px-12 justify-evenly  text-2xl md:text-4xl items-center ' id={`${NavbarData.Links[0].LinkId}`}>
+        <div className='flex justify-center py-32  ' >
+            <div className='flex max-w-[1200px]  flex-col lg:flex-row  justify-evenly  text-2xl md:text-4xl items-center ' id={`${NavbarData.Links[0].LinkId}`}>
                 <div className='max-h-[800px] flex flex-col gap-y-8  w-full lg:w-1/2'>
                     <div>
                         <div className='flex items-center font-fahkwang font-medium gap-2'>

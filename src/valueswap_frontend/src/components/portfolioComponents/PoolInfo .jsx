@@ -37,7 +37,7 @@ const PoolInfo = () => {
             <div className='font-cabin text-base md:text-3xl font-medium flex items-center gap-4'>
               <div className='flex gap-2'>
                 {
-                  TokenData.PoolData.map((token, index) => (
+                  TokenData?.PoolData.map((token, index) => (
                     <div key={index}>
                       <div className='bg-[#3D3F47] p-1 rounded-lg'>
                         <img src={token.ImagePath} alt="" className='w-6 h-6 md:w-10 md:h-10' />
@@ -47,9 +47,9 @@ const PoolInfo = () => {
                 }
               </div>
               <div className='flex items-center'>
-                <span  >{TokenData.PoolData[0].ShortForm}</span>
+                <span  >{TokenData?.PoolData[0].ShortForm}</span>
                 {
-                  TokenData.PoolData.slice(1).map((token, index) => (
+                  TokenData?.PoolData.slice(1).map((token, index) => (
                     <div key={index} className=''>
                       <span className='mx-0.5'>/</span>
                       {token.ShortForm}
@@ -58,9 +58,9 @@ const PoolInfo = () => {
                 }
                 <span className='mx-1'>:  :</span>
 
-                <span>{TokenData.PoolData[0].WeightedPercentage}</span>
+                <span>{TokenData?.PoolData[0].WeightedPercentage}</span>
                 {
-                  TokenData.PoolData.slice(1).map((token, index) => (
+                  TokenData?.PoolData.slice(1).map((token, index) => (
                     <div key={index} className=''>
                       <span className='mx-0.5'>/</span>
                       {token.WeightedPercentage}
@@ -94,7 +94,7 @@ const PoolInfo = () => {
                             setCurrentRange(index)
                           }}>
                             <p className='cursor-pointer'>{rang}</p>
-                            <span className={`p-[2px] w-1 bg-[#F7931A] rounded-full ${currentRang === index ? 'visible' : 'invisible'}`}></span>
+                            <span className={`p-[2px] w-1 bg-[#F7931A]  ${currentRang === index ? 'visible' : 'invisible'}`}></span>
                           </div>
                         )
                       }
@@ -111,19 +111,19 @@ const PoolInfo = () => {
 
             <div className=' flex flex-col items-center gap-4 my-4 '>
               <div className='w-full sm:w-auto flex gap-4 h-20 lg:h-48 justify-center'>
-                <PoolInfoBox Heading={'Pool Value'} Data={`$ ${TokenData.PoolMetaData.PoolValue.toLocaleString('en-US')}`} />
-                <PoolInfoBox Heading={'24H_Fees'} Data={`$ ${TokenData.PoolMetaData.TwentyFourHourFees.toLocaleString('en-US')}`} />
+                <PoolInfoBox Heading={'Pool Value'} Data={`$ ${TokenData?.PoolMetaData.PoolValue.toLocaleString('en-US')}`} />
+                <PoolInfoBox Heading={'24H_Fees'} Data={`$ ${TokenData?.PoolMetaData.TwentyFourHourFees.toLocaleString('en-US')}`} />
               </div>
               <div className='w-full sm:w-auto flex gap-4 h-20 lg:h-48'>
-                <PoolInfoBox Heading={'24H_Pool Volume'} Data={`$ ${TokenData.PoolMetaData.TwentyFourHourVolume.toLocaleString('en-US')}`} />
-                <PoolInfoBox Heading={'APR'} Data={`${TokenData.PoolMetaData.APRstart}% - ${TokenData.PoolMetaData.APRend}%`} />
+                <PoolInfoBox Heading={'24H_Pool Volume'} Data={`$ ${TokenData?.PoolMetaData.TwentyFourHourVolume.toLocaleString('en-US')}`} />
+                <PoolInfoBox Heading={'APR'} Data={`${TokenData?.PoolMetaData.APRstart}% - ${TokenData?.PoolMetaData.APRend}%`} />
               </div>
             </div>
           </div>
 
           <div className='gap-2 pt-9 mx-10 font-cabin flex items-center'>
             <span className='text-base leading-5 font-bold opacity-75 tracking-wide'>My Pool Balance:</span>
-            <span className='mx-3 text-2xl font-normal leading-6'>${TokenData.PoolMetaData.PersonalPoolBalance.toLocaleString('en-US')}</span>
+            <span className='mx-3 text-2xl font-normal leading-6'>${TokenData?.PoolMetaData.PersonalPoolBalance.toLocaleString('en-US')}</span>
           </div>
 
 
@@ -152,14 +152,14 @@ const PoolInfo = () => {
                   setCurrIndex(index)
                 }}>
                 <h1>{heading}</h1>
-                <span className={`p-1 w-1 bg-[#F7931A] rounded-full ${currIndex === index ? 'visible' : 'invisible'}`}></span>
+                <span className={`p-[1px]  bg-[#F7931A] w-full ${currIndex === index ? 'visible' : 'invisible'}`}></span>
               </div>
             ))}
           </div>
 
 
           <div >
-            {currIndex === 0 && <PoolCompositions TableData={TokenData.PoolData} />}
+            {currIndex === 0 && <PoolCompositions TableData={TokenData?.PoolData} />}
             {currIndex === 1 && <Swapping id={Number(id)} />}
             {currIndex === 2 && <LiquidityOverview id={id} />}
           </div>

@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 // import GradientButton from '../buttons/GradientButton';
 // import { SiBitcoinsv } from "react-icons/si";
 // import { CiSearch } from "react-icons/ci";
-import { useAuth } from '../components/utils/useAuthClient';
+// import { useAuth } from '../components/utils/useAuthClient';
 import SearchIcon from '@mui/icons-material/Search';
-
+import { artemis } from '../components/utils/artemisAutoconnect';
 const SearchToken = ({ setSearchToken, setPayToken, setRecToken, id, setTokenData }) => {
 
-    const { createTokenActor } = useAuth();
+    // const { createTokenActor } = useAuth();
 
     const { Tokens } = useSelector(state => state.pool)
     const [TokenOption, SetTokenOption] = useState(null);
@@ -47,7 +47,7 @@ const SearchToken = ({ setSearchToken, setPayToken, setRecToken, id, setTokenDat
         const fetchMetadata = async () => {
             const fetchedMetadata = await Promise.all(
                 DummyDataTokens.Tokens.map(async (token) => {
-                    const tokenActor = createTokenActor(token.CanisterId);
+                    const tokenActor = await artemis.getCanisterActor(token.CanisterId);
                     const result = await tokenActor.icrc1_metadata();
                     console.log(`result of canisterId in UseEffect ${token.CanisterId}`, result);
                     return {
