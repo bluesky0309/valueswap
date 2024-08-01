@@ -9,6 +9,7 @@ use ic_cdk::{
     },
     call, api,
 };
+use std::collections::{BTreeMap , HashMap};
 
 /// Represents the pool's share with token balances and weights.
 #[derive(Debug, Clone, CandidType, Deserialize, Serialize)]
@@ -38,6 +39,7 @@ pub struct CreatePoolParams {
     pub balances: Vec<u64>,         // Token balances
     pub weights: Vec<f64>,          // Token weights
     pub values: Vec<u64>,
+    pub swap_fees: f64,
 }
 
 /// Represents the user's share with their token balances.
@@ -63,23 +65,51 @@ impl Default for UserShare {
 }
 
 /// Enum representing different types of tokens.
-#[derive(Debug, Clone, CandidType, Deserialize, Serialize)]
-pub enum TokenType {
-    TokenA,
-    TokenB,
-    // Add more token types as needed
-}
+// #[derive(Debug, Clone, CandidType, Deserialize, Serialize)]
+// pub enum TokenType {
+//     TokenA,
+//     TokenB,
+//     // Add more token types as needed
+// }
 
-impl TokenType {
-    /// Returns the name of the token type as a string.
-    pub fn name(&self) -> &str {
-        match self {
-            TokenType::TokenA => "TokenA",
-            TokenType::TokenB => "TokenB",
-            // Add more token names as needed
-        }
-    }
-}
+// impl TokenType {
+//     /// Returns the name of the token type as a string.
+//     pub fn name(&self) -> &str {
+//         match self {
+//             TokenType::TokenA => "TokenA",
+//             TokenType::TokenB => "TokenB",
+//             // Add more token names as needed
+//         }
+//     }
+// }
+
+// pub type TokenType = String;
+// pub type Amount = u64;
+
+// #[derive(Debug, Clone, CandidType, Deserialize, Serialize)]
+// pub struct Pools{
+//     children: BTreeMap<String, HashMap<TokenType, Amount>>,
+// }
+
+// impl Pools{
+//     pub fn new() -> Self{
+//         Pools {
+//             children: BTreeMap::new(),
+//         }
+//     }
+
+//     pub fn add_child(&mut self , id: String){
+//         self.children.insert(id , HashMap::new());
+//     }
+
+//     pub fn add_token(&mut self, child_id : &str , token : TokenType , amount : Amount){
+//         if let Some(child) = self.children.get_mut(child_id){
+//             child.insert(token, amount);
+//         }else{
+//             println!("Child ID {} not found!", child_id);
+//         }
+//     } 
+// }
 
 // Define the transfer_from arguments and result types
 #[derive(CandidType, Deserialize)]
@@ -178,3 +208,5 @@ pub(crate) struct CreateCanisterArgumentExtended {
     pub settings: Option<CanisterSettings>,
     pub sender_canister_version: Option<u64>,
 }
+
+

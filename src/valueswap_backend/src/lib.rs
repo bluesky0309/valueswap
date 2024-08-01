@@ -8,7 +8,7 @@ mod logic;
 mod api;
 mod constants;
 
-pub use utils::types::{PoolShare, UserShare, TokenType,CreatePoolParams};
+pub use utils::types::{PoolShare, UserShare,CreatePoolParams};
 
 // Export Candid interface
 export_candid!();
