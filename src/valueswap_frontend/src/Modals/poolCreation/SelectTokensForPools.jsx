@@ -26,11 +26,13 @@ const SelectTokensForPools = ({ handleNext }) => {
 
     return (
         <div className=''>
-             <div className= {`flex gap-6 pb-6 w-full justify-center items-center m-auto  lg:hidden`} >
-                       <div className={`py-2 px-4 rounded-full bg-[#F7931A]`}>1</div>
-                       <p className="text-lg">Select Tokens for Pools</p>
-                       <hr className="border-2 w-1/4 pr-6" />
-                     </div>
+                <div className='w-full'>
+                <div className={`flex gap-6 pb-6 w-[70%] md:w-[60%] justify-between items-center m-auto  lg:hidden`} >
+                    <div className={`py-2 px-4 rounded-full bg-[#F7931A]`}>1</div>
+                    <p className="text-lg"></p>
+                    <hr className="border-2 w-3/4 pr-6" />
+                </div>
+            </div>
             <div className='inset-0 bg-opacity-10 m-auto  justify-center z-50 w-max  flex flex-col gap-4 p-3 sm:p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border mx-auto rounded-lg'>
 
                 <div className='w-[90%] place-self-end  flex justify-between px-6'>
@@ -89,7 +91,7 @@ const SelectTokensForPools = ({ handleNext }) => {
                         }
                     }}
                 >
-                    <GradientButton CustomCss={`my-4 w-full ${ButtonActive ? ' opacity-100 cursor-pointer' : 'opacity-50 cursor-default'}`} >
+                    <GradientButton CustomCss={`my-4 w-full md:w-full ${ButtonActive ? ' opacity-100 cursor-pointer' : 'opacity-50 cursor-default'}`} >
                         Next
                     </GradientButton>
                 </div>

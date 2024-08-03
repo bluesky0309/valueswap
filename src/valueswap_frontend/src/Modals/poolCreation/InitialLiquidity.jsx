@@ -6,14 +6,14 @@ import GradientButton from '../../buttons/GradientButton';
 import { showAlert, hideAlert } from '../../reducer/Alert';
 import { useDispatch, useSelector } from 'react-redux';
 import { UpdateAmount, toggleConfirm } from '../../reducer/PoolCreation'
-import { artemis } from '../../components/utils/artemisAutoconnect';
+import { useAuth } from '../../components/utils/useAuthClient';
 
 const InitialLiquidity = () => {
 
 
     const dispatch = useDispatch();
     const [restTokensBalances, setRestTokensBalances] = useState([]);
-
+    const { createTokenActor, principal } = useAuth()
     const [tokenActor, setTokenActor] = useState();
     const [initialTokenBalance, setInitialTokenBalance] = useState();
     const { Tokens, Confirmation } = useSelector((state) => state.pool);
@@ -22,7 +22,6 @@ const InitialLiquidity = () => {
     const [restTokensAmount, setRestTokensAmount] = useState(Tokens.slice(1).map(token => token.Amount));
     const [AmountSelectCheck, setAmountSelectCheck] = useState(false);
 
-    const { principleId } = useSelector(state => state.wallet)
     let InitialToken = Tokens[0];
     let RestTokens = Tokens.slice(1);
     const HandleSelectCheck = () => {
@@ -35,24 +34,24 @@ const InitialLiquidity = () => {
 
     useEffect(() => {
         if (InitialToken) {
-            console.log("principleId of this mf :->", principleId)
-            const actor = artemis.getCanisterActor(InitialToken.CanisterId);
+            console.log("Principal of this mf :->", principal)
+            const actor = createTokenActor(InitialToken.CanisterId);
             setTokenActor(actor);
         }
-    }, [InitialToken, principleId]);
+    }, [InitialToken, createTokenActor, principal]);
 
     useEffect(() => {
         const fetchTokenBalance = async () => {
             if (tokenActor) {
                 console.log("Token Actor Set hote hue :->", tokenActor);
-                let balance = await tokenActor.icrc1_balance_of({ owner: principleId, subaccount: [] });
+                let balance = await tokenActor.icrc1_balance_of({ owner: principal, subaccount: [] });
                 console.log("Balance of the first Token:", balance);
                 setInitialTokenBalance(parseFloat(balance));
             }
         };
 
         fetchTokenBalance();
-    }, [tokenActor, principleId]);
+    }, [tokenActor, principal]);
 
     useEffect(() => {
         HandleSelectCheck()
@@ -61,8 +60,8 @@ const InitialLiquidity = () => {
     useEffect(() => {
         const fetchRestTokensBalances = async () => {
             const balances = await Promise.all(RestTokens.map(async (token) => {
-                const actor = artemis.getCanisterActor(token.CanisterId);
-                const balance = await actor.icrc1_balance_of({ owner: principleId, subaccount: [] });
+                const actor = createTokenActor(token.CanisterId);
+                const balance = await actor.icrc1_balance_of({ owner: principal, subaccount: [] });
                 return parseFloat(balance);
             }));
             setRestTokensBalances(balances);
@@ -71,7 +70,7 @@ const InitialLiquidity = () => {
         if (RestTokens.length > 0) {
             fetchRestTokensBalances();
         }
-    }, [RestTokens, principleId]);
+    }, [RestTokens, createTokenActor, principal]);
 
     const handleInput = (event, index) => {
         const newValue = parseFloat(event.target.textContent)
@@ -88,13 +87,14 @@ const InitialLiquidity = () => {
             Amount: newValue
         }));
     };
-
     return (
         <div className=''>
-            <div className={`flex gap-6 pb-6 w-full justify-center items-center m-auto  lg:hidden`} >
-                <div className={`py-2 px-4 rounded-full bg-[#F7931A]`}>3</div>
-                <p className="text-lg">Add Initial Liquidity</p>
-                <hr className="border-2 w-1/4 pr-6" />
+               <div className='w-full'>
+                <div className={`flex gap-6 pb-6 w-[70%] md:w-[60%] justify-between items-center m-auto  lg:hidden`} >
+                    <div className={`py-2 px-4 rounded-full bg-[#F7931A]`}>2</div>
+                    <p className="text-lg"></p>
+                    <hr className="border-2 w-3/4 pr-6" />
+                </div>
             </div>
             <div className='z-50 w-max m-auto flex flex-col gap-4 p-3 sm:p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border mx-auto rounded-lg'>
                 <div className='w-[78%] sm:w-[74%] place-self-end  flex justify-between'>
@@ -228,7 +228,7 @@ const InitialLiquidity = () => {
                         }
                     }}
                 >
-                    <GradientButton CustomCss={` my-2 sm:my-4 w-full ${ButtonActive ? ' opacity-100 cursor-pointer' : 'opacity-50 cursor-default'}`}>
+                    <GradientButton CustomCss={` my-2 sm:my-4 w-full md:w-full ${ButtonActive ? ' opacity-100 cursor-pointer' : 'opacity-50 cursor-default'}`}>
                         Analyse Pair
                     </GradientButton>
                 </div>

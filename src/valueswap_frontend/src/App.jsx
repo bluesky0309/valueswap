@@ -9,13 +9,12 @@ import MobileNavbar from './navbar/MobileNavbar';
 import ConnectWallet from './Modals/ConnectWallet';
 import { CommonNavbarData } from './TextData';
 import LandingPage from './pages/LandingPage';
-import artemisAutoconnect from './components/utils/artemisAutoconnect';
 function App() {
   const [clickConnectWallet, setClickConnectWallet] = useState(false);
   const [walletClicked, setWalletClicked] = useState(false);
   const { show, type, text } = useSelector((state) => state.alert)
 
-  artemisAutoconnect()
+
   
   return (
     <div>

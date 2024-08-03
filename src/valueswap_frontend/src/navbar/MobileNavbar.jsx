@@ -5,6 +5,7 @@ import { Bars3BottomRightIcon, XMarkIcon } from '@heroicons/react/24/solid';
 import Profile from './Profile';
 import { useSelector } from 'react-redux';
 import { Principal } from '@dfinity/principal';
+import { useAuth } from '../components/utils/useAuthClient';
 const options = [
     // { value: 'ethereum', label: 'Ethereum', img: '/src/assets/images/Network/Ethereum.png' },
     // { value: 'bitcoin', label: 'Bitcoin', img: 'images/Bitcoin.png' },
@@ -12,7 +13,6 @@ const options = [
 ];
 
 const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
-    const { principleId, isConnected } = useSelector((state) => state.wallet);
     const [activeLink, setActiveLink] = useState();
     const [open, setOpen] = useState(false);
     const [Principal, setPrincipal] = useState()
@@ -27,21 +27,23 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
     //     console.log("we are connected!")
     //     artemisWallet()
     // }
+    const { isAuthenticated, login, logout, principal, reloadLogin } = useAuth();
+
     useEffect(() => {
         const getDisplayFunction = () => {
-            const SlicedPrincipal = principleId.slice(0, 5);
+            const SlicedPrincipal = principal.toText().slice(0, 5);
             // console.log(typeof SlicedPrincipal)
-            const FinalId = SlicedPrincipal.padEnd(10, '.') + principleId.slice(60, 63);
+            const FinalId = SlicedPrincipal.padEnd(10, '.') + principal.toText().slice(60, 63);
             setPrincipal(FinalId)
             console.log("Principal of user is:", FinalId)
         }
 
-        if (principleId) {
+        if (principal) {
             getDisplayFunction()
         }
 
 
-    }, [principleId]);
+    }, [principal]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -67,7 +69,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
     }, []);
 
 
-    console.log("isConnected", isConnected, principleId)
+    console.log("isAuthenticated", isAuthenticated, principal)
 
 
     return (
@@ -210,14 +212,14 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                         <div className='flex items-center '>
 
 
-                            {!isConnected ? <GradientButton customCss={`px-2`}
+                            {!isAuthenticated ? <GradientButton customCss={`px-2`}
                             >
                                 {
                                     NavbarData.ButtonText === "Connect Wallet" ? (
                                         <div
 
                                         >
-                                            {!isConnected && (<div
+                                            {!isAuthenticated && (<div
                                                 onClick={() => {
                                                     setClickConnectWallet(true);
                                                 }}>
@@ -234,7 +236,7 @@ const MobileNavbar = ({ NavbarData, setClickConnectWallet }) => {
                                         </div>
                                     )
                                 }
-                            </GradientButton> : <Profile Principal={Principal} />}
+                            </GradientButton> : <Profile Principal={Principal} principal={principal} isAuthenticated={isAuthenticated} logout={logout}/>}
 
 
                         </div>

@@ -1263,14 +1263,14 @@ export const LiquidityOverviewData = [
 export const DummyDataTokens = {
     Tokens: [
         {   // Main Net
-            CanisterId: 'ryjl3-tyaaa-aaaaa-aaaba-cai',
+            CanisterId: process.env.CANISTER_ID_CKBTC_LEDGER,
             // local net
             // CanisterId: 'bkyz2-fmaaa-aaaaa-qaaaq-cai',
             Image: RandomCoin,
         },
         {
             // Main Net
-            CanisterId: 'mxzaz-hqaaa-aaaar-qaada-cai',
+            CanisterId: process.env.CANISTER_ID_CKETH_LEDGER,
             // local Net
             // CanisterId: 'mxzaz-hqaaa-aaaar-qaada-cai',
             Image: RandomCoin,
