@@ -13,8 +13,8 @@ use ic_cdk::{
 };
 
 use crate::utils::types::*;
-use crate::logic::deposit::*;
-use crate::api::transfer::*;
+// use crate::logic::deposit::*;
+// use crate::api::transfer::*;
 use crate::api::deposit::deposit_ckbtc;
 
 thread_local! {
@@ -36,7 +36,7 @@ async fn create_pools(params: CreatePoolParams) -> Result<(), String> {
     if principal_id == Principal::anonymous() {
         return Err("Anonymous principal not allowed to make calls".to_string());
     }
-
+   
     let pool_name = params.token_names.join("");
 
     let pool_canister_id = TOKEN_POOLS.with(|pool| {
@@ -47,9 +47,9 @@ async fn create_pools(params: CreatePoolParams) -> Result<(), String> {
             None
         }
     });
-
+    let  amount = params.balances.first().unwrap();
     if let Some(canister_id) = pool_canister_id {
-        deposit_ckbtc(2000).await?;
+        deposit_ckbtc(amount.clone()).await?;
         Ok(())
     } else {
         match create_canister(CreateCanisterArgument {settings: None}).await {
@@ -58,72 +58,12 @@ async fn create_pools(params: CreatePoolParams) -> Result<(), String> {
                 TOKEN_POOLS.with(|pool| {
                     pool.borrow_mut().insert(pool_name, canister_id);
                 });
-                deposit_ckbtc(2000).await?;
+                deposit_ckbtc(amount.clone()).await?;
                 Ok(())
             },
             Err((_, err_string)) => Err(format!("Error creating canister: {}", err_string)),
         }
     }
-}
-
-#[derive(
-    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Default,
-)]
-pub struct CanisterSettings {
-    pub controllers: Option<Vec<Principal>>,
-
-    pub compute_allocation: Option<Nat>,
-
-    pub memory_allocation: Option<Nat>,
-
-    pub freezing_threshold: Option<Nat>,
-
-    pub reserved_cycles_limit: Option<Nat>,
-}
-
-#[derive(
-    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone,
-)]
-pub(crate) struct InstallCodeArgumentExtended {
-    pub mode: CanisterInstallMode,
-    pub canister_id: CanisterId,
-    pub wasm_module: WasmModule,
-    pub arg: Vec<u8>,
-    pub sender_canister_version: Option<u64>,
-}
-
-#[derive(
-    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Default,
-)]
-pub struct CreateCanisterArgument {
-    pub settings: Option<CanisterSettings>,
-}
-
-#[derive(
-    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone,
-)]
-pub struct InstallCodeArgument {
-    pub mode: CanisterInstallMode,
-    pub canister_id: CanisterId,
-    pub wasm_module: WasmModule,
-    pub arg: Vec<u8>,
-}
-
-pub type CanisterId = Principal;
-
-#[derive(
-    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy,
-)]
-pub struct CanisterIdRecord {
-    pub canister_id: CanisterId,
-}
-
-#[derive(
-    CandidType, Serialize, Deserialize, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Default,
-)]
-pub(crate) struct CreateCanisterArgumentExtended {
-    pub settings: Option<CanisterSettings>,
-    pub sender_canister_version: Option<u64>,
 }
 
 // Create canister
