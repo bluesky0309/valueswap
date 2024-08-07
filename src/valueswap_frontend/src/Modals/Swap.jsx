@@ -10,10 +10,10 @@ import { SwapModalData } from '../TextData';
 import { useNavigate } from 'react-router-dom';
 import SwapSetting from './SwapSetting';
 import { useSelector } from 'react-redux';
+import { useAuth } from '../components/utils/useAuthClient';
 const Swap = () => {
 
 
-    const {principleId, backendActor} = useSelector(state => state.wallet)
     const navigate = useNavigate();
     // const [tokenActor, setActorToken] = useState(createTokenActor("bkyz2-fmaaa-aaaaa-qaaaq-cai"))
     const [Message, setMessage] = useState('');
@@ -23,7 +23,7 @@ const Swap = () => {
     const [PayCoin, setPayCoin] = useState(null);
     const [RecieveCoin, setRecieveCoin] = useState(null);
     const [changePayCoin, setChangePayCoin] = useState("M5 13.5L9 9.5M5 13.5L1 9.5M5 13.5V1");
-    const [balance, setBalance] = useState(3);
+    // const [balance, setBalance] = useState(3);
     const [CoinAmount, setCoinAmount] = useState(0.02);
     const [AmountToPay, setAmountToPay] = useState(66.12);
     const [settings, setSettings] = useState(false);
@@ -33,27 +33,12 @@ const Swap = () => {
     const [searchToken2, setSearchToken2] = useState(false);
     const [id, setId] = useState(0);
     const [ClickedSwap, setClickSwap] = useState(false);
+    const {balance} = useAuth()
 
-
-    useEffect(() => {
-
-        const fetch = async () => {
-            console.log("principleId of the account", principleId.toText())
-            let balance = await backendActor.icrc1_balance_of({ owner: principleId, subaccount: [] });
-            const tokenMetaData = await backendActor.icrc1_metadata();
-            console.log("Token ka meta data :", tokenMetaData);
-            balance = parseInt(balance) / Math.pow(10, 8);
-            console.log("Balance of TokenB is:", balance)
-            setBalance(balance);
-        }
-
-        if (backendActor) {
-            fetch();
-        }
-    }, [backendActor])
 
     useEffect(() => {
         if (PayCoin && RecieveCoin) {
+            // setBalance(checkBalance)
             setBothCoins(true);
         } else {
             setBothCoins(false);
@@ -85,11 +70,11 @@ const Swap = () => {
     const handleSettings = () => {
         setSettings((prev) => !prev)
     }
-    console.log("settings", settings)
+
     return (
         <div className='px-4  md:px-0   '>
-        <div className='flex justify-center my-auto'>
-            <div className=' relative align-middle max-w-[1200px]  flex flex-col justify-center  m-auto mt-12 p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border mx-auto rounded-lg z-10'>
+        <div className='flex justify-center my-auto flex-col'>
+            <div className=' relative align-middle max-w-[1200px]  flex flex-col justify-center  mt-12 p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border sm:mx-auto rounded-lg z-10'>
                     <div className=' w-[64%] sm:w-[58%] place-self-end  flex justify-between z-50'>
                         <span className='font-fahkwang font-light text-3xl '>{SwapModalData.Heading}</span>
                         <Bolt size={30} className='cursor-pointer' onClick={() => handleSettings()} />
@@ -207,7 +192,7 @@ const Swap = () => {
                                 <div className='flex flex-col font-cabin font-normal gap-2'>
                                     <span className='text-base font-medium'>{SwapModalData.RecieveSection.Heading}</span>
                                     <span className='text-3xl md:text-4xl'>0</span>
-                                    <span className='text-sm sm:text-base font-normal'>{SwapModalData.RecieveSection.Balance}: 0.00</span>
+                                    <span className='text-sm sm:text-base font-normal'>{SwapModalData.RecieveSection.Balance}: {balance}</span>
                                 </div>
                             ) : (
                                 <div className='flex flex-col font-cabin font-normal gap-2'>
@@ -287,7 +272,7 @@ const Swap = () => {
                                 </div>
                             </div>
 
-                            <div>
+                            <div className='w-full'>
                                 {
                                     ClickedSwap && (
                                         <div className='flex flex-col gap-8    my-4  rounded-lg'>
@@ -322,26 +307,26 @@ const Swap = () => {
                                 }
                             </div>
 
-                            <div>
+                            <div className='w-full'>
                                 {CoinAmount > balance ? (
 
-                                    <GradientButton CustomCss={'w-full cursor-auto disabled opacity-75 font-extrabold text-3xl '}
+                                    <GradientButton CustomCss={'w-full md:w-full cursor-auto disabled opacity-75 font-extrabold text-3xl '}
                                     >{SwapModalData.MainButtonsText.InsufficientBalance}</GradientButton>
                                 ) : (
-                                    <div>
+                                    <div className='w-full'>
                                         {ClickedSwap ? (
                                             <div onClick={() => {
 
                                                 navigate('/dex-swap/transaction-successfull')
                                             }}>
-                                                <GradientButton CustomCss={'w-full  font-extrabold text-3xl '}>{SwapModalData.MainButtonsText.ConfirmSwapping}</GradientButton>
+                                                <GradientButton CustomCss={'w-full md:w-full  font-extrabold text-3xl '}>{SwapModalData.MainButtonsText.ConfirmSwapping}</GradientButton>
                                             </div>
                                         ) : (
                                             <div onClick={() => {
                                                 setClickSwap(true);
                                                 // console.log("swap click", ClickedSwap);
                                             }}>
-                                                <GradientButton CustomCss={'w-full  font-extrabold text-3xl '}>{SwapModalData.MainButtonsText.SwapNow}</GradientButton>
+                                                <GradientButton CustomCss={'w-full md:w-full  font-extrabold text-3xl '}>{SwapModalData.MainButtonsText.SwapNow}</GradientButton>
                                             </div>
                                         )}
                                     </div>
@@ -441,7 +426,7 @@ const Swap = () => {
                             <div className='font-cabin font-medium text-base'>0.000056 ETH</div>
                         </div>
 
-                        <BorderGradientButton customCss={`w-full `}>{SwapModalData.MainButtonsText.AnalysePair}</BorderGradientButton>
+                        <BorderGradientButton customCss={`w-full bg-[#000711] z-10`}>{SwapModalData.MainButtonsText.AnalysePair}</BorderGradientButton>
 
 
                     </div>

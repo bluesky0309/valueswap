@@ -1,48 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { Copy, Check } from 'lucide-react';
 import { showAlert, hideAlert } from '../reducer/Alert';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOutlined';
 import GradientButton from '../buttons/GradientButton';
 import DarkModeToggle from "./DarkModeToggle"
 import onClickOutside from 'react-onclickoutside';
-import { artemis } from '../components/utils/artemisAutoconnect';
-import { walletActions } from '../reducer/WalletSlice';
-import { Principal } from '@dfinity/principal';
-import fetchICPBalance from '../components/utils/createLedgerActor';
-function Profile({ Principal }) {
+import { useAuth } from '../components/utils/useAuthClient';
+
+
+function Profile({ Principal, isAuthenticated, logout, principal }) {
     const [showProfile, setShowProfile] = useState(false)
     const [copied, setCopied] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const dispatch = useDispatch()
+    const {balance} = useAuth()
 
-    //   const total_balance = ledgerActor.icrc1_total_balance()
-    const { isConnected, principleId } = useSelector((state) => state.wallet);
-    const [balance, setBalance] = useState(null);
-
-    useEffect(() => {
-        const fetchBalance = async () => {
-            try {
-                if (isConnected && principleId) {
-                    const balanceResult = await fetchICPBalance(principleId);
-                    setBalance(balanceResult);
-                } else {
-                    console.error('Missing connection or principleId');
-                }
-            } catch (error) {
-                console.error('Error fetching balance:', error);
-            }
-        };
-
-        fetchBalance();
-    }, [isConnected, principleId]);
 
 
     //    console.log("balance", balance)
     const CopyprincipleId = () => {
-        navigator.clipboard.writeText(principleId)
+        navigator.clipboard.writeText(principal)
             .then(() => {
-                console.log('Text copied to clipboard:', principleId);
+                console.log('Text copied to clipboard:', principal);
 
             })
             .catch(err => {
@@ -64,21 +44,14 @@ function Profile({ Principal }) {
             setCopied(false);
         }, 2000)
     };
-    const handleDisconnect = async () => {
-
-        await artemis.disconnect();
-        // await artemisWalletAdapter.disConnectWallet()
-        await dispatch(walletActions.resetWallet());
-
-        location.reload();
-    };
+   
 
 
     Profile.handleClickOutside = () => {
         setShowProfile(false);
     };
 
-    console.log("hii", isConnected)
+    console.log("hii", isAuthenticated)
 
     //   console.log(Principal)
     //   console.log(principal)
@@ -96,7 +69,7 @@ function Profile({ Principal }) {
                     <img src="/image/Ellipse.png" alt="" className='' />
                     <div className='w-full'>
                         {
-                            isConnected && <div className='flex w-full flex-row items-center justify-between text-center text-white font-cabin text-xl font-normal'>
+                            isAuthenticated && <div className='flex w-full flex-row items-center justify-between text-center text-white font-cabin text-xl font-normal'>
                                 <span>
                                     {Principal}
                                 </span>
@@ -128,7 +101,7 @@ function Profile({ Principal }) {
                 </div>
                 <hr />
                 <div className='flex justify-between items-center'>
-                    <span className='text-3xl font-normal'>$1025.25</span>
+                    <span className='text-3xl font-normal'>$ {parseFloat(balance)}</span>
                     <ArrowCircleRightOutlinedIcon sx={{ transform: 'rotate(-45deg)', fontSize: '23px', cursor: 'pointer' }} />
                 </div>
                 <div className='w-full'>
@@ -155,7 +128,7 @@ function Profile({ Principal }) {
                 <hr />
                 <div className='flex justify-center gap-x-4'>
                     <img src="./image/disconnect.png" alt="disconnect logo" />
-                    <button className='text-base font-cabin font-medium' onClick={() => handleDisconnect()}>
+                    <button className='text-base font-cabin font-medium' onClick={()=> logout()}>
                         Disconnect Wallet
                     </button>
                 </div>

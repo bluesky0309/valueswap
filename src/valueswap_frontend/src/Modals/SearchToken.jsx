@@ -5,12 +5,12 @@ import { useSelector } from 'react-redux';
 // import GradientButton from '../buttons/GradientButton';
 // import { SiBitcoinsv } from "react-icons/si";
 // import { CiSearch } from "react-icons/ci";
-// import { useAuth } from '../components/utils/useAuthClient';
+import { useAuth } from '../components/utils/useAuthClient';
 import SearchIcon from '@mui/icons-material/Search';
-import { artemis } from '../components/utils/artemisAutoconnect';
+import { Principal } from '@dfinity/principal';
 const SearchToken = ({ setSearchToken, setPayToken, setRecToken, id, setTokenData }) => {
 
-    // const { createTokenActor } = useAuth();
+    const { createTokenActor, principal } = useAuth();
 
     const { Tokens } = useSelector(state => state.pool)
     const [TokenOption, SetTokenOption] = useState(null);
@@ -47,8 +47,12 @@ const SearchToken = ({ setSearchToken, setPayToken, setRecToken, id, setTokenDat
         const fetchMetadata = async () => {
             const fetchedMetadata = await Promise.all(
                 DummyDataTokens.Tokens.map(async (token) => {
-                    const tokenActor = await artemis.getCanisterActor(token.CanisterId);
-                    const result = await tokenActor.icrc1_metadata();
+                    const ledgerActor = await createTokenActor(token.CanisterId);
+                           
+                    console.log("ledgerActor=>", ledgerActor)
+                    
+                    const result = await ledgerActor.icrc1_metadata();
+
                     console.log(`result of canisterId in UseEffect ${token.CanisterId}`, result);
                     return {
                         CanisterId: token.CanisterId,
@@ -63,9 +67,10 @@ const SearchToken = ({ setSearchToken, setPayToken, setRecToken, id, setTokenDat
         };
 
         fetchMetadata();
+       
     }, [DummyDataTokens]);
 
-
+    
     return (
         <div className='flex z-50 justify-center fixed inset-0  bg-opacity-50 backdrop-blur-sm'>
             <div className=' h-fit md:w-[60%] lg:w-[40%]  border rounded-xl flex flex-col gap-2 bg-[#05071D] my-auto mx-auto'>

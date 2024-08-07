@@ -4,9 +4,9 @@ import BorderGradientButton from '../buttons/BorderGradientButton'
 import { TransactionSuccessfullData } from '../TextData'
 const TransactionComplete = () => {
     return (
-        <div className='lg:w-4/12 md:w-6/12 h-5/6 flex flex-col gap-4 p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border justify-center text-center items-center mx-auto rounded-lg'>
+        <div className='w-10/12 lg:w-4/12 md:w-6/12   h-3/6 mt-16  flex flex-col align-middle gap-4 p-6 bg-gradient-to-b from-[#3E434B] to-[#02060D] border justify-center text-center items-center m-auto rounded-lg'>
 
-            <div>
+            <div className="w-48 h-48">
                 <img src={TransactionCompleteGIF} alt="Transaction Complete" />
             </div>
 
@@ -19,7 +19,7 @@ const TransactionComplete = () => {
             </span>
 
             <div>
-                <BorderGradientButton customCss={`font-cabin font-bold text-base m-4`}>{TransactionSuccessfullData.BackButtonText}</BorderGradientButton>
+                <BorderGradientButton customCss={`font-cabin w-full bg-[#000711] font-bold text-base `}>{TransactionSuccessfullData.BackButtonText}</BorderGradientButton>
             </div>
         </div>
     )
