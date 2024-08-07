@@ -1,8 +1,8 @@
 use ic_cdk_macros::{update, query};
-use std::collections::HashMap;
+use std::collections::{BTreeMap, HashMap};
 use std::cell::RefCell;
 use candid::{CandidType, Nat, Principal};
-use serde::{Deserialize, Serialize};
+// use serde::{Deserialize, Serialize};
 use ic_cdk::{
     api::{
         call::{call_with_payment128, CallResult},
@@ -11,17 +11,15 @@ use ic_cdk::{
     },
     call, api,
 };
-
+ 
 use crate::utils::types::*;
-// use crate::logic::deposit::*;
-// use crate::api::transfer::*;
 use crate::api::deposit::deposit_ckbtc;
 
 thread_local! {
     pub static TOKEN_POOLS: RefCell<HashMap<String, Principal>> = RefCell::new(HashMap::new());
+    pub static POOL: RefCell<BTreeMap<String, HashMap<String, u64>>> = RefCell::new(BTreeMap::new());
 }
 
-// #[query]
 fn prevent_anonymous() -> Result<(), String> {
     if api::caller() == Principal::anonymous() {
         Err("Anonymous access not allowed".to_string())
@@ -36,29 +34,42 @@ async fn create_pools(params: CreatePoolParams) -> Result<(), String> {
     if principal_id == Principal::anonymous() {
         return Err("Anonymous principal not allowed to make calls".to_string());
     }
-   
+
     let pool_name = params.token_names.join("");
+    let pool_key = format!("{}{}", params.swap_fees, pool_name);
 
     let pool_canister_id = TOKEN_POOLS.with(|pool| {
         let mut pool_borrowed = pool.borrow_mut();
-        if let Some(canister_id) = pool_borrowed.get(&pool_name) {
+        if let Some(canister_id) = pool_borrowed.get(&pool_key) {
             return Some(*canister_id);
         } else {
             None
         }
     });
-    let  amount = params.balances.first().unwrap();
+
     if let Some(canister_id) = pool_canister_id {
-        deposit_ckbtc(amount.clone()).await?;
+        add_liquidity();
+        //TODO Map canister id with pool_key for adding liquidity
         Ok(())
     } else {
-        match create_canister(CreateCanisterArgument {settings: None}).await {
+        match create_canister(CreateCanisterArgument { settings: None }).await {
             Ok((canister_id_record,)) => {
                 let canister_id = canister_id_record.canister_id;
                 TOKEN_POOLS.with(|pool| {
-                    pool.borrow_mut().insert(pool_name, canister_id);
+                    pool.borrow_mut().insert(pool_key.clone(), canister_id);
                 });
-                deposit_ckbtc(amount.clone()).await?;
+
+                POOL.with(|pool| {
+                    let mut pool_borrowed = pool.borrow_mut();
+                    let token_map = pool_borrowed.entry(pool_key).or_insert_with(HashMap::new);
+                    for (token, value) in params.token_names.iter().zip(params.balances.iter()) {
+                        token_map.insert(token.clone(), *value);
+                    }
+                });
+
+                for amount in params.balances.iter() {
+                    deposit_ckbtc(amount.clone()).await?;
+                }
                 Ok(())
             },
             Err((_, err_string)) => Err(format!("Error creating canister: {}", err_string)),
@@ -155,3 +166,9 @@ pub async fn create() -> Result<String, String> {
     ic_cdk::println!("Canister ID: {:?}", canister_id.to_string());
     Ok(format!("Canister ID: {}", canister_id.to_string()))
 }
+
+#[update]
+fn add_liquidity(){
+
+}
+
