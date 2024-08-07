@@ -58,9 +58,10 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { PlugLogin, StoicLogin, NFIDLogin, IdentityLogin, Types, CreateActor } from 'ic-auth';
 // import { idlFactory,createActor} from "../../declarations/loginme_backend/index";
-import { createActor } from "../../../../declarations/ckbtc_ledger/index"
+import { createActor, idlFactory } from "../../../../declarations/ckbtc_ledger/index"
 import { Principal } from "@dfinity/principal";
 import { AuthClient } from "@dfinity/auth-client";
+import { Actor } from "@dfinity/agent";
 
 const AuthContext = createContext();
 const canisterID = process.env.CANISTER_ID_CKBTC_LEDGER;
@@ -72,7 +73,8 @@ export const useAuthClient = () => {
     const [backendActor, setBackendActor] = useState(createActor(canisterID));
     const [identity, setIdentity] = useState(null);
     const [authClient, setAuthClient] = useState(null);
-    // 
+    const [balance, setBalance] = useState(null)
+    const [userObjects,  setUserObjects] = useState()
     useEffect(() => {
         const initializeAuthClient = async () => {
             const client = await AuthClient.create();
@@ -81,8 +83,8 @@ export const useAuthClient = () => {
             if (await client.isAuthenticated()) {
                 const identity = client.getIdentity();
                 const principal = identity.getPrincipal();
-                const actor = createActor(canisterID, { agentOptions: { identity } });
-                console.log("initialActor", actor)
+                const actor =  createActor(canisterID, { agentOptions: { identity } });
+                getBalance(principal, actor)
                 setIsAuthenticated(true);
                 setPrincipal(principal);
                 setIdentity(identity);
@@ -110,11 +112,12 @@ export const useAuthClient = () => {
             } else if (provider === "Identity") {
                 userObject = await IdentityLogin();
             }
-            console.log(userObject);
+            console.log("userObject", userObject);
             const identity = await userObject?.agent._identity;
             const principal = Principal.fromText(userObject.principal);
-            // const actor = await CreateActor(userObject.agent, idlFactory, canisterID);
-            
+           
+            // const ledgerActor = Actor.createActor(ledgerIdl, { userObject.agent, canisterId: process.env.CANISTER_ID_CKBTC_LEDGER });
+            setUserObjects(userObject)
             setIsAuthenticated(true);
             setPrincipal(principal);
             setIdentity(identity);
@@ -130,13 +133,10 @@ export const useAuthClient = () => {
         }
     };
     // 
-    const createTokenActor = async(canisterID) =>{
+    const createTokenActor = async (canisterID) => {
         const actor = await createActor(canisterID, { agentOptions: { identity } })
-        console.log("actor", actor);
-        const result = await actor.icrc1_name();
-        console.log(result);
         return actor;
-         
+
     }
     const logout = async () => {
         if (authClient) {
@@ -145,7 +145,7 @@ export const useAuthClient = () => {
             setPrincipal(null);
             setIdentity(null);
         }
-    };  
+    };
     // 
     const reloadLogin = () => {
         return new Promise(async (resolve, reject) => {
@@ -159,6 +159,16 @@ export const useAuthClient = () => {
             }
         })
     };
+
+   const getBalance = async (principal, canisterId) =>{
+    const actor = await createTokenActor(canisterId)
+    const balance = await actor.icrc1_balance_of({ owner: principal, subaccount: [] })
+    setBalance(balance)
+    console.log("initialActor", actor)
+    return balance;
+   }
+
+
     // 
     return {
         // 
@@ -170,6 +180,8 @@ export const useAuthClient = () => {
         createTokenActor,
         backendActor,
         identity,
+        getBalance,
+        balance
     };
 };
 // 

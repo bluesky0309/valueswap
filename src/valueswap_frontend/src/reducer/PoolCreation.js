@@ -16,7 +16,7 @@ const initialState = {
             Selected: false,
             WeightedPercentage: 50,
             ImagePath: null,
-            Amount: 0.02,
+            Amount: 0.0,
             currencyAmount: 66.10,
             WeightedPercentageLocked: false,
             CanisterId: null
@@ -28,7 +28,7 @@ const initialState = {
             Selected: false,
             WeightedPercentage: 50,
             ImagePath: null,
-            Amount: 12.2161,
+            Amount: 0,
             currencyAmount: 64.89,
             WeightedPercentageLocked: false,
             CanisterId: null

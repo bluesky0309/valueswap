@@ -14,7 +14,7 @@ function Profile({ Principal, isAuthenticated, logout, principal }) {
     const [copied, setCopied] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
     const dispatch = useDispatch()
-    
+    const {balance} = useAuth()
 
 
 
@@ -101,7 +101,7 @@ function Profile({ Principal, isAuthenticated, logout, principal }) {
                 </div>
                 <hr />
                 <div className='flex justify-between items-center'>
-                    <span className='text-3xl font-normal'>$1025.25</span>
+                    <span className='text-3xl font-normal'>$ {parseFloat(balance)}</span>
                     <ArrowCircleRightOutlinedIcon sx={{ transform: 'rotate(-45deg)', fontSize: '23px', cursor: 'pointer' }} />
                 </div>
                 <div className='w-full'>

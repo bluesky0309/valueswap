@@ -10,6 +10,7 @@ import { SwapModalData } from '../TextData';
 import { useNavigate } from 'react-router-dom';
 import SwapSetting from './SwapSetting';
 import { useSelector } from 'react-redux';
+import { useAuth } from '../components/utils/useAuthClient';
 const Swap = () => {
 
 
@@ -22,7 +23,7 @@ const Swap = () => {
     const [PayCoin, setPayCoin] = useState(null);
     const [RecieveCoin, setRecieveCoin] = useState(null);
     const [changePayCoin, setChangePayCoin] = useState("M5 13.5L9 9.5M5 13.5L1 9.5M5 13.5V1");
-    const [balance, setBalance] = useState(3);
+    // const [balance, setBalance] = useState(3);
     const [CoinAmount, setCoinAmount] = useState(0.02);
     const [AmountToPay, setAmountToPay] = useState(66.12);
     const [settings, setSettings] = useState(false);
@@ -32,11 +33,12 @@ const Swap = () => {
     const [searchToken2, setSearchToken2] = useState(false);
     const [id, setId] = useState(0);
     const [ClickedSwap, setClickSwap] = useState(false);
-
+    const {balance} = useAuth()
 
 
     useEffect(() => {
         if (PayCoin && RecieveCoin) {
+            // setBalance(checkBalance)
             setBothCoins(true);
         } else {
             setBothCoins(false);
@@ -68,7 +70,7 @@ const Swap = () => {
     const handleSettings = () => {
         setSettings((prev) => !prev)
     }
-    console.log("settings", settings)
+
     return (
         <div className='px-4  md:px-0   '>
         <div className='flex justify-center my-auto flex-col'>
@@ -190,7 +192,7 @@ const Swap = () => {
                                 <div className='flex flex-col font-cabin font-normal gap-2'>
                                     <span className='text-base font-medium'>{SwapModalData.RecieveSection.Heading}</span>
                                     <span className='text-3xl md:text-4xl'>0</span>
-                                    <span className='text-sm sm:text-base font-normal'>{SwapModalData.RecieveSection.Balance}: 0.00</span>
+                                    <span className='text-sm sm:text-base font-normal'>{SwapModalData.RecieveSection.Balance}: {balance}</span>
                                 </div>
                             ) : (
                                 <div className='flex flex-col font-cabin font-normal gap-2'>
@@ -308,7 +310,7 @@ const Swap = () => {
                             <div className='w-full'>
                                 {CoinAmount > balance ? (
 
-                                    <GradientButton CustomCss={'w-full cursor-auto disabled opacity-75 font-extrabold text-3xl '}
+                                    <GradientButton CustomCss={'w-full md:w-full cursor-auto disabled opacity-75 font-extrabold text-3xl '}
                                     >{SwapModalData.MainButtonsText.InsufficientBalance}</GradientButton>
                                 ) : (
                                     <div className='w-full'>
